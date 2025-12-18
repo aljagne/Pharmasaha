@@ -126,14 +126,14 @@ function SourceRegionTile({
         {/* Glow indicator dot */}
         <div
           className={`absolute top-3 right-3 w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-            isHovered ? "bg-[#F78C1E]" : "bg-[#F78C1E]/50"
+            isHovered ? "bg-[#705B3C]" : "bg-[#705B3C]/50"
           }`}
           style={{
-            boxShadow: isHovered ? "0 0 12px #F78C1E" : "none",
+            boxShadow: isHovered ? "0 0 12px #705B3C" : "none",
           }}
         >
           <span
-            className="absolute inset-0 rounded-full bg-[#F78C1E] animate-ping"
+            className="absolute inset-0 rounded-full bg-[#705B3C] animate-ping"
             style={{ animationDuration: "2s" }}
           />
         </div>
@@ -141,7 +141,7 @@ function SourceRegionTile({
 
       {/* Region name label */}
       <div
-        className={`absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-sm font-semibold text-[#1A1A1A] transition-all duration-300 ${
+        className={`absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-sm font-semibold text-[#001D21] transition-all duration-300 ${
           isHovered ? "opacity-100 translate-y-0" : "opacity-70 -translate-y-1"
         }`}
       >
@@ -159,7 +159,7 @@ function SourceRegionTile({
             animation: "fadeInUp 0.3s ease-out",
           }}
         >
-          <div className="text-xs font-semibold text-[#F78C1E] mb-2">
+          <div className="text-xs font-semibold text-[#705B3C] mb-2">
             {region.pharmaceuticals}
           </div>
           <div className="flex justify-between text-xs text-gray-600 mb-2">
@@ -169,7 +169,7 @@ function SourceRegionTile({
             {region.certifications.map((cert) => (
               <span
                 key={cert}
-                className="px-2 py-0.5 text-[10px] font-medium bg-[#00C1A8]/10 text-[#00C1A8] rounded-full"
+                className="px-2 py-0.5 text-[10px] font-medium bg-[#BBBAFF]/10 text-[#BBBAFF] rounded-full"
               >
                 {cert}
               </span>
@@ -226,7 +226,7 @@ function HandshakeBridge({ isVisible, beamActive }: { isVisible: boolean; beamAc
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="text-center mt-40">
             <div
-              className="text-[11px] font-bold bg-gradient-to-r from-[#F78C1E] to-[#00C1A8] bg-clip-text text-transparent tracking-wider"
+              className="text-[11px] font-bold bg-gradient-to-r from-[#705B3C] to-[#BBBAFF] bg-clip-text text-transparent tracking-wider"
               style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
             >
               PHARMASAHA
@@ -237,15 +237,15 @@ function HandshakeBridge({ isVisible, beamActive }: { isVisible: boolean; beamAc
 
       {/* Rotating rings */}
       <div
-        className="absolute inset-[-12px] rounded-full border border-[#F78C1E]/20"
+        className="absolute inset-[-12px] rounded-full border border-[#705B3C]/20"
         style={{ animation: "spin 25s linear infinite" }}
       />
       <div
-        className="absolute inset-[-24px] rounded-full border border-[#00C1A8]/15"
+        className="absolute inset-[-24px] rounded-full border border-[#BBBAFF]/15"
         style={{ animation: "spin 35s linear infinite reverse" }}
       />
       <div
-        className="absolute inset-[-36px] rounded-full border border-dashed border-[#F78C1E]/10"
+        className="absolute inset-[-36px] rounded-full border border-dashed border-[#705B3C]/10"
         style={{ animation: "spin 45s linear infinite" }}
       />
 
@@ -257,8 +257,8 @@ function HandshakeBridge({ isVisible, beamActive }: { isVisible: boolean; beamAc
           style={{
             left: `calc(50% + ${Math.cos((angle * Math.PI) / 180) * 120}px - 6px)`,
             top: `calc(50% + ${Math.sin((angle * Math.PI) / 180) * 120}px - 6px)`,
-            background: i % 2 === 0 ? "#F78C1E" : "#00C1A8",
-            boxShadow: `0 0 10px ${i % 2 === 0 ? "#F78C1E" : "#00C1A8"}`,
+            background: i % 2 === 0 ? "#705B3C" : "#BBBAFF",
+            boxShadow: `0 0 10px ${i % 2 === 0 ? "#705B3C" : "#BBBAFF"}`,
             animation: `pulse 2s ease-in-out infinite ${i * 0.3}s`,
           }}
         />
@@ -311,11 +311,11 @@ function AfricaMap({
           <div 
             className="w-full h-full rounded-full"
             style={{
-              background: "#00C1A8",
+              background: "#BBBAFF",
               opacity: hoveredCountry === "Senegal" ? 0.9 : 0.7,
               boxShadow: hoveredCountry === "Senegal" 
-                ? "0 0 25px #00C1A8, 0 0 50px rgba(0, 193, 168, 0.5)" 
-                : "0 0 15px #00C1A8",
+                ? "0 0 25px #BBBAFF, 0 0 50px rgba(0, 193, 168, 0.5)" 
+                : "0 0 15px #BBBAFF",
               transition: "all 0.5s ease",
             }}
           />
@@ -323,7 +323,7 @@ function AfricaMap({
           <div 
             className="absolute inset-0 rounded-full animate-ping"
             style={{
-              background: "#00C1A8",
+              background: "#BBBAFF",
               opacity: 0.4,
               animationDuration: "2s",
             }}
@@ -347,11 +347,11 @@ function AfricaMap({
           <div 
             className="w-full h-full rounded-full"
             style={{
-              background: "#F78C1E",
+              background: "#705B3C",
               opacity: hoveredCountry === "The Gambia" ? 0.9 : 0.7,
               boxShadow: hoveredCountry === "The Gambia" 
-                ? "0 0 25px #F78C1E, 0 0 50px rgba(247, 140, 30, 0.5)" 
-                : "0 0 15px #F78C1E",
+                ? "0 0 25px #705B3C, 0 0 50px rgba(247, 140, 30, 0.5)" 
+                : "0 0 15px #705B3C",
               transition: "all 0.5s ease",
             }}
           />
@@ -359,7 +359,7 @@ function AfricaMap({
           <div 
             className="absolute inset-0 rounded-full animate-ping"
             style={{
-              background: "#F78C1E",
+              background: "#705B3C",
               opacity: 0.4,
               animationDuration: "2.5s",
             }}
@@ -374,7 +374,7 @@ function AfricaMap({
           style={{
             left: "24%",
             top: "24%",
-            color: "#F78C1E",
+            color: "#705B3C",
             textShadow: "0 1px 3px rgba(255,255,255,0.8)",
           }}
         >
@@ -389,7 +389,7 @@ function AfricaMap({
           style={{
             left: "28%",
             top: "30%",
-            color: "#00C1A8",
+            color: "#BBBAFF",
             textShadow: "0 1px 3px rgba(255,255,255,0.8)",
           }}
         >
@@ -419,18 +419,18 @@ function NoodleNetwork({
       <defs>
         {/* Orange gradient for source beams */}
         <linearGradient id="orangeNoodle" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#F78C1E" stopOpacity="0.1" />
-          <stop offset="30%" stopColor="#F78C1E" stopOpacity="0.5" />
-          <stop offset="70%" stopColor="#F78C1E" stopOpacity="0.5" />
-          <stop offset="100%" stopColor="#F78C1E" stopOpacity="0.1" />
+          <stop offset="0%" stopColor="#705B3C" stopOpacity="0.1" />
+          <stop offset="30%" stopColor="#705B3C" stopOpacity="0.5" />
+          <stop offset="70%" stopColor="#705B3C" stopOpacity="0.5" />
+          <stop offset="100%" stopColor="#705B3C" stopOpacity="0.1" />
         </linearGradient>
 
         {/* Teal gradient for target beams */}
         <linearGradient id="tealNoodle" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#00C1A8" stopOpacity="0.1" />
-          <stop offset="30%" stopColor="#00C1A8" stopOpacity="0.5" />
-          <stop offset="70%" stopColor="#00C1A8" stopOpacity="0.5" />
-          <stop offset="100%" stopColor="#00C1A8" stopOpacity="0.1" />
+          <stop offset="0%" stopColor="#BBBAFF" stopOpacity="0.1" />
+          <stop offset="30%" stopColor="#BBBAFF" stopOpacity="0.5" />
+          <stop offset="70%" stopColor="#BBBAFF" stopOpacity="0.5" />
+          <stop offset="100%" stopColor="#BBBAFF" stopOpacity="0.1" />
         </linearGradient>
 
         {/* Glow filter */}
@@ -475,7 +475,7 @@ function NoodleNetwork({
           {/* Traveling beam dot */}
           <circle
             r={hoveredSource === noodle.sourceIndex ? 7 : 5}
-            fill="#F78C1E"
+            fill="#705B3C"
             filter="url(#noodleGlow)"
           >
             <animateMotion
@@ -510,7 +510,7 @@ function NoodleNetwork({
           {/* Traveling beam dot */}
           <circle
             r={hoveredCountry === noodle.country ? 7 : 5}
-            fill="#00C1A8"
+            fill="#BBBAFF"
             filter="url(#noodleGlow)"
           >
             <animateMotion
@@ -551,16 +551,16 @@ function MarketInfoCard({
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div>
-          <div className="text-base font-semibold text-[#1A1A1A]">{market.country}</div>
+          <div className="text-base font-semibold text-[#001D21]">{market.country}</div>
           <div className="flex items-center space-x-1.5 mt-1">
             <span
               className="w-2 h-2 rounded-full"
               style={{
-                background: market.country === "The Gambia" ? "#F78C1E" : "#00C1A8",
-                boxShadow: `0 0 8px ${market.country === "The Gambia" ? "#F78C1E" : "#00C1A8"}`,
+                background: market.country === "The Gambia" ? "#705B3C" : "#BBBAFF",
+                boxShadow: `0 0 8px ${market.country === "The Gambia" ? "#705B3C" : "#BBBAFF"}`,
               }}
             />
-            <span className="text-xs font-medium text-[#00C1A8]">Active Market</span>
+            <span className="text-xs font-medium text-[#BBBAFF]">Active Market</span>
           </div>
         </div>
       </div>
@@ -568,15 +568,15 @@ function MarketInfoCard({
       {/* Stats */}
       <div className="grid grid-cols-3 gap-3 mb-4 p-3 rounded-2xl bg-gray-50/80">
         <div className="text-center">
-          <div className="text-xl font-bold text-[#F78C1E]">{market.stats.partners}</div>
+          <div className="text-xl font-bold text-[#705B3C]">{market.stats.partners}</div>
           <div className="text-[10px] text-gray-500 font-medium">Partners</div>
         </div>
         <div className="text-center">
-          <div className="text-xl font-bold text-[#00C1A8]">{market.stats.products}</div>
+          <div className="text-xl font-bold text-[#BBBAFF]">{market.stats.products}</div>
           <div className="text-[10px] text-gray-500 font-medium">Products</div>
         </div>
         <div className="text-center">
-          <div className="text-xl font-bold text-[#F78C1E]">{market.stats.coverage}</div>
+          <div className="text-xl font-bold text-[#705B3C]">{market.stats.coverage}</div>
           <div className="text-[10px] text-gray-500 font-medium">Coverage</div>
         </div>
       </div>
@@ -591,7 +591,7 @@ function MarketInfoCard({
             <li key={i} className="flex items-start text-xs text-gray-600">
               <span
                 className="w-1 h-1 rounded-full mt-1.5 mr-2 flex-shrink-0"
-                style={{ background: i % 2 === 0 ? "#F78C1E" : "#00C1A8" }}
+                style={{ background: i % 2 === 0 ? "#705B3C" : "#BBBAFF" }}
               />
               {area}
             </li>
@@ -655,8 +655,8 @@ export default function GeographicFocus() {
         className="absolute inset-0 opacity-[0.04]"
         style={{
           backgroundImage: `
-            radial-gradient(ellipse at 15% 25%, #F78C1E 0%, transparent 45%),
-            radial-gradient(ellipse at 85% 75%, #00C1A8 0%, transparent 45%)
+            radial-gradient(ellipse at 15% 25%, #705B3C 0%, transparent 45%),
+            radial-gradient(ellipse at 85% 75%, #BBBAFF 0%, transparent 45%)
           `,
         }}
       />
@@ -675,10 +675,10 @@ export default function GeographicFocus() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <span className="text-[#F78C1E] font-medium text-sm uppercase tracking-widest">
+          <span className="text-[#705B3C] font-medium text-sm uppercase tracking-widest">
             Geographic Focus
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1A1A1A] mt-5 mb-7">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#001D21] mt-5 mb-7">
             Connecting Global to Local
           </h2>
           <p className="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">
@@ -752,9 +752,9 @@ export default function GeographicFocus() {
           style={{ transitionDelay: "1400ms" }}
         >
           {[
-            { value: "4", label: "Source Continents", color: "#F78C1E" },
-            { value: "2", label: "Active Markets", color: "#00C1A8" },
-            { value: "55+", label: "Partner Network", color: "#F78C1E" },
+            { value: "4", label: "Source Continents", color: "#705B3C" },
+            { value: "2", label: "Active Markets", color: "#BBBAFF" },
+            { value: "55+", label: "Partner Network", color: "#705B3C" },
           ].map((stat, i) => (
             <div key={i} className="text-center">
               <div

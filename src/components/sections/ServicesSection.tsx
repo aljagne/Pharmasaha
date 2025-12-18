@@ -72,7 +72,7 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
   }, []);
 
   const isOrange = service.color === "orange";
-  const accentColor = isOrange ? "#F78C1E" : "#00C1A8";
+  const accentColor = isOrange ? "#705B3C" : "#BBBAFF";
 
   return (
     <div
@@ -91,7 +91,7 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
       />
       
       {/* Main card */}
-      <div className="relative bg-white rounded-3xl p-8 border border-[#E1E6ED] hover:border-[#D0D7DE] transition-all duration-500 h-full shadow-sm hover:shadow-lg">
+      <div className="relative bg-white rounded-3xl p-8 border border-[#B8DFC2] hover:border-[#D0D7DE] transition-all duration-500 h-full shadow-sm hover:shadow-lg">
         {/* Subtle inner glow */}
         <div 
           className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"
@@ -125,7 +125,7 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
         {/* Content */}
         <div className="relative z-10">
           <h3 
-            className="text-xl font-semibold text-[#1A1A1A] mb-3 transition-colors duration-300"
+            className="text-xl font-semibold text-[#001D21] mb-3 transition-colors duration-300"
             style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
           >
             {service.title}
@@ -164,10 +164,10 @@ export default function ServicesSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <span className="text-[#F78C1E] font-medium text-sm uppercase tracking-wider">
+          <span className="text-[#705B3C] font-medium text-sm uppercase tracking-wider">
             Our Services
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1A1A1A] mt-4 mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#001D21] mt-4 mb-6">
             Comprehensive Healthcare Solutions
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg">
@@ -187,7 +187,7 @@ export default function ServicesSection() {
         <div className="text-center mt-16">
           <a
             href="#contact"
-            className="inline-flex items-center px-8 py-4 bg-[#F78C1E] text-white font-semibold rounded-xl hover:bg-[#E07A10] transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group"
+            className="inline-flex items-center px-8 py-4 bg-[#705B3C] text-white font-semibold rounded-xl hover:bg-[#5A4830] transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group"
           >
             Discuss Your Needs
           </a>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.cdnfonts.com/css/aileron');
 
 @tailwind base;
 @tailwind components;
@@ -6,77 +6,77 @@
 
 @layer base {
   :root {
-    /* Light Mode - Premium Pharma Style */
-    --background: 220 20% 97%; /* #F5F7FA */
-    --foreground: 0 0% 10%; /* #1A1A1A */
+    /* Pharmasaha Brand - Light Mode */
+    --background: 150 30% 91%; /* #CCEED3 Light Mint */
+    --foreground: 187 100% 6%; /* #001D21 Primary Dark */
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 10%;
+    --card-foreground: 187 100% 6%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 10%;
+    --popover-foreground: 187 100% 6%;
 
-    /* Primary Orange */
-    --primary: 28 93% 54%; /* #F78C1E */
+    /* Primary Bronze/Gold */
+    --primary: 33 32% 33%; /* #705B3C */
     --primary-foreground: 0 0% 100%;
 
-    /* Saha Teal - Secondary/Accent */
-    --secondary: 168 100% 38%; /* #00C1A8 */
-    --secondary-foreground: 0 0% 100%;
+    /* Secondary Lavender */
+    --secondary: 240 100% 86%; /* #BBBAFF */
+    --secondary-foreground: 187 100% 6%;
 
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 9% 46%;
+    --muted: 150 30% 91%;
+    --muted-foreground: 187 50% 30%;
 
-    /* Teal for accents */
-    --accent: 168 100% 38%;
-    --accent-foreground: 0 0% 100%;
+    /* Lavender for accents */
+    --accent: 240 100% 86%;
+    --accent-foreground: 187 100% 6%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%; /* #E1E6ED */
-    --input: 220 13% 91%;
-    --ring: 28 93% 54%;
+    --border: 150 20% 85%;
+    --input: 150 20% 85%;
+    --ring: 33 32% 33%;
 
     --radius: 0.5rem;
 
     /* PharmaSaha Brand Colors - Light Mode */
-    --pharma-orange: #F78C1E;
-    --pharma-teal: #00C1A8;
-    --pharma-charcoal: #1A1A1A;
-    --pharma-light-bg: #F5F7FA;
+    --pharma-primary: #001D21;
+    --pharma-bronze: #705B3C;
+    --pharma-lavender: #BBBAFF;
+    --pharma-mint: #CCEED3;
     --pharma-card-bg: #FFFFFF;
-    --pharma-divider: #E1E6ED;
+    --pharma-divider: #B8DFC2;
   }
 
   .dark {
-    --background: 222 47% 6%;
-    --foreground: 210 40% 98%;
+    --background: 187 100% 6%;
+    --foreground: 150 30% 91%;
 
-    --card: 222 47% 8%;
-    --card-foreground: 210 40% 98%;
+    --card: 187 80% 8%;
+    --card-foreground: 150 30% 91%;
 
-    --popover: 222 47% 8%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 187 80% 8%;
+    --popover-foreground: 150 30% 91%;
 
-    --primary: 28 93% 54%;
+    --primary: 33 32% 43%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 168 100% 38%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 240 100% 86%;
+    --secondary-foreground: 187 100% 6%;
 
-    --muted: 217 33% 18%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 187 50% 12%;
+    --muted-foreground: 150 30% 70%;
 
-    --accent: 168 100% 38%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 240 100% 86%;
+    --accent-foreground: 187 100% 6%;
 
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217 33% 18%;
-    --input: 217 33% 18%;
-    --ring: 28 93% 54%;
+    --border: 187 50% 15%;
+    --input: 187 50% 15%;
+    --ring: 33 32% 43%;
   }
 }
 
@@ -86,53 +86,53 @@
   }
   body {
     @apply bg-background text-foreground font-sans;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Aileron', sans-serif;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Aileron', sans-serif;
   }
 }
 
 @layer components {
-  /* Primary Orange Button */
-  .btn-orange {
-    @apply bg-[#F78C1E] hover:bg-[#E07A10] text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5;
+  /* Primary Bronze Button */
+  .btn-bronze {
+    @apply bg-[#705B3C] hover:bg-[#5A4830] text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5;
   }
-  
-  /* Legacy amber button - now orange */
+
+  /* Legacy amber button - now bronze */
   .btn-amber {
-    @apply bg-[#F78C1E] hover:bg-[#E07A10] text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5;
-  }
-  
-  /* Teal gradient */
-  .gradient-teal {
-    background: linear-gradient(135deg, #00C1A8 0%, #009688 100%);
-  }
-  
-  /* Orange gradient */
-  .gradient-orange {
-    background: linear-gradient(135deg, #F78C1E 0%, #E07A10 100%);
+    @apply bg-[#705B3C] hover:bg-[#5A4830] text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5;
   }
 
-  /* Text gradient - Orange */
-  .text-gradient-orange {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, #F78C1E 0%, #FF9F40 100%);
+  /* Lavender gradient */
+  .gradient-lavender {
+    background: linear-gradient(135deg, #BBBAFF 0%, #9998E6 100%);
   }
 
-  /* Text gradient - Teal */
-  .text-gradient-teal {
+  /* Bronze gradient */
+  .gradient-bronze {
+    background: linear-gradient(135deg, #705B3C 0%, #5A4830 100%);
+  }
+
+  /* Text gradient - Bronze */
+  .text-gradient-bronze {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, #00C1A8 0%, #00D4B8 100%);
+    background-image: linear-gradient(135deg, #705B3C 0%, #8A7350 100%);
+  }
+
+  /* Text gradient - Lavender */
+  .text-gradient-lavender {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #BBBAFF 0%, #D4D3FF 100%);
   }
 
   /* Premium card with soft elevation */
   .card-elevated {
-    @apply bg-white rounded-2xl border border-[#E1E6ED] shadow-[0_4px_20px_rgba(0,0,0,0.05)] transition-all duration-300;
+    @apply bg-white rounded-2xl border border-[#B8DFC2] shadow-[0_4px_20px_rgba(0,29,33,0.05)] transition-all duration-300;
   }
 
   .card-elevated:hover {
-    @apply shadow-[0_8px_30px_rgba(0,0,0,0.08)] -translate-y-1;
+    @apply shadow-[0_8px_30px_rgba(0,29,33,0.08)] -translate-y-1;
   }
 
   /* Noodle line base */
@@ -145,8 +145,8 @@
 
   /* Beam animation on noodle */
   .beam-dot {
-    fill: #F78C1E;
-    filter: drop-shadow(0 0 6px #F78C1E);
+    fill: #705B3C;
+    filter: drop-shadow(0 0 6px #705B3C);
   }
 }
 
@@ -154,7 +154,7 @@
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
-  
+
   @keyframes float {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-20px); }
