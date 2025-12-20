@@ -11,7 +11,7 @@ const partners = [
 
 export default function TrustBar() {
   return (
-    <section className="bg-white py-10 border-y border-[#B8DFC2] overflow-hidden relative">
+    <section className="bg-[#001D21] py-10 border-y border-[#1A3F45] overflow-hidden relative">
       {/* Noodle connection line */}
       <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" preserveAspectRatio="none">
         <defs>
@@ -31,23 +31,23 @@ export default function TrustBar() {
       </svg>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-center text-gray-500 text-sm mb-8 uppercase tracking-wider font-medium">
+        <p className="text-center text-white/80 text-sm mb-8 uppercase tracking-wider font-medium">
           Trusted by Leading Pharmaceutical Companies
         </p>
       </div>
-      
+
       {/* Infinite Scroll Marquee */}
       <div className="relative">
         <div className="flex animate-marquee space-x-8">
           {[...partners, ...partners].map((partner, index) => (
             <div
               key={index}
-              className="flex items-center space-x-3 px-6 py-3 bg-[#CCEED3] rounded-xl min-w-fit border border-[#B8DFC2] hover:border-[#705B3C]/30 hover:shadow-md transition-all duration-300 group cursor-pointer"
+              className="flex items-center space-x-3 px-6 py-3 bg-[#002A30] rounded-xl min-w-fit border border-[#1A3F45] hover:border-[#705B3C]/50 hover:shadow-md transition-all duration-300 group cursor-pointer"
             >
               <div className="w-10 h-10 bg-gradient-to-br from-[#705B3C]/10 to-[#BBBAFF]/10 rounded-lg flex items-center justify-center group-hover:from-[#705B3C]/20 group-hover:to-[#BBBAFF]/20 transition-all">
-                <span className="text-[#705B3C] font-bold text-sm group-hover:text-[#5A4830] transition-colors">{partner.logo}</span>
+                <span className="text-white font-bold text-sm group-hover:text-[#705B3C] transition-colors">{partner.logo}</span>
               </div>
-              <span className="text-[#001D21] font-medium whitespace-nowrap group-hover:text-[#705B3C] transition-colors">
+              <span className="text-white font-medium whitespace-nowrap group-hover:text-[#705B3C] transition-colors">
                 {partner.name}
               </span>
             </div>

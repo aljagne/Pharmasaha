@@ -40,21 +40,21 @@ export default function CTASection() {
         <div className="text-center">
           {/* Icons */}
           <div className="flex justify-center space-x-6 mb-8">
-            <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center border border-[#B8DFC2] shadow-sm hover:shadow-lg hover:border-[#BBBAFF]/30 transition-all duration-300 group cursor-pointer">
+            <div className="w-16 h-16 rounded-2xl bg-[#001D21] border-y border-[#1A3F45] flex items-center justify-center border border-[#B8DFC2] shadow-sm hover:shadow-lg hover:border-[#BBBAFF]/30 transition-all duration-300 group cursor-pointer">
               <Globe className="w-8 h-8 text-[#BBBAFF] group-hover:scale-110 transition-transform" />
             </div>
-            <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center border border-[#B8DFC2] shadow-sm hover:shadow-lg hover:border-[#705B3C]/30 transition-all duration-300 group cursor-pointer">
+            <div className="w-16 h-16 rounded-2xl bg-[#001D21] border-y border-[#1A3F45] flex items-center justify-center border border-[#B8DFC2] shadow-sm hover:shadow-lg hover:border-[#705B3C]/30 transition-all duration-300 group cursor-pointer">
               <Shield className="w-8 h-8 text-[#705B3C] group-hover:scale-110 transition-transform" />
             </div>
-            <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center border border-[#B8DFC2] shadow-sm hover:shadow-lg hover:border-[#BBBAFF]/30 transition-all duration-300 group cursor-pointer">
+            <div className="w-16 h-16 rounded-2xl bg-[#001D21] border-y border-[#1A3F45] flex items-center justify-center border border-[#B8DFC2] shadow-sm hover:shadow-lg hover:border-[#BBBAFF]/30 transition-all duration-300 group cursor-pointer">
               <Truck className="w-8 h-8 text-[#BBBAFF] group-hover:scale-110 transition-transform" />
             </div>
           </div>
 
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#001D21] mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
             Ready to Enter the West African Market?
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-10">
+          <p className="text-xl text-white/80 max-w-2xl mx-auto mb-10">
             Join the growing network of global pharmaceutical companies trusting
             PharmaSaha to navigate regulatory complexities and reach new patients.
           </p>
@@ -67,23 +67,23 @@ export default function CTASection() {
             </Button>
             <Button
               variant="outline"
-              className="border-[#B8DFC2] text-[#001D21] hover:bg-white hover:border-[#705B3C]/50 text-lg px-8 py-6 transition-all"
+              className="border-[#B8DFC2] text-white hover:bg-[#001D21] border-y border-[#1A3F45] hover:border-[#705B3C]/50 text-lg px-8 py-6 transition-all"
             >
               Schedule a Consultation
             </Button>
           </div>
 
           {/* Trust Indicators */}
-          <div className="mt-12 flex flex-wrap justify-center gap-8 text-gray-500">
-            <div className="flex items-center bg-white px-4 py-2 rounded-full border border-[#B8DFC2] shadow-sm">
+          <div className="mt-12 flex flex-wrap justify-center gap-8 text-white/80">
+            <div className="flex items-center bg-[#001D21] border-y border-[#1A3F45] px-4 py-2 rounded-full border border-[#B8DFC2] shadow-sm">
               <div className="w-2 h-2 rounded-full bg-[#BBBAFF] mr-2 animate-pulse" />
               <span>100% Compliance Rate</span>
             </div>
-            <div className="flex items-center bg-white px-4 py-2 rounded-full border border-[#B8DFC2] shadow-sm">
+            <div className="flex items-center bg-[#001D21] border-y border-[#1A3F45] px-4 py-2 rounded-full border border-[#B8DFC2] shadow-sm">
               <div className="w-2 h-2 rounded-full bg-[#BBBAFF] mr-2 animate-pulse" />
               <span>50+ Global Partners</span>
             </div>
-            <div className="flex items-center bg-white px-4 py-2 rounded-full border border-[#B8DFC2] shadow-sm">
+            <div className="flex items-center bg-[#001D21] border-y border-[#1A3F45] px-4 py-2 rounded-full border border-[#B8DFC2] shadow-sm">
               <div className="w-2 h-2 rounded-full bg-[#705B3C] mr-2 animate-pulse" />
               <span>24-48hr Response Time</span>
             </div>

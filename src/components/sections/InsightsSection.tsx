@@ -29,7 +29,7 @@ const insights = [
 
 export default function InsightsSection() {
   return (
-    <section id="insights" className="py-24 bg-white">
+    <section id="insights" className="py-24 bg-[#001D21] border-y border-[#1A3F45]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
@@ -37,7 +37,7 @@ export default function InsightsSection() {
             <span className="text-[#705B3C] font-medium text-sm uppercase tracking-wider">
               Insights & News
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#001D21] mt-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mt-4">
               Industry Intelligence
             </h2>
           </div>
@@ -55,7 +55,7 @@ export default function InsightsSection() {
           {insights.map((insight, index) => (
             <article
               key={insight.title}
-              className="group bg-white rounded-2xl overflow-hidden border border-[#B8DFC2] hover:border-[#705B3C]/30 hover:shadow-xl transition-all duration-300"
+              className="group bg-[#001D21] border-y border-[#1A3F45] rounded-2xl overflow-hidden border border-[#B8DFC2] hover:border-[#705B3C]/30 hover:shadow-xl transition-all duration-300"
             >
               {/* Image */}
               <div className="relative h-48 overflow-hidden">
@@ -75,15 +75,15 @@ export default function InsightsSection() {
 
               {/* Content */}
               <div className="p-6">
-                <h3 className="text-xl font-bold text-[#001D21] mb-3 group-hover:text-[#705B3C] transition-colors line-clamp-2">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#705B3C] transition-colors line-clamp-2">
                   {insight.title}
                 </h3>
-                <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                <p className="text-white/80 text-sm mb-4 line-clamp-3">
                   {insight.excerpt}
                 </p>
 
                 {/* Meta */}
-                <div className="flex items-center justify-between text-gray-500 text-sm">
+                <div className="flex items-center justify-between text-white/80 text-sm">
                   <div className="flex items-center">
                     <Calendar className="w-4 h-4 mr-1" />
                     {insight.date}

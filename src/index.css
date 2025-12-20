@@ -6,52 +6,9 @@
 
 @layer base {
   :root {
-    /* Pharmasaha Brand - Light Mode */
-    --background: 150 30% 91%; /* #CCEED3 Light Mint */
-    --foreground: 187 100% 6%; /* #001D21 Primary Dark */
-
-    --card: 0 0% 100%;
-    --card-foreground: 187 100% 6%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 187 100% 6%;
-
-    /* Primary Bronze/Gold */
-    --primary: 33 32% 33%; /* #705B3C */
-    --primary-foreground: 0 0% 100%;
-
-    /* Secondary Lavender */
-    --secondary: 240 100% 86%; /* #BBBAFF */
-    --secondary-foreground: 187 100% 6%;
-
-    --muted: 150 30% 91%;
-    --muted-foreground: 187 50% 30%;
-
-    /* Lavender for accents */
-    --accent: 240 100% 86%;
-    --accent-foreground: 187 100% 6%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 150 20% 85%;
-    --input: 150 20% 85%;
-    --ring: 33 32% 33%;
-
-    --radius: 0.5rem;
-
-    /* PharmaSaha Brand Colors - Light Mode */
-    --pharma-primary: #001D21;
-    --pharma-bronze: #705B3C;
-    --pharma-lavender: #BBBAFF;
-    --pharma-mint: #CCEED3;
-    --pharma-card-bg: #FFFFFF;
-    --pharma-divider: #B8DFC2;
-  }
-
-  .dark {
-    --background: 187 100% 6%;
-    --foreground: 150 30% 91%;
+    /* Pharmasaha Brand - Dark Premium Mode (Default) */
+    --background: 187 100% 6%; /* #001D21 Primary Dark */
+    --foreground: 0 0% 100%; /* #FFFFFF White Text */
 
     --card: 187 80% 8%;
     --card-foreground: 150 30% 91%;
@@ -59,15 +16,18 @@
     --popover: 187 80% 8%;
     --popover-foreground: 150 30% 91%;
 
-    --primary: 33 32% 43%;
+    /* Primary Bronze/Gold */
+    --primary: 33 32% 43%; /* #705B3C (Adjusted for dark) */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 100% 86%;
+    /* Secondary Lavender */
+    --secondary: 240 100% 86%; /* #BBBAFF */
     --secondary-foreground: 187 100% 6%;
 
     --muted: 187 50% 12%;
     --muted-foreground: 150 30% 70%;
 
+    /* Lavender for accents */
     --accent: 240 100% 86%;
     --accent-foreground: 187 100% 6%;
 
@@ -77,6 +37,47 @@
     --border: 187 50% 15%;
     --input: 187 50% 15%;
     --ring: 33 32% 43%;
+
+    --radius: 0.5rem;
+
+    /* PharmaSaha Brand Colors */
+    --pharma-primary: #001D21;
+    --pharma-bronze: #705B3C;
+    --pharma-lavender: #BBBAFF;
+    --pharma-mint: #CCEED3;
+    --pharma-card-bg: #002A30;
+    --pharma-divider: #1A3F45;
+  }
+
+  .light {
+    /* Light Mode (Optional/Secondary) */
+    --background: 150 30% 91%; /* #CCEED3 Light Mint */
+    --foreground: 187 100% 6%; /* #001D21 Primary Dark */
+
+    --card: 0 0% 100%;
+    --card-foreground: 187 100% 6%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 187 100% 6%;
+
+    --primary: 33 32% 33%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 100% 86%;
+    --secondary-foreground: 187 100% 6%;
+
+    --muted: 150 30% 91%;
+    --muted-foreground: 187 50% 30%;
+
+    --accent: 240 100% 86%;
+    --accent-foreground: 187 100% 6%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 150 20% 85%;
+    --input: 150 20% 85%;
+    --ring: 33 32% 33%;
   }
 }
 

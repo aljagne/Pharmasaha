@@ -77,7 +77,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-24 bg-[#CCEED3]">
+    <section id="contact" className="py-24 bg-[#001D21]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16">
           {/* Left Content */}
@@ -85,10 +85,10 @@ export default function ContactSection() {
             <span className="text-[#705B3C] font-medium text-sm uppercase tracking-wider">
               Get In Touch
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#001D21] mt-4 mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mt-4 mb-6">
               Let's Build the Future of West African Healthcare Together
             </h2>
-            <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+            <p className="text-white/80 text-lg mb-8 leading-relaxed">
               Whether you're a global pharmaceutical company seeking market entry
               or a local distributor looking for quality products, we're here to
               help you succeed.
@@ -101,8 +101,8 @@ export default function ContactSection() {
                   <Mail className="w-6 h-6 text-[#705B3C]" />
                 </div>
                 <div>
-                  <div className="text-gray-500 text-sm">Email</div>
-                  <div className="text-[#001D21] font-medium">info@pharmasaha.com</div>
+                  <div className="text-white/80 text-sm">Email</div>
+                  <div className="text-white font-medium">info@pharmasaha.com</div>
                 </div>
               </div>
               <div className="flex items-center space-x-4 group">
@@ -110,8 +110,8 @@ export default function ContactSection() {
                   <Phone className="w-6 h-6 text-[#BBBAFF]" />
                 </div>
                 <div>
-                  <div className="text-gray-500 text-sm">Phone</div>
-                  <div className="text-[#001D21] font-medium">+220 123 4567</div>
+                  <div className="text-white/80 text-sm">Phone</div>
+                  <div className="text-white font-medium">+220 123 4567</div>
                 </div>
               </div>
               <div className="flex items-center space-x-4 group">
@@ -119,20 +119,20 @@ export default function ContactSection() {
                   <MapPin className="w-6 h-6 text-[#705B3C]" />
                 </div>
                 <div>
-                  <div className="text-gray-500 text-sm">Location</div>
-                  <div className="text-[#001D21] font-medium">Banjul, The Gambia</div>
+                  <div className="text-white/80 text-sm">Location</div>
+                  <div className="text-white font-medium">Banjul, The Gambia</div>
                 </div>
               </div>
             </div>
 
             {/* Form Type Toggle */}
-            <div className="bg-white rounded-xl p-2 inline-flex border border-[#B8DFC2] shadow-sm">
+            <div className="bg-[#001D21] border-y border-[#1A3F45] rounded-xl p-2 inline-flex border border-[#B8DFC2] shadow-sm">
               <button
                 onClick={() => setFormType("partner")}
                 className={`px-6 py-3 rounded-lg font-medium transition-all ${
                   formType === "partner"
                     ? "bg-[#705B3C] text-white shadow-md"
-                    : "text-gray-600 hover:text-[#705B3C]"
+                    : "text-white/80 hover:text-[#705B3C]"
                 }`}
               >
                 Partner for Market Access
@@ -142,7 +142,7 @@ export default function ContactSection() {
                 className={`px-6 py-3 rounded-lg font-medium transition-all ${
                   formType === "explore"
                     ? "bg-[#BBBAFF] text-white shadow-md"
-                    : "text-gray-600 hover:text-[#BBBAFF]"
+                    : "text-white/80 hover:text-[#BBBAFF]"
                 }`}
               >
                 Explore Solutions
@@ -151,16 +151,16 @@ export default function ContactSection() {
           </div>
 
           {/* Right Form */}
-          <div className="bg-white rounded-2xl p-8 border border-[#B8DFC2] shadow-sm">
+          <div className="bg-[#001D21] border-y border-[#1A3F45] rounded-2xl p-8 border border-[#B8DFC2] shadow-sm">
             {isSubmitted ? (
               <div className="h-full flex flex-col items-center justify-center text-center py-12">
                 <div className="w-16 h-16 rounded-full bg-[#BBBAFF]/10 flex items-center justify-center mb-6">
                   <CheckCircle className="w-8 h-8 text-[#BBBAFF]" />
                 </div>
-                <h3 className="text-2xl font-bold text-[#001D21] mb-2">
+                <h3 className="text-2xl font-bold text-white mb-2">
                   Thank You!
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-white/80">
                   We've received your inquiry and will get back to you within 24-48 hours.
                 </p>
               </div>
@@ -168,7 +168,7 @@ export default function ContactSection() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="flex items-center space-x-3 mb-6">
                   <Building2 className={`w-6 h-6 ${formType === "partner" ? "text-[#705B3C]" : "text-[#BBBAFF]"}`} />
-                  <h3 className="text-xl font-bold text-[#001D21]">
+                  <h3 className="text-xl font-bold text-white">
                     {formType === "partner"
                       ? "Partner for Market Access"
                       : "Explore Solutions"}
@@ -177,26 +177,26 @@ export default function ContactSection() {
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="companyName" className="text-[#001D21]">Company Name</Label>
+                    <Label htmlFor="companyName" className="text-white">Company Name</Label>
                     <Input
                       id="companyName"
                       name="companyName"
                       value={formData.companyName}
                       onChange={handleChange}
                       placeholder="Your company"
-                      className="bg-[#CCEED3] border-[#B8DFC2] focus:border-[#705B3C] text-[#001D21]"
+                      className="bg-[#001D21] border-[#B8DFC2] focus:border-[#705B3C] text-white"
                       required
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="contactName" className="text-[#001D21]">Contact Name</Label>
+                    <Label htmlFor="contactName" className="text-white">Contact Name</Label>
                     <Input
                       id="contactName"
                       name="contactName"
                       value={formData.contactName}
                       onChange={handleChange}
                       placeholder="Your name"
-                      className="bg-[#CCEED3] border-[#B8DFC2] focus:border-[#705B3C] text-[#001D21]"
+                      className="bg-[#001D21] border-[#B8DFC2] focus:border-[#705B3C] text-white"
                       required
                     />
                   </div>
@@ -204,7 +204,7 @@ export default function ContactSection() {
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-[#001D21]">Email</Label>
+                    <Label htmlFor="email" className="text-white">Email</Label>
                     <Input
                       id="email"
                       name="email"
@@ -212,31 +212,31 @@ export default function ContactSection() {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="you@company.com"
-                      className="bg-[#CCEED3] border-[#B8DFC2] focus:border-[#705B3C] text-[#001D21]"
+                      className="bg-[#001D21] border-[#B8DFC2] focus:border-[#705B3C] text-white"
                       required
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="phone" className="text-[#001D21]">Phone</Label>
+                    <Label htmlFor="phone" className="text-white">Phone</Label>
                     <Input
                       id="phone"
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="+1 234 567 890"
-                      className="bg-[#CCEED3] border-[#B8DFC2] focus:border-[#705B3C] text-[#001D21]"
+                      className="bg-[#001D21] border-[#B8DFC2] focus:border-[#705B3C] text-white"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="type" className="text-[#001D21]">Organization Type</Label>
+                  <Label htmlFor="type" className="text-white">Organization Type</Label>
                   <select
                     id="type"
                     name="type"
                     value={formData.type}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 rounded-lg bg-[#CCEED3] border border-[#B8DFC2] text-[#001D21] focus:outline-none focus:border-[#705B3C]"
+                    className="w-full px-4 py-2 rounded-lg bg-[#001D21] border border-[#B8DFC2] text-white focus:outline-none focus:border-[#705B3C]"
                   >
                     <option value="Lab">Pharmaceutical Lab</option>
                     <option value="Distributor">Distributor</option>
@@ -247,7 +247,7 @@ export default function ContactSection() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="message" className="text-[#001D21]">Message</Label>
+                  <Label htmlFor="message" className="text-white">Message</Label>
                   <Textarea
                     id="message"
                     name="message"
@@ -255,7 +255,7 @@ export default function ContactSection() {
                     onChange={handleChange}
                     placeholder="Tell us about your needs..."
                     rows={4}
-                    className="bg-[#CCEED3] border-[#B8DFC2] focus:border-[#705B3C] text-[#001D21]"
+                    className="bg-[#001D21] border-[#B8DFC2] focus:border-[#705B3C] text-white"
                     required
                   />
                 </div>

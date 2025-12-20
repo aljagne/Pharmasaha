@@ -57,13 +57,13 @@ function ValueCard({ value, index }: { value: typeof values[0]; index: number })
   return (
     <div
       ref={cardRef}
-      className={`group relative bg-white rounded-2xl p-8 border border-[#B8DFC2] hover:border-[${isOrange ? '#705B3C' : '#BBBAFF'}]/50 transition-all duration-500 hover:-translate-y-2 shadow-sm hover:shadow-xl ${
+      className={`group relative bg-[#001D21] border-y border-[#1A3F45] rounded-2xl p-8 border border-[#B8DFC2] hover:border-[${isOrange ? '#705B3C' : '#BBBAFF'}]/50 transition-all duration-500 hover:-translate-y-2 shadow-sm hover:shadow-xl ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
       style={{ transitionDelay: `${index * 150}ms` }}
     >
       {/* Number Badge */}
-      <div className="absolute -top-4 -right-4 w-12 h-12 bg-[#CCEED3] rounded-full flex items-center justify-center border-4 border-white shadow-md">
+      <div className="absolute -top-4 -right-4 w-12 h-12 bg-[#001D21] rounded-full flex items-center justify-center border-4 border-white shadow-md">
         <span className={`font-bold ${isOrange ? 'text-[#705B3C]' : 'text-[#BBBAFF]'}`}>{index + 1}</span>
       </div>
 
@@ -83,7 +83,7 @@ function ValueCard({ value, index }: { value: typeof values[0]; index: number })
       </div>
 
       {/* Content */}
-      <h3 className="text-2xl font-bold text-[#001D21] mb-2">{value.title}</h3>
+      <h3 className="text-2xl font-bold text-white mb-2">{value.title}</h3>
       <p
         className={`text-sm font-medium mb-4 ${
           isOrange ? "text-[#705B3C]" : "text-[#BBBAFF]"
@@ -91,7 +91,7 @@ function ValueCard({ value, index }: { value: typeof values[0]; index: number })
       >
         {value.subtitle}
       </p>
-      <p className="text-gray-600 leading-relaxed">{value.description}</p>
+      <p className="text-white/80 leading-relaxed">{value.description}</p>
 
       {/* Hover Line */}
       <div
@@ -154,7 +154,7 @@ function NoodleConnections() {
 
 export default function ValueFramework() {
   return (
-    <section id="solutions" className="py-24 bg-[#CCEED3] relative overflow-hidden">
+    <section id="solutions" className="py-24 bg-[#001D21] relative overflow-hidden">
       {/* Noodle connections */}
       <NoodleConnections />
 
@@ -164,10 +164,10 @@ export default function ValueFramework() {
           <span className="text-[#705B3C] font-medium text-sm uppercase tracking-wider">
             Our Approach
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#001D21] mt-4 mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mt-4 mb-6">
             The PharmaSaha Framework
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+          <p className="text-white/80 max-w-2xl mx-auto text-lg">
             A comprehensive approach to bridging global pharmaceutical innovation
             with West African healthcare needs.
           </p>

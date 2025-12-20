@@ -141,7 +141,7 @@ function SourceRegionTile({
 
       {/* Region name label */}
       <div
-        className={`absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-sm font-semibold text-[#001D21] transition-all duration-300 ${
+        className={`absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-sm font-semibold text-white transition-all duration-300 ${
           isHovered ? "opacity-100 translate-y-0" : "opacity-70 -translate-y-1"
         }`}
       >
@@ -162,7 +162,7 @@ function SourceRegionTile({
           <div className="text-xs font-semibold text-[#705B3C] mb-2">
             {region.pharmaceuticals}
           </div>
-          <div className="flex justify-between text-xs text-gray-600 mb-2">
+          <div className="flex justify-between text-xs text-white/80 mb-2">
             <span>{region.manufacturers} Manufacturers</span>
           </div>
           <div className="flex flex-wrap gap-1">
@@ -551,7 +551,7 @@ function MarketInfoCard({
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div>
-          <div className="text-base font-semibold text-[#001D21]">{market.country}</div>
+          <div className="text-base font-semibold text-white">{market.country}</div>
           <div className="flex items-center space-x-1.5 mt-1">
             <span
               className="w-2 h-2 rounded-full"
@@ -569,15 +569,15 @@ function MarketInfoCard({
       <div className="grid grid-cols-3 gap-3 mb-4 p-3 rounded-2xl bg-gray-50/80">
         <div className="text-center">
           <div className="text-xl font-bold text-[#705B3C]">{market.stats.partners}</div>
-          <div className="text-[10px] text-gray-500 font-medium">Partners</div>
+          <div className="text-[10px] text-white/80 font-medium">Partners</div>
         </div>
         <div className="text-center">
           <div className="text-xl font-bold text-[#BBBAFF]">{market.stats.products}</div>
-          <div className="text-[10px] text-gray-500 font-medium">Products</div>
+          <div className="text-[10px] text-white/80 font-medium">Products</div>
         </div>
         <div className="text-center">
           <div className="text-xl font-bold text-[#705B3C]">{market.stats.coverage}</div>
-          <div className="text-[10px] text-gray-500 font-medium">Coverage</div>
+          <div className="text-[10px] text-white/80 font-medium">Coverage</div>
         </div>
       </div>
 
@@ -588,7 +588,7 @@ function MarketInfoCard({
         </div>
         <ul className="space-y-1.5">
           {market.focusAreas.slice(0, 3).map((area, i) => (
-            <li key={i} className="flex items-start text-xs text-gray-600">
+            <li key={i} className="flex items-start text-xs text-white/80">
               <span
                 className="w-1 h-1 rounded-full mt-1.5 mr-2 flex-shrink-0"
                 style={{ background: i % 2 === 0 ? "#705B3C" : "#BBBAFF" }}
@@ -600,7 +600,7 @@ function MarketInfoCard({
       </div>
 
       {/* Impact */}
-      <div className="text-[11px] text-gray-500 italic leading-relaxed">
+      <div className="text-[11px] text-white/80 italic leading-relaxed">
         {market.impact}
       </div>
     </div>
@@ -648,7 +648,7 @@ export default function GeographicFocus() {
     <section
       ref={sectionRef}
       id="market-reach"
-      className="py-32 bg-white relative overflow-hidden"
+      className="py-32 bg-[#001D21] border-y border-[#1A3F45] relative overflow-hidden"
     >
       {/* Subtle gradient mesh background */}
       <div
@@ -678,10 +678,10 @@ export default function GeographicFocus() {
           <span className="text-[#705B3C] font-medium text-sm uppercase tracking-widest">
             Geographic Focus
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#001D21] mt-5 mb-7">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-5 mb-7">
             Connecting Global to Local
           </h2>
-          <p className="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">
+          <p className="text-white/80 max-w-2xl mx-auto text-lg leading-relaxed">
             Strategic positioning in West Africa's most promising healthcare markets,
             with supply chains spanning three continents.
           </p>

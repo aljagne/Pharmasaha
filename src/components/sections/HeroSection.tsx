@@ -240,7 +240,7 @@ export default function HeroSection() {
   );
 
   return (
-    <section className="relative min-h-screen bg-[#CCEED3] overflow-hidden">
+    <section className="relative min-h-screen bg-[#001D21] overflow-hidden">
       {/* Background gradient orbs */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-[#705B3C] rounded-full blur-[150px] opacity-10" />
@@ -253,29 +253,29 @@ export default function HeroSection() {
         <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-200px)]">
           {/* Left Content */}
           <div className="flex flex-col items-start gap-8 z-10 pl-4 lg:pl-8">
-            <div className="inline-flex items-center px-4 py-2 bg-[#705B3C]/10 border border-[#705B3C]/20 rounded-full cursor-pointer hover:bg-[#705B3C]/20 transition-all">
+            <div className="inline-flex items-center px-4 py-2 bg-[#BBBAFF] rounded-full cursor-pointer hover:bg-[#A3A2F0] transition-all shadow-md">
               <span className="relative w-2 h-2 mr-2">
-                <span className="absolute inset-0 bg-[#BBBAFF] rounded-full animate-ping" />
-                <span className="absolute inset-0 bg-[#BBBAFF] rounded-full" />
+                <span className="absolute inset-0 bg-[#001D21] rounded-full animate-ping" />
+                <span className="absolute inset-0 bg-[#001D21] rounded-full" />
               </span>
-              <span className="text-[#001D21] text-sm font-medium">
+              <span className="text-[#001D21] text-sm font-bold">
                 West Africa's Healthcare Gateway
               </span>
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              <span className="text-[#001D21]">Global Innovation.</span>
+              <span className="text-white">Global Innovation.</span>
               <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-br from-[#705B3C] to-[#8A7350]">
+              <span className="bg-clip-text text-transparent bg-gradient-to-br from-[#705B3C] to-[#BBBAFF]">
                 West African
               </span>
               <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-br from-[#705B3C] to-[#8A7350]">
+              <span className="bg-clip-text text-transparent bg-gradient-to-br from-[#705B3C] to-[#BBBAFF]">
                 Vitality.
               </span>
             </h1>
 
-            <p className="text-lg text-gray-600 max-w-lg">
+            <p className="text-lg text-white/80 max-w-lg">
               PharmaSaha bridges international pharmaceutical excellence with
               underserved markets. We are the vital nexus connecting global labs
               to local communities across The Gambia and Senegal.

@@ -91,7 +91,7 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
       />
       
       {/* Main card */}
-      <div className="relative bg-white rounded-3xl p-8 border border-[#B8DFC2] hover:border-[#D0D7DE] transition-all duration-500 h-full shadow-sm hover:shadow-lg">
+      <div className="relative bg-[#001D21] border-y border-[#1A3F45] rounded-3xl p-8 border border-[#B8DFC2] hover:border-[#D0D7DE] transition-all duration-500 h-full shadow-sm hover:shadow-lg">
         {/* Subtle inner glow */}
         <div 
           className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"
@@ -125,12 +125,12 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
         {/* Content */}
         <div className="relative z-10">
           <h3 
-            className="text-xl font-semibold text-[#001D21] mb-3 transition-colors duration-300"
+            className="text-xl font-semibold text-white mb-3 transition-colors duration-300"
             style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
           >
             {service.title}
           </h3>
-          <p className="text-gray-600 text-sm leading-relaxed">
+          <p className="text-white/80 text-sm leading-relaxed">
             {service.description}
           </p>
         </div>
@@ -149,7 +149,7 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
 
 export default function ServicesSection() {
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="py-24 bg-[#001D21] border-y border-[#1A3F45] relative overflow-hidden">
       {/* Subtle background texture */}
       <div className="absolute inset-0 opacity-30">
         <div 
@@ -167,10 +167,10 @@ export default function ServicesSection() {
           <span className="text-[#705B3C] font-medium text-sm uppercase tracking-wider">
             Our Services
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#001D21] mt-4 mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mt-4 mb-6">
             Comprehensive Healthcare Solutions
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+          <p className="text-white/80 max-w-2xl mx-auto text-lg">
             From regulatory navigation to last-mile delivery, we provide end-to-end
             support for pharmaceutical market access in West Africa.
           </p>

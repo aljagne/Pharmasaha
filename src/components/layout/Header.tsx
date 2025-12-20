@@ -33,11 +33,20 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <a href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#705B3C] to-[#BBBAFF] flex items-center justify-center">
-              <span className="text-white font-bold text-xl">P</span>
+            {/* Custom Swirl Logo */}
+            <div className="w-10 h-10 flex items-center justify-center">
+              <img
+                src="/logo.png"
+                alt="Pharmasaha Logo"
+                className="w-full h-full object-contain"
+              />
             </div>
-            <span className={`text-xl font-bold ${isScrolled ? "text-[#001D21]" : "text-[#001D21]"}`}>
-              Pharma<span className="text-[#705B3C]">saha</span>
+            <span
+              className={`text-xl font-bold ${
+                isScrolled ? "text-white" : "text-white"
+              }`}
+            >
+              Pharma<span className="text-white">saha</span>
             </span>
           </a>
 
@@ -48,7 +57,7 @@ export default function Header() {
                 key={item.label}
                 href={item.href}
                 className={`transition-colors duration-200 font-medium hover:text-[#705B3C] ${
-                  isScrolled ? "text-[#001D21]/70" : "text-[#001D21]/70"
+                  isScrolled ? "text-white" : "text-white"
                 }`}
               >
                 {item.label}
