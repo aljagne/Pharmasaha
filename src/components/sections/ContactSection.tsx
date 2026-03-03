@@ -77,12 +77,12 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-24 bg-[#001D21]">
+    <section id="contact" className="py-24 bg-[#001E22]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16">
           {/* Left Content */}
           <div>
-            <span className="text-[#705B3C] font-medium text-sm uppercase tracking-wider">
+            <span className="text-[#745A37] font-medium text-sm uppercase tracking-wider">
               Get In Touch
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-white mt-4 mb-6">
@@ -97,8 +97,8 @@ export default function ContactSection() {
             {/* Contact Info */}
             <div className="space-y-6 mb-8">
               <div className="flex items-center space-x-4 group">
-                <div className="w-12 h-12 rounded-xl bg-[#705B3C]/10 flex items-center justify-center group-hover:bg-[#705B3C]/20 transition-colors">
-                  <Mail className="w-6 h-6 text-[#705B3C]" />
+                <div className="w-12 h-12 rounded-xl bg-[#745A37]/10 flex items-center justify-center group-hover:bg-[#745A37]/20 transition-colors">
+                  <Mail className="w-6 h-6 text-[#745A37]" />
                 </div>
                 <div>
                   <div className="text-white/80 text-sm">Email</div>
@@ -106,8 +106,8 @@ export default function ContactSection() {
                 </div>
               </div>
               <div className="flex items-center space-x-4 group">
-                <div className="w-12 h-12 rounded-xl bg-[#BBBAFF]/10 flex items-center justify-center group-hover:bg-[#BBBAFF]/20 transition-colors">
-                  <Phone className="w-6 h-6 text-[#BBBAFF]" />
+                <div className="w-12 h-12 rounded-xl bg-[#BAB9FF]/10 flex items-center justify-center group-hover:bg-[#BAB9FF]/20 transition-colors">
+                  <Phone className="w-6 h-6 text-[#BAB9FF]" />
                 </div>
                 <div>
                   <div className="text-white/80 text-sm">Phone</div>
@@ -115,8 +115,8 @@ export default function ContactSection() {
                 </div>
               </div>
               <div className="flex items-center space-x-4 group">
-                <div className="w-12 h-12 rounded-xl bg-[#705B3C]/10 flex items-center justify-center group-hover:bg-[#705B3C]/20 transition-colors">
-                  <MapPin className="w-6 h-6 text-[#705B3C]" />
+                <div className="w-12 h-12 rounded-xl bg-[#745A37]/10 flex items-center justify-center group-hover:bg-[#745A37]/20 transition-colors">
+                  <MapPin className="w-6 h-6 text-[#745A37]" />
                 </div>
                 <div>
                   <div className="text-white/80 text-sm">Location</div>
@@ -126,13 +126,13 @@ export default function ContactSection() {
             </div>
 
             {/* Form Type Toggle */}
-            <div className="bg-[#001D21] border-y border-[#1A3F45] rounded-xl p-2 inline-flex border border-[#B8DFC2] shadow-sm">
+            <div className="bg-[#001E22] border-y border-[#00363D] rounded-xl p-2 inline-flex border border-[#C2EED0] shadow-sm">
               <button
                 onClick={() => setFormType("partner")}
                 className={`px-6 py-3 rounded-lg font-medium transition-all ${
                   formType === "partner"
-                    ? "bg-[#705B3C] text-white shadow-md"
-                    : "text-white/80 hover:text-[#705B3C]"
+                    ? "bg-[#745A37] text-white shadow-md"
+                    : "text-white/80 hover:text-[#745A37]"
                 }`}
               >
                 Partner for Market Access
@@ -141,8 +141,8 @@ export default function ContactSection() {
                 onClick={() => setFormType("explore")}
                 className={`px-6 py-3 rounded-lg font-medium transition-all ${
                   formType === "explore"
-                    ? "bg-[#BBBAFF] text-white shadow-md"
-                    : "text-white/80 hover:text-[#BBBAFF]"
+                    ? "bg-[#BAB9FF] text-white shadow-md"
+                    : "text-white/80 hover:text-[#BAB9FF]"
                 }`}
               >
                 Explore Solutions
@@ -151,11 +151,11 @@ export default function ContactSection() {
           </div>
 
           {/* Right Form */}
-          <div className="bg-[#001D21] border-y border-[#1A3F45] rounded-2xl p-8 border border-[#B8DFC2] shadow-sm">
+          <div className="bg-[#001E22] border-y border-[#00363D] rounded-2xl p-8 border border-[#C2EED0] shadow-sm">
             {isSubmitted ? (
               <div className="h-full flex flex-col items-center justify-center text-center py-12">
-                <div className="w-16 h-16 rounded-full bg-[#BBBAFF]/10 flex items-center justify-center mb-6">
-                  <CheckCircle className="w-8 h-8 text-[#BBBAFF]" />
+                <div className="w-16 h-16 rounded-full bg-[#BAB9FF]/10 flex items-center justify-center mb-6">
+                  <CheckCircle className="w-8 h-8 text-[#BAB9FF]" />
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-2">
                   Thank You!
@@ -167,7 +167,7 @@ export default function ContactSection() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="flex items-center space-x-3 mb-6">
-                  <Building2 className={`w-6 h-6 ${formType === "partner" ? "text-[#705B3C]" : "text-[#BBBAFF]"}`} />
+                  <Building2 className={`w-6 h-6 ${formType === "partner" ? "text-[#745A37]" : "text-[#BAB9FF]"}`} />
                   <h3 className="text-xl font-bold text-white">
                     {formType === "partner"
                       ? "Partner for Market Access"
@@ -184,7 +184,7 @@ export default function ContactSection() {
                       value={formData.companyName}
                       onChange={handleChange}
                       placeholder="Your company"
-                      className="bg-[#001D21] border-[#B8DFC2] focus:border-[#705B3C] text-white"
+                      className="bg-[#001E22] border-[#C2EED0] focus:border-[#745A37] text-white"
                       required
                     />
                   </div>
@@ -196,7 +196,7 @@ export default function ContactSection() {
                       value={formData.contactName}
                       onChange={handleChange}
                       placeholder="Your name"
-                      className="bg-[#001D21] border-[#B8DFC2] focus:border-[#705B3C] text-white"
+                      className="bg-[#001E22] border-[#C2EED0] focus:border-[#745A37] text-white"
                       required
                     />
                   </div>
@@ -212,7 +212,7 @@ export default function ContactSection() {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="you@company.com"
-                      className="bg-[#001D21] border-[#B8DFC2] focus:border-[#705B3C] text-white"
+                      className="bg-[#001E22] border-[#C2EED0] focus:border-[#745A37] text-white"
                       required
                     />
                   </div>
@@ -224,7 +224,7 @@ export default function ContactSection() {
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="+1 234 567 890"
-                      className="bg-[#001D21] border-[#B8DFC2] focus:border-[#705B3C] text-white"
+                      className="bg-[#001E22] border-[#C2EED0] focus:border-[#745A37] text-white"
                     />
                   </div>
                 </div>
@@ -236,7 +236,7 @@ export default function ContactSection() {
                     name="type"
                     value={formData.type}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 rounded-lg bg-[#001D21] border border-[#B8DFC2] text-white focus:outline-none focus:border-[#705B3C]"
+                    className="w-full px-4 py-2 rounded-lg bg-[#001E22] border border-[#C2EED0] text-white focus:outline-none focus:border-[#745A37]"
                   >
                     <option value="Lab">Pharmaceutical Lab</option>
                     <option value="Distributor">Distributor</option>
@@ -255,7 +255,7 @@ export default function ContactSection() {
                     onChange={handleChange}
                     placeholder="Tell us about your needs..."
                     rows={4}
-                    className="bg-[#001D21] border-[#B8DFC2] focus:border-[#705B3C] text-white"
+                    className="bg-[#001E22] border-[#C2EED0] focus:border-[#745A37] text-white"
                     required
                   />
                 </div>
@@ -271,7 +271,7 @@ export default function ContactSection() {
                   type="submit"
                   disabled={isLoading}
                   className={`w-full py-6 ${
-                    formType === "partner" ? "btn-orange" : "bg-[#BBBAFF] hover:bg-[#009688] text-white"
+                    formType === "partner" ? "btn-orange" : "bg-[#BAB9FF] hover:bg-[#009688] text-white"
                   } disabled:opacity-50 disabled:cursor-not-allowed`}
                 >
                   {isLoading ? (

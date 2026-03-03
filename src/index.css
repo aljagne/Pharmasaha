@@ -7,77 +7,77 @@
 @layer base {
   :root {
     /* Pharmasaha Brand - Dark Premium Mode (Default) */
-    --background: 187 100% 6%; /* #001D21 Primary Dark */
+    --background: 187 100% 7%; /* #001E22 Primary Dark Blue/Green */
     --foreground: 0 0% 100%; /* #FFFFFF White Text */
 
-    --card: 187 80% 8%;
-    --card-foreground: 150 30% 91%;
+    --card: 187 100% 9%; /* Slightly lighter than background */
+    --card-foreground: 139 56% 85%; /* #C2EED0 Mint */
 
-    --popover: 187 80% 8%;
-    --popover-foreground: 150 30% 91%;
+    --popover: 187 100% 9%;
+    --popover-foreground: 139 56% 85%;
 
-    /* Primary Bronze/Gold */
-    --primary: 33 32% 43%; /* #705B3C (Adjusted for dark) */
+    /* Primary Brown */
+    --primary: 34 36% 34%; /* #745A37 */
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary Lavender */
-    --secondary: 240 100% 86%; /* #BBBAFF */
-    --secondary-foreground: 187 100% 6%;
+    /* Secondary Light Purple / Periwinkle */
+    --secondary: 241 100% 86%; /* #BAB9FF */
+    --secondary-foreground: 187 100% 7%; /* To contrast nicely */
 
-    --muted: 187 50% 12%;
-    --muted-foreground: 150 30% 70%;
+    --muted: 187 80% 12%;
+    --muted-foreground: 139 56% 85%;
 
-    /* Lavender for accents */
-    --accent: 240 100% 86%;
-    --accent-foreground: 187 100% 6%;
+    /* Light Purple for accents */
+    --accent: 241 100% 86%;
+    --accent-foreground: 187 100% 7%;
 
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 187 50% 15%;
-    --input: 187 50% 15%;
-    --ring: 33 32% 43%;
+    --border: 187 80% 15%;
+    --input: 187 80% 15%;
+    --ring: 34 36% 34%;
 
     --radius: 0.5rem;
 
     /* PharmaSaha Brand Colors */
-    --pharma-primary: #001D21;
-    --pharma-bronze: #705B3C;
-    --pharma-lavender: #BBBAFF;
-    --pharma-mint: #CCEED3;
-    --pharma-card-bg: #002A30;
-    --pharma-divider: #1A3F45;
+    --pharma-primary: #001E22;
+    --pharma-bronze: #745A37;
+    --pharma-lavender: #BAB9FF;
+    --pharma-mint: #C2EED0;
+    --pharma-card-bg: #00282D;
+    --pharma-divider: #00363D;
   }
 
   .light {
-    /* Light Mode (Optional/Secondary) */
-    --background: 150 30% 91%; /* #CCEED3 Light Mint */
-    --foreground: 187 100% 6%; /* #001D21 Primary Dark */
+    /* Light Mode (Optional/Secondary, mainly mint/dark blue contrast) */
+    --background: 139 56% 85%; /* #C2EED0 Light Mint */
+    --foreground: 187 100% 7%; /* #001E22 Primary Dark */
 
     --card: 0 0% 100%;
-    --card-foreground: 187 100% 6%;
+    --card-foreground: 187 100% 7%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 187 100% 6%;
+    --popover-foreground: 187 100% 7%;
 
-    --primary: 33 32% 33%;
+    --primary: 34 36% 34%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 100% 86%;
-    --secondary-foreground: 187 100% 6%;
+    --secondary: 241 100% 86%;
+    --secondary-foreground: 187 100% 7%;
 
-    --muted: 150 30% 91%;
+    --muted: 139 30% 75%;
     --muted-foreground: 187 50% 30%;
 
-    --accent: 240 100% 86%;
-    --accent-foreground: 187 100% 6%;
+    --accent: 241 100% 86%;
+    --accent-foreground: 187 100% 7%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 150 20% 85%;
-    --input: 150 20% 85%;
-    --ring: 33 32% 33%;
+    --border: 139 30% 75%;
+    --input: 139 30% 75%;
+    --ring: 34 36% 34%;
   }
 }
 
@@ -97,43 +97,43 @@
 @layer components {
   /* Primary Bronze Button */
   .btn-bronze {
-    @apply bg-[#705B3C] hover:bg-[#5A4830] text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5;
+    @apply bg-[#745A37] hover:bg-[#5E482C] text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5;
   }
 
   /* Legacy amber button - now bronze */
   .btn-amber {
-    @apply bg-[#705B3C] hover:bg-[#5A4830] text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5;
+    @apply bg-[#745A37] hover:bg-[#5E482C] text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5;
   }
 
   /* Lavender gradient */
   .gradient-lavender {
-    background: linear-gradient(135deg, #BBBAFF 0%, #9998E6 100%);
+    background: linear-gradient(135deg, #BAB9FF 0%, #9F9DE6 100%);
   }
 
   /* Bronze gradient */
   .gradient-bronze {
-    background: linear-gradient(135deg, #705B3C 0%, #5A4830 100%);
+    background: linear-gradient(135deg, #745A37 0%, #5E482C 100%);
   }
 
   /* Text gradient - Bronze */
   .text-gradient-bronze {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, #705B3C 0%, #8A7350 100%);
+    background-image: linear-gradient(135deg, #745A37 0%, #8F7249 100%);
   }
 
   /* Text gradient - Lavender */
   .text-gradient-lavender {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, #BBBAFF 0%, #D4D3FF 100%);
+    background-image: linear-gradient(135deg, #BAB9FF 0%, #D4D3FF 100%);
   }
 
   /* Premium card with soft elevation */
   .card-elevated {
-    @apply bg-white rounded-2xl border border-[#B8DFC2] shadow-[0_4px_20px_rgba(0,29,33,0.05)] transition-all duration-300;
+    @apply bg-white/5 rounded-2xl border border-[#C2EED0]/30 shadow-[0_4px_20px_rgba(0,30,34,0.3)] transition-all duration-300 backdrop-blur-sm;
   }
 
   .card-elevated:hover {
-    @apply shadow-[0_8px_30px_rgba(0,29,33,0.08)] -translate-y-1;
+    @apply shadow-[0_8px_30px_rgba(0,30,34,0.5)] -translate-y-1 border-[#C2EED0]/50;
   }
 
   /* Noodle line base */
@@ -146,8 +146,8 @@
 
   /* Beam animation on noodle */
   .beam-dot {
-    fill: #705B3C;
-    filter: drop-shadow(0 0 6px #705B3C);
+    fill: #745A37;
+    filter: drop-shadow(0 0 6px #745A37);
   }
 }
 
@@ -265,8 +265,8 @@
   }
 
   @keyframes glowPulse {
-    0%, 100% { box-shadow: 0 0 20px rgba(247, 140, 30, 0.3); }
-    50% { box-shadow: 0 0 40px rgba(247, 140, 30, 0.6); }
+    0%, 100% { box-shadow: 0 0 20px rgba(186, 185, 255, 0.3); } /* #BAB9FF */
+    50% { box-shadow: 0 0 40px rgba(186, 185, 255, 0.6); }
   }
 
   @keyframes countUp {

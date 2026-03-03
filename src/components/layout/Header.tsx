@@ -25,7 +25,7 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-[#B8DFC2]"
+          ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-[#C2EED0]"
           : "bg-transparent"
       }`}
     >
@@ -56,7 +56,7 @@ export default function Header() {
               <a
                 key={item.label}
                 href={item.href}
-                className={`transition-colors duration-200 font-medium hover:text-[#705B3C] ${
+                className={`transition-colors duration-200 font-medium hover:text-[#745A37] ${
                   isScrolled ? "text-white" : "text-white"
                 }`}
               >
@@ -72,7 +72,7 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className={`md:hidden p-2 ${isScrolled ? "text-[#001D21]" : "text-[#001D21]"}`}
+            className={`md:hidden p-2 ${isScrolled ? "text-[#001E22]" : "text-[#001E22]"}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -81,13 +81,13 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-white/95 backdrop-blur-md border-t border-[#B8DFC2] rounded-b-2xl shadow-lg">
+          <div className="md:hidden bg-white/95 backdrop-blur-md border-t border-[#C2EED0] rounded-b-2xl shadow-lg">
             <nav className="flex flex-col py-4">
               {navItems.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
-                  className="text-[#001D21]/70 hover:text-[#705B3C] hover:bg-[#CCEED3]/30 transition-colors duration-200 font-medium py-3 px-4"
+                  className="text-[#001E22]/70 hover:text-[#745A37] hover:bg-[#C2EED0]/30 transition-colors duration-200 font-medium py-3 px-4"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.label}

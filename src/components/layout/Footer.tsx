@@ -22,17 +22,17 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="bg-[#001D21] text-white border-t border-[#B8DFC2]">
+    <footer className="bg-[#001E22] text-white border-t border-[#C2EED0]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <a href="/" className="flex items-center space-x-2 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#705B3C] to-[#BBBAFF] flex items-center justify-center">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#745A37] to-[#BAB9FF] flex items-center justify-center">
                 <span className="text-white font-bold text-xl">P</span>
               </div>
               <span className="text-xl font-bold text-white">
-                Pharma<span className="text-[#705B3C]">Saha</span>
+                Pharma<span className="text-[#745A37]">Saha</span>
               </span>
             </a>
             <p className="text-white/80 mb-6 max-w-sm">
@@ -42,13 +42,13 @@ export default function Footer() {
             <div className="flex space-x-4">
               <a
                 href="#"
-                className="w-10 h-10 rounded-full bg-[#001D21] border-t border-[#1A3F45] border border-[#B8DFC2] flex items-center justify-center hover:bg-[#705B3C] hover:border-[#705B3C] hover:text-white transition-all duration-300 text-white/80"
+                className="w-10 h-10 rounded-full bg-[#001E22] border-t border-[#00363D] border border-[#C2EED0] flex items-center justify-center hover:bg-[#745A37] hover:border-[#745A37] hover:text-white transition-all duration-300 text-white/80"
               >
                 <Linkedin size={18} />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 rounded-full bg-[#001D21] border-t border-[#1A3F45] border border-[#B8DFC2] flex items-center justify-center hover:bg-[#BBBAFF] hover:border-[#BBBAFF] hover:text-white transition-all duration-300 text-white/80"
+                className="w-10 h-10 rounded-full bg-[#001E22] border-t border-[#00363D] border border-[#C2EED0] flex items-center justify-center hover:bg-[#BAB9FF] hover:border-[#BAB9FF] hover:text-white transition-all duration-300 text-white/80"
               >
                 <Twitter size={18} />
               </a>
@@ -63,7 +63,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-white/80 hover:text-[#705B3C] transition-colors"
+                    className="text-white/80 hover:text-[#745A37] transition-colors"
                   >
                     {link.label}
                   </a>
@@ -80,7 +80,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-white/80 hover:text-[#705B3C] transition-colors"
+                    className="text-white/80 hover:text-[#745A37] transition-colors"
                   >
                     {link.label}
                   </a>
@@ -94,15 +94,15 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">Contact</h4>
             <ul className="space-y-3">
               <li className="flex items-center space-x-3 text-white/80">
-                <Mail size={16} className="text-[#705B3C]" />
+                <Mail size={16} className="text-[#745A37]" />
                 <span>info@pharmasaha.com</span>
               </li>
               <li className="flex items-center space-x-3 text-white/80">
-                <Phone size={16} className="text-[#BBBAFF]" />
+                <Phone size={16} className="text-[#BAB9FF]" />
                 <span>+220 123 4567</span>
               </li>
               <li className="flex items-center space-x-3 text-white/80">
-                <MapPin size={16} className="text-[#705B3C]" />
+                <MapPin size={16} className="text-[#745A37]" />
                 <span>Banjul, The Gambia</span>
               </li>
             </ul>
@@ -110,15 +110,15 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-[#B8DFC2] flex flex-col md:flex-row justify-between items-center">
+        <div className="mt-12 pt-8 border-t border-[#C2EED0] flex flex-col md:flex-row justify-between items-center">
           <p className="text-white/80 text-sm">
             © {new Date().getFullYear()} PharmaSaha. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="text-white/80 hover:text-[#705B3C] text-sm transition-colors">
+            <a href="#" className="text-white/80 hover:text-[#745A37] text-sm transition-colors">
               Privacy Policy
             </a>
-            <a href="#" className="text-white/80 hover:text-[#705B3C] text-sm transition-colors">
+            <a href="#" className="text-white/80 hover:text-[#745A37] text-sm transition-colors">
               Terms of Service
             </a>
           </div>

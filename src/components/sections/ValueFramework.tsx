@@ -57,27 +57,27 @@ function ValueCard({ value, index }: { value: typeof values[0]; index: number })
   return (
     <div
       ref={cardRef}
-      className={`group relative bg-[#001D21] border-y border-[#1A3F45] rounded-2xl p-8 border border-[#B8DFC2] hover:border-[${isOrange ? '#705B3C' : '#BBBAFF'}]/50 transition-all duration-500 hover:-translate-y-2 shadow-sm hover:shadow-xl ${
+      className={`group relative bg-[#001E22] border-y border-[#00363D] rounded-2xl p-8 border border-[#C2EED0]/30 hover:border-[${isOrange ? '#745A37' : '#BAB9FF'}]/50 transition-all duration-500 hover:-translate-y-2 shadow-sm hover:shadow-xl ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
       style={{ transitionDelay: `${index * 150}ms` }}
     >
       {/* Number Badge */}
-      <div className="absolute -top-4 -right-4 w-12 h-12 bg-[#001D21] rounded-full flex items-center justify-center border-4 border-white shadow-md">
-        <span className={`font-bold ${isOrange ? 'text-[#705B3C]' : 'text-[#BBBAFF]'}`}>{index + 1}</span>
+      <div className="absolute -top-4 -right-4 w-12 h-12 bg-[#001E22] rounded-full flex items-center justify-center border-4 border-white shadow-md">
+        <span className={`font-bold ${isOrange ? 'text-[#745A37]' : 'text-[#BAB9FF]'}`}>{index + 1}</span>
       </div>
 
       {/* Icon */}
       <div
         className={`w-16 h-16 rounded-xl flex items-center justify-center mb-6 transition-all duration-300 ${
           isOrange
-            ? "bg-[#705B3C]/10 group-hover:bg-[#705B3C]/20"
-            : "bg-[#BBBAFF]/10 group-hover:bg-[#BBBAFF]/20"
+            ? "bg-[#745A37]/10 group-hover:bg-[#745A37]/20"
+            : "bg-[#BAB9FF]/10 group-hover:bg-[#BAB9FF]/20"
         }`}
       >
         <value.icon
           className={`w-8 h-8 ${
-            isOrange ? "text-[#705B3C]" : "text-[#BBBAFF]"
+            isOrange ? "text-[#745A37]" : "text-[#BAB9FF]"
           }`}
         />
       </div>
@@ -86,7 +86,7 @@ function ValueCard({ value, index }: { value: typeof values[0]; index: number })
       <h3 className="text-2xl font-bold text-white mb-2">{value.title}</h3>
       <p
         className={`text-sm font-medium mb-4 ${
-          isOrange ? "text-[#705B3C]" : "text-[#BBBAFF]"
+          isOrange ? "text-[#745A37]" : "text-[#BAB9FF]"
         }`}
       >
         {value.subtitle}
@@ -96,7 +96,7 @@ function ValueCard({ value, index }: { value: typeof values[0]; index: number })
       {/* Hover Line */}
       <div
         className={`absolute bottom-0 left-0 right-0 h-1 rounded-b-2xl ${
-          isOrange ? "bg-[#705B3C]" : "bg-[#BBBAFF]"
+          isOrange ? "bg-[#745A37]" : "bg-[#BAB9FF]"
         } transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300`}
       />
     </div>
@@ -113,14 +113,14 @@ function NoodleConnections() {
     >
       <defs>
         <linearGradient id="valueNoodle1" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#BBBAFF" stopOpacity="0" />
-          <stop offset="50%" stopColor="#BBBAFF" stopOpacity="0.8" />
-          <stop offset="100%" stopColor="#705B3C" stopOpacity="0" />
+          <stop offset="0%" stopColor="#BAB9FF" stopOpacity="0" />
+          <stop offset="50%" stopColor="#BAB9FF" stopOpacity="0.8" />
+          <stop offset="100%" stopColor="#745A37" stopOpacity="0" />
         </linearGradient>
         <linearGradient id="valueNoodle2" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#705B3C" stopOpacity="0" />
-          <stop offset="50%" stopColor="#705B3C" stopOpacity="0.8" />
-          <stop offset="100%" stopColor="#BBBAFF" stopOpacity="0" />
+          <stop offset="0%" stopColor="#745A37" stopOpacity="0" />
+          <stop offset="50%" stopColor="#745A37" stopOpacity="0.8" />
+          <stop offset="100%" stopColor="#BAB9FF" stopOpacity="0" />
         </linearGradient>
       </defs>
       
@@ -142,7 +142,7 @@ function NoodleConnections() {
       />
       
       {/* Beam dots */}
-      <circle r="5" fill="#705B3C" filter="drop-shadow(0 0 8px #705B3C)">
+      <circle r="5" fill="#745A37" filter="drop-shadow(0 0 8px #745A37)">
         <animateMotion dur="4s" repeatCount="indefinite">
           <mpath href="#valuePath1" />
         </animateMotion>
@@ -154,14 +154,14 @@ function NoodleConnections() {
 
 export default function ValueFramework() {
   return (
-    <section id="solutions" className="py-24 bg-[#001D21] relative overflow-hidden">
+    <section id="solutions" className="py-24 bg-[#001E22] relative overflow-hidden">
       {/* Noodle connections */}
       <NoodleConnections />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <span className="text-[#705B3C] font-medium text-sm uppercase tracking-wider">
+          <span className="text-[#745A37] font-medium text-sm uppercase tracking-wider">
             Our Approach
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mt-4 mb-6">
@@ -183,11 +183,11 @@ export default function ValueFramework() {
         {/* Connection Line */}
         <div className="hidden md:flex items-center justify-center mt-12">
           <div className="flex items-center space-x-4">
-            <div className="w-4 h-4 rounded-full bg-[#BBBAFF] animate-pulse" />
-            <div className="w-32 h-0.5 bg-gradient-to-r from-[#BBBAFF] to-[#705B3C]" />
-            <div className="w-4 h-4 rounded-full bg-[#705B3C] animate-pulse" style={{ animationDelay: "0.5s" }} />
-            <div className="w-32 h-0.5 bg-gradient-to-r from-[#705B3C] to-[#BBBAFF]" />
-            <div className="w-4 h-4 rounded-full bg-[#BBBAFF] animate-pulse" style={{ animationDelay: "1s" }} />
+            <div className="w-4 h-4 rounded-full bg-[#BAB9FF] animate-pulse" />
+            <div className="w-32 h-0.5 bg-gradient-to-r from-[#BAB9FF] to-[#745A37]" />
+            <div className="w-4 h-4 rounded-full bg-[#745A37] animate-pulse" style={{ animationDelay: "0.5s" }} />
+            <div className="w-32 h-0.5 bg-gradient-to-r from-[#745A37] to-[#BAB9FF]" />
+            <div className="w-4 h-4 rounded-full bg-[#BAB9FF] animate-pulse" style={{ animationDelay: "1s" }} />
           </div>
         </div>
       </div>

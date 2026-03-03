@@ -3,20 +3,20 @@ import { Button } from "@/components/ui/button";
 
 export default function CTASection() {
   return (
-    <section className="py-24 bg-gradient-to-br from-[#CCEED3] via-white to-[#CCEED3] relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-br from-[#C2EED0] via-white to-[#C2EED0] relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#705B3C] rounded-full filter blur-[200px] opacity-10" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#BBBAFF] rounded-full filter blur-[200px] opacity-10" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#745A37] rounded-full filter blur-[200px] opacity-10" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#BAB9FF] rounded-full filter blur-[200px] opacity-10" />
       </div>
 
       {/* Noodle network */}
       <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice">
         <defs>
           <linearGradient id="ctaNoodle" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#705B3C" stopOpacity="0" />
-            <stop offset="50%" stopColor="#705B3C" stopOpacity="0.6" />
-            <stop offset="100%" stopColor="#BBBAFF" stopOpacity="0" />
+            <stop offset="0%" stopColor="#745A37" stopOpacity="0" />
+            <stop offset="50%" stopColor="#745A37" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#BAB9FF" stopOpacity="0" />
           </linearGradient>
         </defs>
         <path
@@ -40,14 +40,14 @@ export default function CTASection() {
         <div className="text-center">
           {/* Icons */}
           <div className="flex justify-center space-x-6 mb-8">
-            <div className="w-16 h-16 rounded-2xl bg-[#001D21] border-y border-[#1A3F45] flex items-center justify-center border border-[#B8DFC2] shadow-sm hover:shadow-lg hover:border-[#BBBAFF]/30 transition-all duration-300 group cursor-pointer">
-              <Globe className="w-8 h-8 text-[#BBBAFF] group-hover:scale-110 transition-transform" />
+            <div className="w-16 h-16 rounded-2xl bg-[#001E22] border-y border-[#00363D] flex items-center justify-center border border-[#C2EED0] shadow-sm hover:shadow-lg hover:border-[#BAB9FF]/30 transition-all duration-300 group cursor-pointer">
+              <Globe className="w-8 h-8 text-[#BAB9FF] group-hover:scale-110 transition-transform" />
             </div>
-            <div className="w-16 h-16 rounded-2xl bg-[#001D21] border-y border-[#1A3F45] flex items-center justify-center border border-[#B8DFC2] shadow-sm hover:shadow-lg hover:border-[#705B3C]/30 transition-all duration-300 group cursor-pointer">
-              <Shield className="w-8 h-8 text-[#705B3C] group-hover:scale-110 transition-transform" />
+            <div className="w-16 h-16 rounded-2xl bg-[#001E22] border-y border-[#00363D] flex items-center justify-center border border-[#C2EED0] shadow-sm hover:shadow-lg hover:border-[#745A37]/30 transition-all duration-300 group cursor-pointer">
+              <Shield className="w-8 h-8 text-[#745A37] group-hover:scale-110 transition-transform" />
             </div>
-            <div className="w-16 h-16 rounded-2xl bg-[#001D21] border-y border-[#1A3F45] flex items-center justify-center border border-[#B8DFC2] shadow-sm hover:shadow-lg hover:border-[#BBBAFF]/30 transition-all duration-300 group cursor-pointer">
-              <Truck className="w-8 h-8 text-[#BBBAFF] group-hover:scale-110 transition-transform" />
+            <div className="w-16 h-16 rounded-2xl bg-[#001E22] border-y border-[#00363D] flex items-center justify-center border border-[#C2EED0] shadow-sm hover:shadow-lg hover:border-[#BAB9FF]/30 transition-all duration-300 group cursor-pointer">
+              <Truck className="w-8 h-8 text-[#BAB9FF] group-hover:scale-110 transition-transform" />
             </div>
           </div>
 
@@ -67,7 +67,7 @@ export default function CTASection() {
             </Button>
             <Button
               variant="outline"
-              className="border-[#B8DFC2] text-white hover:bg-[#001D21] border-y border-[#1A3F45] hover:border-[#705B3C]/50 text-lg px-8 py-6 transition-all"
+              className="border-[#C2EED0] text-white hover:bg-[#001E22] border-y border-[#00363D] hover:border-[#745A37]/50 text-lg px-8 py-6 transition-all"
             >
               Schedule a Consultation
             </Button>
@@ -75,16 +75,16 @@ export default function CTASection() {
 
           {/* Trust Indicators */}
           <div className="mt-12 flex flex-wrap justify-center gap-8 text-white/80">
-            <div className="flex items-center bg-[#001D21] border-y border-[#1A3F45] px-4 py-2 rounded-full border border-[#B8DFC2] shadow-sm">
-              <div className="w-2 h-2 rounded-full bg-[#BBBAFF] mr-2 animate-pulse" />
+            <div className="flex items-center bg-[#001E22] border-y border-[#00363D] px-4 py-2 rounded-full border border-[#C2EED0] shadow-sm">
+              <div className="w-2 h-2 rounded-full bg-[#BAB9FF] mr-2 animate-pulse" />
               <span>100% Compliance Rate</span>
             </div>
-            <div className="flex items-center bg-[#001D21] border-y border-[#1A3F45] px-4 py-2 rounded-full border border-[#B8DFC2] shadow-sm">
-              <div className="w-2 h-2 rounded-full bg-[#BBBAFF] mr-2 animate-pulse" />
+            <div className="flex items-center bg-[#001E22] border-y border-[#00363D] px-4 py-2 rounded-full border border-[#C2EED0] shadow-sm">
+              <div className="w-2 h-2 rounded-full bg-[#BAB9FF] mr-2 animate-pulse" />
               <span>50+ Global Partners</span>
             </div>
-            <div className="flex items-center bg-[#001D21] border-y border-[#1A3F45] px-4 py-2 rounded-full border border-[#B8DFC2] shadow-sm">
-              <div className="w-2 h-2 rounded-full bg-[#705B3C] mr-2 animate-pulse" />
+            <div className="flex items-center bg-[#001E22] border-y border-[#00363D] px-4 py-2 rounded-full border border-[#C2EED0] shadow-sm">
+              <div className="w-2 h-2 rounded-full bg-[#745A37] mr-2 animate-pulse" />
               <span>24-48hr Response Time</span>
             </div>
           </div>

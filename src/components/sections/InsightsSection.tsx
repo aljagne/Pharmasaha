@@ -29,12 +29,12 @@ const insights = [
 
 export default function InsightsSection() {
   return (
-    <section id="insights" className="py-24 bg-[#001D21] border-y border-[#1A3F45]">
+    <section id="insights" className="py-24 bg-[#001E22] border-y border-[#00363D]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
           <div>
-            <span className="text-[#705B3C] font-medium text-sm uppercase tracking-wider">
+            <span className="text-[#745A37] font-medium text-sm uppercase tracking-wider">
               Insights & News
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-white mt-4">
@@ -43,7 +43,7 @@ export default function InsightsSection() {
           </div>
           <a
             href="#"
-            className="inline-flex items-center text-[#705B3C] font-medium mt-4 md:mt-0 hover:text-[#5A4830] transition-colors"
+            className="inline-flex items-center text-[#745A37] font-medium mt-4 md:mt-0 hover:text-[#5E482C] transition-colors"
           >
             View all articles
             <ArrowRight className="w-4 h-4 ml-2" />
@@ -55,7 +55,7 @@ export default function InsightsSection() {
           {insights.map((insight, index) => (
             <article
               key={insight.title}
-              className="group bg-[#001D21] border-y border-[#1A3F45] rounded-2xl overflow-hidden border border-[#B8DFC2] hover:border-[#705B3C]/30 hover:shadow-xl transition-all duration-300"
+              className="group bg-[#001E22] border-y border-[#00363D] rounded-2xl overflow-hidden border border-[#C2EED0]/20 hover:border-[#745A37]/30 hover:shadow-xl transition-all duration-300"
             >
               {/* Image */}
               <div className="relative h-48 overflow-hidden">
@@ -66,7 +66,7 @@ export default function InsightsSection() {
                 />
                 <div className="absolute top-4 left-4">
                   <span className={`px-3 py-1 text-white text-xs font-medium rounded-full ${
-                    index % 2 === 0 ? "bg-[#705B3C]" : "bg-[#BBBAFF]"
+                    index % 2 === 0 ? "bg-[#745A37]" : "bg-[#BAB9FF]"
                   }`}>
                     {insight.category}
                   </span>
@@ -75,7 +75,7 @@ export default function InsightsSection() {
 
               {/* Content */}
               <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#705B3C] transition-colors line-clamp-2">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#745A37] transition-colors line-clamp-2">
                   {insight.title}
                 </h3>
                 <p className="text-white/80 text-sm mb-4 line-clamp-3">

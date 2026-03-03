@@ -11,14 +11,14 @@ const partners = [
 
 export default function TrustBar() {
   return (
-    <section className="bg-[#001D21] py-10 border-y border-[#1A3F45] overflow-hidden relative">
+    <section className="bg-[#001E22] py-10 border-y border-[#00363D] overflow-hidden relative">
       {/* Noodle connection line */}
       <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" preserveAspectRatio="none">
         <defs>
           <linearGradient id="trustNoodle" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#705B3C" stopOpacity="0" />
-            <stop offset="50%" stopColor="#705B3C" stopOpacity="0.5" />
-            <stop offset="100%" stopColor="#BBBAFF" stopOpacity="0" />
+            <stop offset="0%" stopColor="#745A37" stopOpacity="0" />
+            <stop offset="50%" stopColor="#745A37" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#BAB9FF" stopOpacity="0" />
           </linearGradient>
         </defs>
         <path
@@ -42,12 +42,12 @@ export default function TrustBar() {
           {[...partners, ...partners].map((partner, index) => (
             <div
               key={index}
-              className="flex items-center space-x-3 px-6 py-3 bg-[#002A30] rounded-xl min-w-fit border border-[#1A3F45] hover:border-[#705B3C]/50 hover:shadow-md transition-all duration-300 group cursor-pointer"
+              className="flex items-center space-x-3 px-6 py-3 bg-[#00282D] rounded-xl min-w-fit border border-[#00363D] hover:border-[#745A37]/50 hover:shadow-md transition-all duration-300 group cursor-pointer"
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-[#705B3C]/10 to-[#BBBAFF]/10 rounded-lg flex items-center justify-center group-hover:from-[#705B3C]/20 group-hover:to-[#BBBAFF]/20 transition-all">
-                <span className="text-white font-bold text-sm group-hover:text-[#705B3C] transition-colors">{partner.logo}</span>
+              <div className="w-10 h-10 bg-gradient-to-br from-[#745A37]/10 to-[#BAB9FF]/10 rounded-lg flex items-center justify-center group-hover:from-[#745A37]/20 group-hover:to-[#BAB9FF]/20 transition-all">
+                <span className="text-white font-bold text-sm group-hover:text-[#BAB9FF] transition-colors">{partner.logo}</span>
               </div>
-              <span className="text-white font-medium whitespace-nowrap group-hover:text-[#705B3C] transition-colors">
+              <span className="text-white font-medium whitespace-nowrap group-hover:text-[#BAB9FF] transition-colors">
                 {partner.name}
               </span>
             </div>

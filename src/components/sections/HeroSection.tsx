@@ -46,7 +46,7 @@ function CountUpNumber({
   }, [end, duration]);
 
   return (
-    <div ref={elementRef} className="text-3xl font-bold text-[#001D21]">
+    <div ref={elementRef} className="text-3xl font-bold text-white">
       {count}
       {suffix}
     </div>
@@ -59,18 +59,18 @@ function GlobeVisualization() {
     <div className="relative w-full h-full flex items-center justify-center">
       {/* Outer rotating rings */}
       <div
-        className="absolute w-72 h-72 rounded-full border-2 border-[#705B3C]/20"
+        className="absolute w-72 h-72 rounded-full border-[#C2EED0]/40 text-white border-[#745A37]/20"
         style={{ animation: "spin 20s linear infinite" }}
       />
       <div
-        className="absolute w-64 h-64 rounded-full border border-[#BBBAFF]/20"
+        className="absolute w-64 h-64 rounded-full border border-[#BAB9FF]/20"
         style={{ animation: "spin 15s linear infinite reverse" }}
       />
       {/* Inner glow sphere */}
-      <div className="absolute w-56 h-56 rounded-full bg-gradient-to-br from-[#705B3C]/10 to-[#BBBAFF]/10 flex items-center justify-center">
-        <div className="w-48 h-48 rounded-full border border-[#B8DFC2] flex items-center justify-center bg-white/50 backdrop-blur-sm">
+      <div className="absolute w-56 h-56 rounded-full bg-gradient-to-br from-[#745A37]/10 to-[#BAB9FF]/10 flex items-center justify-center">
+        <div className="w-48 h-48 rounded-full border border-[#C2EED0] flex items-center justify-center bg-white/50 backdrop-blur-sm">
           <Globe
-            className="w-20 h-20 text-[#705B3C]"
+            className="w-20 h-20 text-[#745A37]"
             style={{ animation: "pulse 4s ease-in-out infinite" }}
           />
         </div>
@@ -81,7 +81,7 @@ function GlobeVisualization() {
           key={i}
           className="absolute w-1.5 h-1.5 rounded-full opacity-60"
           style={{
-            background: i % 2 === 0 ? "#BBBAFF" : "#705B3C",
+            background: i % 2 === 0 ? "#BAB9FF" : "#745A37",
             top: `${30 + Math.sin(i * 0.5) * 20}%`,
             left: `${30 + Math.cos(i * 0.5) * 20}%`,
             animation: `float 4s ease-in-out infinite ${i * 0.3}s`,
@@ -106,24 +106,24 @@ function RegionTag({
 }) {
   const config = {
     active: {
-      bg: "bg-[#BBBAFF]/10",
-      border: "border-[#BBBAFF]/30",
-      text: "text-[#BBBAFF]",
-      dot: "bg-[#BBBAFF]",
+      bg: "bg-[#BAB9FF]/10",
+      border: "border-[#BAB9FF]/30",
+      text: "text-[#BAB9FF]",
+      dot: "bg-[#BAB9FF]",
       label: "Active",
     },
     source: {
-      bg: "bg-[#705B3C]/10",
-      border: "border-[#705B3C]/30",
-      text: "text-[#705B3C]",
-      dot: "bg-[#705B3C]",
+      bg: "bg-[#745A37]/10",
+      border: "border-[#745A37]/30",
+      text: "text-[#745A37]",
+      dot: "bg-[#745A37]",
       label: "Source Labs",
     },
     "coming-soon": {
-      bg: "bg-gray-100",
-      border: "border-gray-200",
-      text: "text-gray-500",
-      dot: "bg-gray-400",
+      bg: "bg-white/10 backdrop-blur-md",
+      border: "border-white/20",
+      text: "text-[#BAB9FF]/80 font-medium",
+      dot: "bg-white/40",
       label: "Coming Soon",
     },
   }[status];
@@ -146,7 +146,7 @@ function RegionTag({
           )}
         </div>
         <div>
-          <div className="text-[#001D21] text-sm font-medium whitespace-nowrap">
+          <div className="text-white text-sm font-medium whitespace-nowrap">
             {name}
           </div>
           <div className={`text-xs ${config.text}`}>{config.label}</div>
@@ -168,7 +168,7 @@ function FloatingIcon({
 }) {
   return (
     <div
-      className={`absolute ${position} w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-md border border-[#B8DFC2]`}
+      className={`absolute ${position} w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-md border border-[#C2EED0]`}
       style={{ animation: `float 5s ease-in-out infinite ${delay}s` }}
     >
       {children}
@@ -186,14 +186,14 @@ function NoodleBackground() {
     >
       <defs>
         <linearGradient id="heroNoodleGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#705B3C" stopOpacity="0" />
-          <stop offset="50%" stopColor="#705B3C" stopOpacity="0.6" />
-          <stop offset="100%" stopColor="#BBBAFF" stopOpacity="0" />
+          <stop offset="0%" stopColor="#745A37" stopOpacity="0" />
+          <stop offset="50%" stopColor="#745A37" stopOpacity="0.6" />
+          <stop offset="100%" stopColor="#BAB9FF" stopOpacity="0" />
         </linearGradient>
         <linearGradient id="heroNoodleGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#BBBAFF" stopOpacity="0" />
-          <stop offset="50%" stopColor="#BBBAFF" stopOpacity="0.4" />
-          <stop offset="100%" stopColor="#705B3C" stopOpacity="0" />
+          <stop offset="0%" stopColor="#BAB9FF" stopOpacity="0" />
+          <stop offset="50%" stopColor="#BAB9FF" stopOpacity="0.4" />
+          <stop offset="100%" stopColor="#745A37" stopOpacity="0" />
         </linearGradient>
       </defs>
       {/* Curved noodle lines */}
@@ -218,8 +218,8 @@ function NoodleBackground() {
       {/* Animated beam dot */}
       <circle
         r="4"
-        fill="#705B3C"
-        style={{ filter: "drop-shadow(0 0 6px #705B3C)" }}
+        fill="#745A37"
+        style={{ filter: "drop-shadow(0 0 6px #745A37)" }}
       >
         <animateMotion dur="8s" repeatCount="indefinite">
           <mpath href="#heroBeamPath" />
@@ -240,12 +240,12 @@ export default function HeroSection() {
   );
 
   return (
-    <section className="relative min-h-screen bg-[#001D21] overflow-hidden">
+    <section className="relative min-h-screen bg-[#001E22] overflow-hidden">
       {/* Background gradient orbs */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-[#705B3C] rounded-full blur-[150px] opacity-10" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#BBBAFF] rounded-full blur-[180px] opacity-10" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#705B3C]/5 rounded-full blur-[200px]" />
+        <div className="absolute top-20 left-10 w-72 h-72 bg-[#745A37] rounded-full blur-[150px] opacity-10" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#BAB9FF] rounded-full blur-[180px] opacity-10" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#745A37]/5 rounded-full blur-[200px]" />
       </div>
       {/* Noodle network background */}
       <NoodleBackground />
@@ -253,12 +253,12 @@ export default function HeroSection() {
         <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-200px)]">
           {/* Left Content */}
           <div className="flex flex-col items-start gap-8 z-10 pl-4 lg:pl-8">
-            <div className="inline-flex items-center px-4 py-2 bg-[#BBBAFF] rounded-full cursor-pointer hover:bg-[#A3A2F0] transition-all shadow-md">
+            <div className="inline-flex items-center px-4 py-2 bg-[#BAB9FF] rounded-full cursor-pointer hover:bg-[#A3A2F0] transition-all shadow-md">
               <span className="relative w-2 h-2 mr-2">
-                <span className="absolute inset-0 bg-[#001D21] rounded-full animate-ping" />
-                <span className="absolute inset-0 bg-[#001D21] rounded-full" />
+                <span className="absolute inset-0 bg-[#001E22] rounded-full animate-ping" />
+                <span className="absolute inset-0 bg-[#001E22] rounded-full" />
               </span>
-              <span className="text-[#001D21] text-sm font-bold">
+              <span className="text-white text-sm font-bold">
                 West Africa's Healthcare Gateway
               </span>
             </div>
@@ -266,23 +266,23 @@ export default function HeroSection() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
               <span className="text-white">Global Innovation.</span>
               <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-br from-[#705B3C] to-[#BBBAFF]">
+              <span className="bg-clip-text text-transparent bg-gradient-to-br from-[#745A37] to-[#BAB9FF]">
                 West African
               </span>
               <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-br from-[#705B3C] to-[#BBBAFF]">
+              <span className="bg-clip-text text-transparent bg-gradient-to-br from-[#745A37] to-[#BAB9FF]">
                 Vitality.
               </span>
             </h1>
 
-            <p className="text-lg text-white/80 max-w-lg">
+            <p className="text-lg text-white/90 text-xl font-light tracking-wide max-w-lg">
               PharmaSaha bridges international pharmaceutical excellence with
               underserved markets. We are the vital nexus connecting global labs
               to local communities across The Gambia and Senegal.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              <Button className="bg-[#705B3C] hover:bg-[#5A4830] text-white font-semibold px-5 py-2.5 rounded-lg transition-all shadow-md group">
+              <Button className="bg-[#745A37] hover:bg-[#5E482C] text-white font-semibold px-5 py-2.5 rounded-lg transition-all shadow-md group">
                 <span className="flex items-center">
                   Partner With Us
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -290,31 +290,31 @@ export default function HeroSection() {
               </Button>
               <Button
                 variant="outline"
-                className="border-[#B8DFC2] text-[#001D21] hover:bg-white hover:border-[#705B3C]/50 transition-all px-5 py-2.5 rounded-lg"
+                className="border-[#C2EED0] text-white hover:bg-white hover:border-[#745A37]/50 transition-all px-5 py-2.5 rounded-lg"
               >
                 Explore Solutions
               </Button>
             </div>
 
-            <div className="grid grid-cols-3 gap-6 pt-6 border-t border-[#B8DFC2] w-full max-w-lg">
+            <div className="grid grid-cols-3 gap-6 pt-6 border-t border-[#C2EED0] w-full max-w-lg">
               <div>
-                <div className="text-3xl font-bold text-[#001D21]">50+</div>
-                <div className="text-gray-500 text-sm flex items-center">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#BBBAFF] mr-2 animate-pulse" />
+                <div className="text-3xl font-bold text-white">50+</div>
+                <div className="text-[#BAB9FF]/80 font-medium text-sm flex items-center">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#BAB9FF] mr-2 animate-pulse" />
                   Partner Labs
                 </div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-[#001D21]">2</div>
-                <div className="text-gray-500 text-sm flex items-center">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#BBBAFF] mr-2 animate-pulse" />
+                <div className="text-3xl font-bold text-white">2</div>
+                <div className="text-[#BAB9FF]/80 font-medium text-sm flex items-center">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#BAB9FF] mr-2 animate-pulse" />
                   Active Markets
                 </div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-[#001D21]">100%</div>
-                <div className="text-gray-500 text-sm flex items-center">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#705B3C] mr-2 animate-pulse" />
+                <div className="text-3xl font-bold text-white">100%</div>
+                <div className="text-[#BAB9FF]/80 font-medium text-sm flex items-center">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#745A37] mr-2 animate-pulse" />
                   Compliance Rate
                 </div>
               </div>
@@ -356,30 +356,30 @@ export default function HeroSection() {
               position="top-[8%] left-1/2 -translate-x-1/2"
               delay={0}
             >
-              <Shield className="w-6 h-6 text-[#BBBAFF]" />
+              <Shield className="w-6 h-6 text-[#BAB9FF]" />
             </FloatingIcon>
             <FloatingIcon
               position="top-1/2 right-[-5%] -translate-y-1/2"
               delay={0.3}
             >
-              <Truck className="w-6 h-6 text-[#705B3C]" />
+              <Truck className="w-6 h-6 text-[#745A37]" />
             </FloatingIcon>
             <FloatingIcon
               position="bottom-[8%] left-1/2 -translate-x-1/2"
               delay={0.6}
             >
-              <Layers className="w-6 h-6 text-[#BBBAFF]" />
+              <Layers className="w-6 h-6 text-[#BAB9FF]" />
             </FloatingIcon>
           </div>
         </div>
       </div>
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-gray-400 cursor-pointer group">
-        <span className="text-sm mb-2 group-hover:text-[#705B3C] transition-colors">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-white/50 cursor-pointer group">
+        <span className="text-sm mb-2 group-hover:text-[#745A37] transition-colors">
           Scroll to explore
         </span>
-        <div className="w-8 h-12 border-2 border-[#B8DFC2] rounded-full flex justify-center relative overflow-hidden group-hover:border-[#705B3C] transition-colors">
-          <div className="w-2 h-3 bg-[#705B3C] rounded-full mt-2 animate-bounce" />
+        <div className="w-8 h-12 border-2 border-[#C2EED0]/40 rounded-full flex justify-center relative overflow-hidden group-hover:border-[#745A37] transition-colors">
+          <div className="w-2 h-3 bg-[#745A37] rounded-full mt-2 animate-bounce" />
         </div>
       </div>
       {/* CSS Keyframes */}

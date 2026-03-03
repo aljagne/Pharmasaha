@@ -94,12 +94,12 @@ function SourceRegionTile({
         }`}
         style={{
           background: isHovered
-            ? "rgba(255, 255, 255, 0.95)"
-            : "rgba(255, 255, 255, 0.75)",
+            ? "rgba(0, 30, 34, 0.95)"
+            : "rgba(0, 30, 34, 0.75)",
           backdropFilter: "blur(16px)",
           boxShadow: isHovered
             ? "0px 20px 50px rgba(247, 140, 30, 0.25)"
-            : "0px 10px 30px rgba(0,0,0,0.06)",
+            : "0px 10px 30px rgba(0,0,0,0.4)",
         }}
       >
         {/* Map image with brand color overlay */}
@@ -126,14 +126,14 @@ function SourceRegionTile({
         {/* Glow indicator dot */}
         <div
           className={`absolute top-3 right-3 w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-            isHovered ? "bg-[#705B3C]" : "bg-[#705B3C]/50"
+            isHovered ? "bg-[#745A37]" : "bg-[#745A37]/50"
           }`}
           style={{
-            boxShadow: isHovered ? "0 0 12px #705B3C" : "none",
+            boxShadow: isHovered ? "0 0 12px #745A37" : "none",
           }}
         >
           <span
-            className="absolute inset-0 rounded-full bg-[#705B3C] animate-ping"
+            className="absolute inset-0 rounded-full bg-[#745A37] animate-ping"
             style={{ animationDuration: "2s" }}
           />
         </div>
@@ -153,13 +153,13 @@ function SourceRegionTile({
         <div
           className="absolute left-1/2 -translate-x-1/2 bottom-full mb-4 z-50 w-56 p-4 rounded-2xl pointer-events-none"
           style={{
-            background: "rgba(255, 255, 255, 0.98)",
+            background: "rgba(0, 30, 34, 0.98)",
             backdropFilter: "blur(20px)",
             boxShadow: "0 20px 50px rgba(0,0,0,0.15)",
             animation: "fadeInUp 0.3s ease-out",
           }}
         >
-          <div className="text-xs font-semibold text-[#705B3C] mb-2">
+          <div className="text-xs font-semibold text-[#745A37] mb-2">
             {region.pharmaceuticals}
           </div>
           <div className="flex justify-between text-xs text-white/80 mb-2">
@@ -169,7 +169,7 @@ function SourceRegionTile({
             {region.certifications.map((cert) => (
               <span
                 key={cert}
-                className="px-2 py-0.5 text-[10px] font-medium bg-[#BBBAFF]/10 text-[#BBBAFF] rounded-full"
+                className="px-2 py-0.5 text-[10px] font-medium bg-[#BAB9FF]/10 text-[#BAB9FF] rounded-full"
               >
                 {cert}
               </span>
@@ -195,10 +195,10 @@ function HandshakeBridge({ isVisible, beamActive }: { isVisible: boolean; beamAc
         className="relative w-52 h-52 rounded-full flex items-center justify-center"
         style={{
           background:
-            "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.2) 50%, rgba(247,140,30,0.08) 100%)",
+            "radial-gradient(circle at 30% 30%, rgba(116,90,55,0.2) 0%, rgba(186,185,255,0.1) 50%, rgba(247,140,30,0.08) 100%)",
           boxShadow: beamActive
-            ? "0 0 80px rgba(247, 140, 30, 0.35), 0 0 120px rgba(0, 193, 168, 0.2), inset 0 0 60px rgba(255,255,255,0.3)"
-            : "0 0 50px rgba(247, 140, 30, 0.2), inset 0 0 40px rgba(255,255,255,0.2)",
+            ? "0 0 80px rgba(247, 140, 30, 0.35), 0 0 120px rgba(0, 193, 168, 0.2), inset 0 0 60px rgba(116,90,55,0.15)"
+            : "0 0 50px rgba(247, 140, 30, 0.2), inset 0 0 40px rgba(186,185,255,0.1)",
           transition: "box-shadow 0.6s ease",
         }}
       >
@@ -226,7 +226,7 @@ function HandshakeBridge({ isVisible, beamActive }: { isVisible: boolean; beamAc
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="text-center mt-40">
             <div
-              className="text-[11px] font-bold bg-gradient-to-r from-[#705B3C] to-[#BBBAFF] bg-clip-text text-transparent tracking-wider"
+              className="text-[11px] font-bold bg-gradient-to-r from-[#745A37] to-[#BAB9FF] bg-clip-text text-transparent tracking-wider"
               style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
             >
               PHARMASAHA
@@ -237,15 +237,15 @@ function HandshakeBridge({ isVisible, beamActive }: { isVisible: boolean; beamAc
 
       {/* Rotating rings */}
       <div
-        className="absolute inset-[-12px] rounded-full border border-[#705B3C]/20"
+        className="absolute inset-[-12px] rounded-full border border-[#745A37]/20"
         style={{ animation: "spin 25s linear infinite" }}
       />
       <div
-        className="absolute inset-[-24px] rounded-full border border-[#BBBAFF]/15"
+        className="absolute inset-[-24px] rounded-full border border-[#BAB9FF]/15"
         style={{ animation: "spin 35s linear infinite reverse" }}
       />
       <div
-        className="absolute inset-[-36px] rounded-full border border-dashed border-[#705B3C]/10"
+        className="absolute inset-[-36px] rounded-full border border-dashed border-[#745A37]/10"
         style={{ animation: "spin 45s linear infinite" }}
       />
 
@@ -257,8 +257,8 @@ function HandshakeBridge({ isVisible, beamActive }: { isVisible: boolean; beamAc
           style={{
             left: `calc(50% + ${Math.cos((angle * Math.PI) / 180) * 120}px - 6px)`,
             top: `calc(50% + ${Math.sin((angle * Math.PI) / 180) * 120}px - 6px)`,
-            background: i % 2 === 0 ? "#705B3C" : "#BBBAFF",
-            boxShadow: `0 0 10px ${i % 2 === 0 ? "#705B3C" : "#BBBAFF"}`,
+            background: i % 2 === 0 ? "#745A37" : "#BAB9FF",
+            boxShadow: `0 0 10px ${i % 2 === 0 ? "#745A37" : "#BAB9FF"}`,
             animation: `pulse 2s ease-in-out infinite ${i * 0.3}s`,
           }}
         />
@@ -311,11 +311,11 @@ function AfricaMap({
           <div 
             className="w-full h-full rounded-full"
             style={{
-              background: "#BBBAFF",
+              background: "#BAB9FF",
               opacity: hoveredCountry === "Senegal" ? 0.9 : 0.7,
               boxShadow: hoveredCountry === "Senegal" 
-                ? "0 0 25px #BBBAFF, 0 0 50px rgba(0, 193, 168, 0.5)" 
-                : "0 0 15px #BBBAFF",
+                ? "0 0 25px #BAB9FF, 0 0 50px rgba(0, 193, 168, 0.5)" 
+                : "0 0 15px #BAB9FF",
               transition: "all 0.5s ease",
             }}
           />
@@ -323,7 +323,7 @@ function AfricaMap({
           <div 
             className="absolute inset-0 rounded-full animate-ping"
             style={{
-              background: "#BBBAFF",
+              background: "#BAB9FF",
               opacity: 0.4,
               animationDuration: "2s",
             }}
@@ -347,11 +347,11 @@ function AfricaMap({
           <div 
             className="w-full h-full rounded-full"
             style={{
-              background: "#705B3C",
+              background: "#745A37",
               opacity: hoveredCountry === "The Gambia" ? 0.9 : 0.7,
               boxShadow: hoveredCountry === "The Gambia" 
-                ? "0 0 25px #705B3C, 0 0 50px rgba(247, 140, 30, 0.5)" 
-                : "0 0 15px #705B3C",
+                ? "0 0 25px #745A37, 0 0 50px rgba(247, 140, 30, 0.5)" 
+                : "0 0 15px #745A37",
               transition: "all 0.5s ease",
             }}
           />
@@ -359,7 +359,7 @@ function AfricaMap({
           <div 
             className="absolute inset-0 rounded-full animate-ping"
             style={{
-              background: "#705B3C",
+              background: "#745A37",
               opacity: 0.4,
               animationDuration: "2.5s",
             }}
@@ -374,7 +374,7 @@ function AfricaMap({
           style={{
             left: "24%",
             top: "24%",
-            color: "#705B3C",
+            color: "#745A37",
             textShadow: "0 1px 3px rgba(255,255,255,0.8)",
           }}
         >
@@ -389,7 +389,7 @@ function AfricaMap({
           style={{
             left: "28%",
             top: "30%",
-            color: "#BBBAFF",
+            color: "#BAB9FF",
             textShadow: "0 1px 3px rgba(255,255,255,0.8)",
           }}
         >
@@ -419,18 +419,18 @@ function NoodleNetwork({
       <defs>
         {/* Orange gradient for source beams */}
         <linearGradient id="orangeNoodle" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#705B3C" stopOpacity="0.1" />
-          <stop offset="30%" stopColor="#705B3C" stopOpacity="0.5" />
-          <stop offset="70%" stopColor="#705B3C" stopOpacity="0.5" />
-          <stop offset="100%" stopColor="#705B3C" stopOpacity="0.1" />
+          <stop offset="0%" stopColor="#745A37" stopOpacity="0.1" />
+          <stop offset="30%" stopColor="#745A37" stopOpacity="0.5" />
+          <stop offset="70%" stopColor="#745A37" stopOpacity="0.5" />
+          <stop offset="100%" stopColor="#745A37" stopOpacity="0.1" />
         </linearGradient>
 
         {/* Teal gradient for target beams */}
         <linearGradient id="tealNoodle" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#BBBAFF" stopOpacity="0.1" />
-          <stop offset="30%" stopColor="#BBBAFF" stopOpacity="0.5" />
-          <stop offset="70%" stopColor="#BBBAFF" stopOpacity="0.5" />
-          <stop offset="100%" stopColor="#BBBAFF" stopOpacity="0.1" />
+          <stop offset="0%" stopColor="#BAB9FF" stopOpacity="0.1" />
+          <stop offset="30%" stopColor="#BAB9FF" stopOpacity="0.5" />
+          <stop offset="70%" stopColor="#BAB9FF" stopOpacity="0.5" />
+          <stop offset="100%" stopColor="#BAB9FF" stopOpacity="0.1" />
         </linearGradient>
 
         {/* Glow filter */}
@@ -475,7 +475,7 @@ function NoodleNetwork({
           {/* Traveling beam dot */}
           <circle
             r={hoveredSource === noodle.sourceIndex ? 7 : 5}
-            fill="#705B3C"
+            fill="#745A37"
             filter="url(#noodleGlow)"
           >
             <animateMotion
@@ -510,7 +510,7 @@ function NoodleNetwork({
           {/* Traveling beam dot */}
           <circle
             r={hoveredCountry === noodle.country ? 7 : 5}
-            fill="#BBBAFF"
+            fill="#BAB9FF"
             filter="url(#noodleGlow)"
           >
             <animateMotion
@@ -542,9 +542,9 @@ function MarketInfoCard({
     <div
       className="absolute left-1/2 -translate-x-1/2 top-0 -translate-y-full mb-4 z-50 w-72 p-5 rounded-3xl pointer-events-none"
       style={{
-        background: "rgba(255, 255, 255, 0.92)",
+        background: "rgba(0, 30, 34, 0.96)",
         backdropFilter: "blur(20px)",
-        boxShadow: "0 25px 60px rgba(0,0,0,0.12), 0 0 0 1px rgba(255,255,255,0.5)",
+        boxShadow: "0 25px 60px rgba(0,0,0,0.12), 0 0 0 1px rgba(194,238,208,0.2)",
         animation: "fadeInUp 0.35s ease-out",
       }}
     >
@@ -556,34 +556,34 @@ function MarketInfoCard({
             <span
               className="w-2 h-2 rounded-full"
               style={{
-                background: market.country === "The Gambia" ? "#705B3C" : "#BBBAFF",
-                boxShadow: `0 0 8px ${market.country === "The Gambia" ? "#705B3C" : "#BBBAFF"}`,
+                background: market.country === "The Gambia" ? "#745A37" : "#BAB9FF",
+                boxShadow: `0 0 8px ${market.country === "The Gambia" ? "#745A37" : "#BAB9FF"}`,
               }}
             />
-            <span className="text-xs font-medium text-[#BBBAFF]">Active Market</span>
+            <span className="text-xs font-medium text-[#BAB9FF]">Active Market</span>
           </div>
         </div>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-3 mb-4 p-3 rounded-2xl bg-gray-50/80">
+      <div className="grid grid-cols-3 gap-3 mb-4 p-3 rounded-2xl bg-[#00282D]/80">
         <div className="text-center">
-          <div className="text-xl font-bold text-[#705B3C]">{market.stats.partners}</div>
+          <div className="text-xl font-bold text-[#745A37]">{market.stats.partners}</div>
           <div className="text-[10px] text-white/80 font-medium">Partners</div>
         </div>
         <div className="text-center">
-          <div className="text-xl font-bold text-[#BBBAFF]">{market.stats.products}</div>
+          <div className="text-xl font-bold text-[#BAB9FF]">{market.stats.products}</div>
           <div className="text-[10px] text-white/80 font-medium">Products</div>
         </div>
         <div className="text-center">
-          <div className="text-xl font-bold text-[#705B3C]">{market.stats.coverage}</div>
+          <div className="text-xl font-bold text-[#745A37]">{market.stats.coverage}</div>
           <div className="text-[10px] text-white/80 font-medium">Coverage</div>
         </div>
       </div>
 
       {/* Focus Areas */}
       <div className="mb-3">
-        <div className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">
+        <div className="text-[10px] font-semibold text-[#BAB9FF]/70 uppercase tracking-wider mb-2">
           Focus Areas
         </div>
         <ul className="space-y-1.5">
@@ -591,7 +591,7 @@ function MarketInfoCard({
             <li key={i} className="flex items-start text-xs text-white/80">
               <span
                 className="w-1 h-1 rounded-full mt-1.5 mr-2 flex-shrink-0"
-                style={{ background: i % 2 === 0 ? "#705B3C" : "#BBBAFF" }}
+                style={{ background: i % 2 === 0 ? "#745A37" : "#BAB9FF" }}
               />
               {area}
             </li>
@@ -648,15 +648,15 @@ export default function GeographicFocus() {
     <section
       ref={sectionRef}
       id="market-reach"
-      className="py-32 bg-[#001D21] border-y border-[#1A3F45] relative overflow-hidden"
+      className="py-32 bg-[#001E22] border-y border-[#00363D] relative overflow-hidden"
     >
       {/* Subtle gradient mesh background */}
       <div
         className="absolute inset-0 opacity-[0.04]"
         style={{
           backgroundImage: `
-            radial-gradient(ellipse at 15% 25%, #705B3C 0%, transparent 45%),
-            radial-gradient(ellipse at 85% 75%, #BBBAFF 0%, transparent 45%)
+            radial-gradient(ellipse at 15% 25%, #745A37 0%, transparent 45%),
+            radial-gradient(ellipse at 85% 75%, #BAB9FF 0%, transparent 45%)
           `,
         }}
       />
@@ -675,7 +675,7 @@ export default function GeographicFocus() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <span className="text-[#705B3C] font-medium text-sm uppercase tracking-widest">
+          <span className="text-[#745A37] font-medium text-sm uppercase tracking-widest">
             Geographic Focus
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-5 mb-7">
@@ -692,7 +692,7 @@ export default function GeographicFocus() {
           {/* LEFT: Source Region Mini-Maps */}
           <div className="flex flex-col items-center lg:items-center lg:mr-8">
             <div
-              className={`text-xs font-semibold text-gray-400 uppercase tracking-widest mb-8 transition-all duration-700 ${
+              className={`text-xs font-semibold text-[#BAB9FF]/70 uppercase tracking-widest mb-8 transition-all duration-700 ${
                 isVisible ? "opacity-100" : "opacity-0"
               }`}
             >
@@ -720,7 +720,7 @@ export default function GeographicFocus() {
           {/* RIGHT: Africa Map */}
           <div className="flex flex-col items-center lg:items-center relative lg:ml-8">
             <div
-              className={`text-xs font-semibold text-gray-400 uppercase tracking-widest mb-8 transition-all duration-700 ${
+              className={`text-xs font-semibold text-[#BAB9FF]/70 uppercase tracking-widest mb-8 transition-all duration-700 ${
                 isVisible ? "opacity-100" : "opacity-0"
               }`}
               style={{ transitionDelay: "600ms" }}
@@ -752,9 +752,9 @@ export default function GeographicFocus() {
           style={{ transitionDelay: "1400ms" }}
         >
           {[
-            { value: "4", label: "Source Continents", color: "#705B3C" },
-            { value: "2", label: "Active Markets", color: "#BBBAFF" },
-            { value: "55+", label: "Partner Network", color: "#705B3C" },
+            { value: "4", label: "Source Continents", color: "#745A37" },
+            { value: "2", label: "Active Markets", color: "#BAB9FF" },
+            { value: "55+", label: "Partner Network", color: "#745A37" },
           ].map((stat, i) => (
             <div key={i} className="text-center">
               <div
@@ -763,7 +763,7 @@ export default function GeographicFocus() {
               >
                 {stat.value}
               </div>
-              <div className="text-sm text-gray-400 mt-2 font-medium">{stat.label}</div>
+              <div className="text-sm text-[#BAB9FF]/70 mt-2 font-medium">{stat.label}</div>
             </div>
           ))}
         </div>

@@ -72,7 +72,7 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
   }, []);
 
   const isOrange = service.color === "orange";
-  const accentColor = isOrange ? "#705B3C" : "#BBBAFF";
+  const accentColor = isOrange ? "#745A37" : "#BAB9FF";
 
   return (
     <div
@@ -91,7 +91,7 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
       />
       
       {/* Main card */}
-      <div className="relative bg-[#001D21] border-y border-[#1A3F45] rounded-3xl p-8 border border-[#B8DFC2] hover:border-[#D0D7DE] transition-all duration-500 h-full shadow-sm hover:shadow-lg">
+      <div className="relative bg-[#001E22] border-y border-[#00363D] rounded-3xl p-8 border border-[#C2EED0]/20 hover:border-[#D0D7DE] transition-all duration-500 h-full shadow-sm hover:shadow-lg">
         {/* Subtle inner glow */}
         <div 
           className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"
@@ -149,7 +149,7 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
 
 export default function ServicesSection() {
   return (
-    <section className="py-24 bg-[#001D21] border-y border-[#1A3F45] relative overflow-hidden">
+    <section className="py-24 bg-[#001E22] border-y border-[#00363D] relative overflow-hidden">
       {/* Subtle background texture */}
       <div className="absolute inset-0 opacity-30">
         <div 
@@ -164,7 +164,7 @@ export default function ServicesSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <span className="text-[#705B3C] font-medium text-sm uppercase tracking-wider">
+          <span className="text-[#745A37] font-medium text-sm uppercase tracking-wider">
             Our Services
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mt-4 mb-6">
@@ -187,7 +187,7 @@ export default function ServicesSection() {
         <div className="text-center mt-16">
           <a
             href="#contact"
-            className="inline-flex items-center px-8 py-4 bg-[#705B3C] text-white font-semibold rounded-xl hover:bg-[#5A4830] transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group"
+            className="inline-flex items-center px-8 py-4 bg-[#745A37] text-white font-semibold rounded-xl hover:bg-[#5E482C] transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group"
           >
             Discuss Your Needs
           </a>
