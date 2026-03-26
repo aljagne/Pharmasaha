@@ -17,6 +17,19 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['Aileron', 'sans-serif'],
+      },
+      transitionTimingFunction: {
+        'cinematic': 'cubic-bezier(0.76, 0, 0.24, 1)',
+        'spring': 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+        'slow-ease': 'cubic-bezier(0.4, 0, 0, 1)',
+      },
+      spacing: {
+        'mega': '120px',
+        'giga': '200px',
+        'tera': '320px',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

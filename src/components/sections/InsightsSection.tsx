@@ -1,100 +1,73 @@
-import { Calendar, ArrowRight, Clock } from "lucide-react";
-
-const insights = [
-  {
-    category: "Market Analysis",
-    title: "West African Pharmaceutical Market: 2024 Outlook",
-    excerpt: "An in-depth analysis of growth opportunities, regulatory changes, and emerging trends shaping the pharmaceutical landscape in West Africa.",
-    date: "Oct 15, 2024",
-    readTime: "8 min read",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80",
-  },
-  {
-    category: "Regulatory Update",
-    title: "New Drug Registration Guidelines in The Gambia",
-    excerpt: "Understanding the latest regulatory requirements and how they impact pharmaceutical market entry strategies.",
-    date: "Oct 8, 2024",
-    readTime: "5 min read",
-    image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&q=80",
-  },
-  {
-    category: "Industry Trends",
-    title: "Cold Chain Innovation in African Healthcare",
-    excerpt: "How new technologies are revolutionizing pharmaceutical distribution and ensuring medicine integrity across the continent.",
-    date: "Sep 28, 2024",
-    readTime: "6 min read",
-    image: "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=600&q=80",
-  },
-];
+import { ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ARTICLES } from "../../lib/articles";
 
 export default function InsightsSection() {
+  // Pick specific articles for the editorial grid
+  const gridArticles = [
+    { ...ARTICLES.find((a) => a.slug === "west-african-pharmaceutical-logistics-expansion")!, className: "col-span-1 md:col-span-2 row-span-2", imageGradient: "from-primary/20 to-transparent" },
+    { ...ARTICLES.find((a) => a.slug === "navigating-cross-border-medicine-compliance")!, className: "col-span-1 row-span-1", imageGradient: "from-secondary/20 to-transparent" },
+    { ...ARTICLES.find((a) => a.slug === "cold-chain-innovations-gambia")!, className: "col-span-1 row-span-1", imageGradient: "from-[#001E22] to-primary/20" },
+  ];
+
   return (
-    <section id="insights" className="py-24 bg-[#001E22] border-y border-[#00363D]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
+    <section className="py-32 bg-background relative" id="insights">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-8 gap-8">
           <div>
-            <span className="text-[#745A37] font-medium text-sm uppercase tracking-wider">
-              Insights & News
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mt-4">
-              Industry Intelligence
+            <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-4 block">Editorial</span>
+            <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tight">
+              Industry <span className="text-white/40">Insights</span>
             </h2>
           </div>
-          <a
-            href="#"
-            className="inline-flex items-center text-[#745A37] font-medium mt-4 md:mt-0 hover:text-[#5E482C] transition-colors"
-          >
-            View all articles
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </a>
+          <Link to="/intelligence" className="group flex items-center text-sm font-bold tracking-widest text-primary uppercase hover:text-white transition-colors duration-300">
+            View All Reports
+            <ArrowUpRight className="ml-2 w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+          </Link>
         </div>
 
-        {/* Insights Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {insights.map((insight, index) => (
-            <article
-              key={insight.title}
-              className="group bg-[#001E22] border-y border-[#00363D] rounded-2xl overflow-hidden border border-[#C2EED0]/20 hover:border-[#745A37]/30 hover:shadow-xl transition-all duration-300"
+        {/* Asymmetrical Editorial Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
+          {gridArticles.map((article, index) => (
+            <Link
+              to={`/intelligence/${article.slug}`}
+              key={article.slug}
+              className={`relative rounded-3xl overflow-hidden group cursor-pointer border border-white/5 hover:border-secondary/40 transition-all duration-700 ${article.className} glass-panel`}
             >
-              {/* Image */}
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={insight.image}
-                  alt={insight.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              {/* Background gradient/image layer */}
+              <div className={`absolute inset-0 bg-gradient-to-t ${article.imageGradient} opacity-50 z-0 transition-opacity duration-700 group-hover:opacity-80`} />
+
+              {/* If there's an image, render it */}
+              {article.image && (
+                <div
+                  className="absolute inset-0 z-0 opacity-20 group-hover:opacity-40 transition-opacity duration-700 mix-blend-overlay"
+                  style={{
+                    backgroundImage: `url(${article.image})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }}
                 />
-                <div className="absolute top-4 left-4">
-                  <span className={`px-3 py-1 text-white text-xs font-medium rounded-full ${
-                    index % 2 === 0 ? "bg-[#745A37]" : "bg-[#BAB9FF]"
-                  }`}>
-                    {insight.category}
+              )}
+
+              {/* Content Layer */}
+              <div className="relative z-10 w-full h-full p-8 md:p-12 flex flex-col justify-between">
+                <div className="flex justify-between items-start">
+                  <span className="text-xs font-bold tracking-widest text-white/50 uppercase border border-white/20 px-3 py-1 rounded-full group-hover:text-primary group-hover:border-primary/50 transition-colors duration-300">
+                     {article.category}
                   </span>
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#745A37] transition-colors line-clamp-2">
-                  {insight.title}
-                </h3>
-                <p className="text-white/80 text-sm mb-4 line-clamp-3">
-                  {insight.excerpt}
-                </p>
-
-                {/* Meta */}
-                <div className="flex items-center justify-between text-white/80 text-sm">
-                  <div className="flex items-center">
-                    <Calendar className="w-4 h-4 mr-1" />
-                    {insight.date}
-                  </div>
-                  <div className="flex items-center">
-                    <Clock className="w-4 h-4 mr-1" />
-                    {insight.readTime}
+                  <div className="w-10 h-10 rounded-full bg-white/5 backdrop-blur-md flex items-center justify-center group-hover:bg-secondary group-hover:text-[#001E22] text-white transition-colors duration-300">
+                     <ArrowUpRight className="w-5 h-5" />
                   </div>
                 </div>
+
+                <div>
+                   <span className="text-sm font-bold text-secondary mb-4 block">{article.date}</span>
+                   <h3 className={`font-bold text-white transition-colors duration-300 group-hover:text-primary ${index === 0 ? 'text-3xl md:text-5xl leading-tight' : 'text-2xl leading-snug'}`}>
+                     {article.title}
+                   </h3>
+                </div>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </div>

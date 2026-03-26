@@ -4,32 +4,36 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 @layer base {
   :root {
-    /* Pharmasaha Brand - Dark Premium Mode (Default) */
-    --background: 187 100% 7%; /* #001E22 Primary Dark Blue/Green */
-    --foreground: 0 0% 100%; /* #FFFFFF White Text */
+    /* Pharmasaha Brand - STRICT Adherence */
+    --background: 187 100% 6.5%; /* #001D21 */
+    --foreground: 0 0% 100%; 
 
-    --card: 187 100% 9%; /* Slightly lighter than background */
-    --card-foreground: 139 56% 85%; /* #C2EED0 Mint */
+    --card: 187 100% 8%; 
+    --card-foreground: 0 0% 100%; 
 
-    --popover: 187 100% 9%;
-    --popover-foreground: 139 56% 85%;
+    --popover: 187 100% 8%;
+    --popover-foreground: 0 0% 100%;
 
-    /* Primary Brown */
-    --primary: 34 36% 34%; /* #745A37 */
+    /* Brand Gold/Brown */
+    --primary: 36 30% 34%; /* #705B3C */
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary Light Purple / Periwinkle */
-    --secondary: 241 100% 86%; /* #BAB9FF */
-    --secondary-foreground: 187 100% 7%; /* To contrast nicely */
+    /* Brand Lavender */
+    --secondary: 241 100% 86%; /* #BBBAFF */
+    --secondary-foreground: 187 100% 6.5%; 
 
     --muted: 187 80% 12%;
-    --muted-foreground: 139 56% 85%;
+    --muted-foreground: 132 47% 87%;
 
-    /* Light Purple for accents */
-    --accent: 241 100% 86%;
-    --accent-foreground: 187 100% 7%;
+    /* Brand Mint */
+    --accent: 132 47% 87%; /* #CCEED3 */
+    --accent-foreground: 187 100% 6.5%;
 
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
@@ -40,13 +44,13 @@
 
     --radius: 0.5rem;
 
-    /* PharmaSaha Brand Colors */
+    /* PharmaSaha True Brand Colors (Strict Adherence) */
     --pharma-primary: #001E22;
     --pharma-bronze: #745A37;
     --pharma-lavender: #BAB9FF;
     --pharma-mint: #C2EED0;
-    --pharma-card-bg: #00282D;
-    --pharma-divider: #00363D;
+    --pharma-card-bg: rgba(255, 255, 255, 0.03);
+    --pharma-divider: rgba(194, 238, 208, 0.1);
   }
 
   .light {
@@ -127,13 +131,27 @@
     background-image: linear-gradient(135deg, #BAB9FF 0%, #D4D3FF 100%);
   }
 
-  /* Premium card with soft elevation */
+  /* Premium card with soft elevation and glassmorphism */
   .card-elevated {
-    @apply bg-white/5 rounded-2xl border border-[#C2EED0]/30 shadow-[0_4px_20px_rgba(0,30,34,0.3)] transition-all duration-300 backdrop-blur-sm;
+    @apply bg-white/5 rounded-2xl border border-[rgba(194,238,208,0.15)] shadow-[0_4px_20px_rgba(0,30,34,0.4)] transition-all duration-500 backdrop-blur-md;
   }
 
   .card-elevated:hover {
-    @apply shadow-[0_8px_30px_rgba(0,30,34,0.5)] -translate-y-1 border-[#C2EED0]/50;
+    @apply shadow-[0_8px_30px_rgba(0,30,34,0.6)] -translate-y-1 border-[rgba(194,238,208,0.3)] bg-white/10;
+  }
+
+  /* Ultra-premium glass panel */
+  .glass-panel {
+    @apply bg-[rgba(0,30,34,0.4)] backdrop-blur-xl border border-[rgba(194,238,208,0.1)] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)];
+  }
+
+  /* Text Glows */
+  .text-glow-primary {
+    text-shadow: 0 0 20px rgba(116, 90, 55, 0.5); /* Bronze glow */
+  }
+
+  .text-glow-secondary {
+    text-shadow: 0 0 20px rgba(186, 185, 255, 0.5); /* Lavender glow */
   }
 
   /* Noodle line base */
@@ -282,5 +300,37 @@
   .animate-dash {
     stroke-dasharray: 10 5;
     animation: dashMove 3s linear infinite;
+  }
+
+  /* ── GlobalNetworkMap Animations ── */
+
+  /* Central emblem glow pulse */
+  .animate-emblem-glow {
+    animation: emblemGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes emblemGlow {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.08); }
+  }
+
+  /* Slow conic gradient spin on emblem ring */
+  .animate-emblem-spin {
+    animation: emblemSpin 20s linear infinite;
+  }
+
+  @keyframes emblemSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Slow ping for network node pulse rings */
+  .animate-ping-slow {
+    animation: pingSlow 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes pingSlow {
+    0% { transform: scale(1); opacity: 0.4; }
+    75%, 100% { transform: scale(1.6); opacity: 0; }
   }
 }

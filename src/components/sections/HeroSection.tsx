@@ -1,12 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
-import { ArrowRight, Globe, Shield, Truck, Layers } from "lucide-react";
+import React, { useEffect, useRef, useState, Suspense } from "react";
+import { ArrowRight, ChevronRight, Play, ExternalLink, ShieldCheck, Globe, Zap, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import Magnetic from "../ui/Magnetic";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// Animated counter component
+// Lazy load the WebGL canvas so it doesn't block the initial React hydration
+const WebGLGlobe = React.lazy(() => import("../canvas/WebGLGlobe"));
+
+// Advanced GSAP-driven Counter
 function CountUpNumber({
   end,
   suffix = "",
-  duration = 2000,
+  duration = 2,
 }: {
   end: number;
   suffix?: string;
@@ -14,28 +21,26 @@ function CountUpNumber({
 }) {
   const [count, setCount] = useState(0);
   const elementRef = useRef<HTMLDivElement>(null);
-  const hasAnimated = useRef(false);
+  const valRef = useRef({ val: 0 });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasAnimated.current) {
-            hasAnimated.current = true;
-            const startTime = Date.now();
-            const animate = () => {
-              const elapsed = Date.now() - startTime;
-              const progress = Math.min(elapsed / duration, 1);
-              setCount(Math.round(progress * end));
-              if (progress < 1) {
-                requestAnimationFrame(animate);
+          if (entry.isIntersecting) {
+            gsap.to(valRef.current, {
+              val: end,
+              duration: duration,
+              ease: "expo.out",
+              onUpdate: () => {
+                setCount(Math.round(valRef.current.val));
               }
-            };
-            animate();
+            });
+            observer.disconnect();
           }
         });
       },
-      { threshold: 0.5 },
+      { threshold: 0.5 }
     );
 
     if (elementRef.current) {
@@ -46,363 +51,188 @@ function CountUpNumber({
   }, [end, duration]);
 
   return (
-    <div ref={elementRef} className="text-3xl font-bold text-white">
+    <div ref={elementRef} className="text-3xl lg:text-5xl md:text-4xl font-bold text-white tracking-tight drop-shadow-md">
       {count}
       {suffix}
     </div>
   );
 }
 
-// Globe visualization component
-function GlobeVisualization() {
-  return (
-    <div className="relative w-full h-full flex items-center justify-center">
-      {/* Outer rotating rings */}
-      <div
-        className="absolute w-72 h-72 rounded-full border-[#C2EED0]/40 text-white border-[#745A37]/20"
-        style={{ animation: "spin 20s linear infinite" }}
-      />
-      <div
-        className="absolute w-64 h-64 rounded-full border border-[#BAB9FF]/20"
-        style={{ animation: "spin 15s linear infinite reverse" }}
-      />
-      {/* Inner glow sphere */}
-      <div className="absolute w-56 h-56 rounded-full bg-gradient-to-br from-[#745A37]/10 to-[#BAB9FF]/10 flex items-center justify-center">
-        <div className="w-48 h-48 rounded-full border border-[#C2EED0] flex items-center justify-center bg-white/50 backdrop-blur-sm">
-          <Globe
-            className="w-20 h-20 text-[#745A37]"
-            style={{ animation: "pulse 4s ease-in-out infinite" }}
-          />
-        </div>
-      </div>
-      {/* Particle dots */}
-      {Array.from({ length: 12 }).map((_, i) => (
-        <div
-          key={i}
-          className="absolute w-1.5 h-1.5 rounded-full opacity-60"
-          style={{
-            background: i % 2 === 0 ? "#BAB9FF" : "#745A37",
-            top: `${30 + Math.sin(i * 0.5) * 20}%`,
-            left: `${30 + Math.cos(i * 0.5) * 20}%`,
-            animation: `float 4s ease-in-out infinite ${i * 0.3}s`,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
-// Region tag component
-function RegionTag({
-  name,
-  status,
-  position,
-  delay,
-}: {
-  name: string;
-  status: "active" | "source" | "coming-soon";
-  position: { top?: string; bottom?: string; left?: string; right?: string };
-  delay: number;
-}) {
-  const config = {
-    active: {
-      bg: "bg-[#BAB9FF]/10",
-      border: "border-[#BAB9FF]/30",
-      text: "text-[#BAB9FF]",
-      dot: "bg-[#BAB9FF]",
-      label: "Active",
-    },
-    source: {
-      bg: "bg-[#745A37]/10",
-      border: "border-[#745A37]/30",
-      text: "text-[#745A37]",
-      dot: "bg-[#745A37]",
-      label: "Source Labs",
-    },
-    "coming-soon": {
-      bg: "bg-white/10 backdrop-blur-md",
-      border: "border-white/20",
-      text: "text-[#BAB9FF]/80 font-medium",
-      dot: "bg-white/40",
-      label: "Coming Soon",
-    },
-  }[status];
-
-  return (
-    <div
-      className={`absolute ${config.bg} ${config.border} border backdrop-blur-sm rounded-lg px-3 py-2 shadow-sm`}
-      style={{
-        ...position,
-        animation: `fadeInUp 0.6s ease-out ${delay}s both`,
-      }}
-    >
-      <div className="flex items-center space-x-2">
-        <div className="relative">
-          <div className={`w-2 h-2 rounded-full ${config.dot}`} />
-          {status === "active" && (
-            <div
-              className={`absolute inset-0 rounded-full ${config.dot} animate-ping`}
-            />
-          )}
-        </div>
-        <div>
-          <div className="text-white text-sm font-medium whitespace-nowrap">
-            {name}
-          </div>
-          <div className={`text-xs ${config.text}`}>{config.label}</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Floating icon component
-function FloatingIcon({
-  children,
-  position,
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  position: string;
-  delay?: number;
-}) {
-  return (
-    <div
-      className={`absolute ${position} w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-md border border-[#C2EED0]`}
-      style={{ animation: `float 5s ease-in-out infinite ${delay}s` }}
-    >
-      {children}
-    </div>
-  );
-}
-
-// Background noodle network
-function NoodleBackground() {
-  return (
-    <svg
-      className="absolute inset-0 w-full h-full opacity-20 pointer-events-none"
-      viewBox="0 0 1440 900"
-      preserveAspectRatio="xMidYMid slice"
-    >
-      <defs>
-        <linearGradient id="heroNoodleGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#745A37" stopOpacity="0" />
-          <stop offset="50%" stopColor="#745A37" stopOpacity="0.6" />
-          <stop offset="100%" stopColor="#BAB9FF" stopOpacity="0" />
-        </linearGradient>
-        <linearGradient id="heroNoodleGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#BAB9FF" stopOpacity="0" />
-          <stop offset="50%" stopColor="#BAB9FF" stopOpacity="0.4" />
-          <stop offset="100%" stopColor="#745A37" stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      {/* Curved noodle lines */}
-      <path
-        d="M-100,300 Q300,200 600,350 T1200,300 T1600,400"
-        stroke="url(#heroNoodleGrad1)"
-        strokeWidth="2"
-        fill="none"
-      />
-      <path
-        d="M-100,500 Q400,400 700,500 T1100,450 T1600,550"
-        stroke="url(#heroNoodleGrad2)"
-        strokeWidth="1.5"
-        fill="none"
-      />
-      <path
-        d="M-100,700 Q350,600 650,700 T1050,650 T1600,700"
-        stroke="url(#heroNoodleGrad1)"
-        strokeWidth="1"
-        fill="none"
-      />
-      {/* Animated beam dot */}
-      <circle
-        r="4"
-        fill="#745A37"
-        style={{ filter: "drop-shadow(0 0 6px #745A37)" }}
-      >
-        <animateMotion dur="8s" repeatCount="indefinite">
-          <mpath href="#heroBeamPath" />
-        </animateMotion>
-      </circle>
-      <path
-        id="heroBeamPath"
-        d="M-100,300 Q300,200 600,350 T1200,300 T1600,400"
-        fill="none"
-      />
-    </svg>
-  );
-}
-
 export default function HeroSection() {
-  const [badgeText, setBadgeText] = useState(
-    "West Africa's Healthcare Gateway",
-  );
+  const [badgeText, setBadgeText] = useState("West Africa's Healthcare Gateway");
+  const heroRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    // Advanced GSAP Typographic Engineering
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ delay: 0.2 });
+
+      // 1. Snappy Badge In
+      tl.fromTo(
+        ".hero-badge",
+        { opacity: 0, y: 20, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "back.out(1.5)" }
+      );
+
+      // 2. 3D Rotating Stagger for the main headline lines
+      tl.fromTo(
+        ".hero-headline .split-line",
+        { opacity: 0, y: 60, rotateX: -30 },
+        { opacity: 1, y: 0, rotateX: 0, duration: 1.2, stagger: 0.2, ease: "power4.out" },
+        "-=0.6"
+      );
+
+      // 3. Subheadline fade gracefully
+      tl.fromTo(
+        ".hero-subhead",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
+        "-=0.8"
+      );
+
+      // 4. Buttons pop
+      tl.fromTo(
+        ".hero-buttons",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
+        "-=0.8"
+      );
+
+      // 5. Stat grid cascade
+      tl.fromTo(
+        ".hero-stat",
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "back.out(1.2)" },
+        "-=0.6"
+      );
+    }, heroRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section className="relative min-h-screen bg-[#001E22] overflow-hidden">
-      {/* Background gradient orbs */}
+    <section ref={heroRef} className="relative min-h-screen bg-background overflow-hidden selection:bg-[#745A37] selection:text-white">
+      {/* Background Deep Space Ambience */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-[#745A37] rounded-full blur-[150px] opacity-10" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#BAB9FF] rounded-full blur-[180px] opacity-10" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#745A37]/5 rounded-full blur-[200px]" />
+        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[150px] opacity-30 mix-blend-screen" />
+        <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-secondary/15 rounded-full blur-[200px] opacity-20 mix-blend-screen" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-background/5 to-transparent blur-[120px]" />
       </div>
-      {/* Noodle network background */}
-      <NoodleBackground />
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20">
-        <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-200px)]">
-          {/* Left Content */}
-          <div className="flex flex-col items-start gap-8 z-10 pl-4 lg:pl-8">
-            <div className="inline-flex items-center px-4 py-2 bg-[#BAB9FF] rounded-full cursor-pointer hover:bg-[#A3A2F0] transition-all shadow-md">
-              <span className="relative w-2 h-2 mr-2">
-                <span className="absolute inset-0 bg-[#001E22] rounded-full animate-ping" />
-                <span className="absolute inset-0 bg-[#001E22] rounded-full" />
+
+      <div className="relative max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 pt-32 lg:pt-40 pb-20 lg:pb-32 z-10 flex flex-col justify-center min-h-screen w-full">
+        <div className="flex flex-col lg:flex-row items-center justify-between w-full relative z-20">
+          
+          {/* Left Content Column */}
+          <div className="flex flex-col items-start gap-6 lg:gap-8 z-30 lg:pl-4 xl:pl-8 w-full lg:max-w-[60%] xl:max-w-[55%] relative pointer-events-auto">
+            
+            <div className="hero-badge inline-flex items-center px-4 py-2 border border-secondary/30 bg-secondary/10 backdrop-blur-md rounded-full cursor-pointer hover:bg-secondary/20 hover:border-secondary/50 transition-all shadow-[0_0_15px_rgba(186,185,255,0.15)] group relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+              <span className="relative w-2 h-2 mr-3 flex items-center justify-center">
+                <span className="absolute inset-0 bg-secondary rounded-full animate-ping opacity-75" />
+                <span className="relative w-1.5 h-1.5 bg-secondary rounded-full shadow-[0_0_8px_#BAB9FF]" />
               </span>
-              <span className="text-white text-sm font-bold">
-                West Africa's Healthcare Gateway
+              <span className="text-secondary text-xs sm:text-sm font-semibold tracking-wide uppercase letter-spacing-[0.05em]">
+                {badgeText}
               </span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              <span className="text-white">Global Innovation.</span>
-              <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-br from-[#745A37] to-[#BAB9FF]">
-                West African
-              </span>
-              <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-br from-[#745A37] to-[#BAB9FF]">
-                Vitality.
-              </span>
+            <h1 className="hero-headline text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem] font-black leading-[0.9] tracking-tighter mb-2 lg:mb-4 drop-shadow-2xl hero-text-glow w-full" style={{ perspective: "1000px" }}>
+              <div className="split-line text-transparent bg-clip-text bg-gradient-to-br from-white via-white/90 to-white/40 block origin-left">
+                Access The
+              </div>
+              <div className="split-line text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-[#BAB9FF] block origin-left mt-2">
+                Next Frontier.
+              </div>
             </h1>
 
-            <p className="text-lg text-white/90 text-xl font-light tracking-wide max-w-lg">
-              PharmaSaha bridges international pharmaceutical excellence with
-              underserved markets. We are the vital nexus connecting global labs
-              to local communities across The Gambia and Senegal.
+            <p className="hero-subhead text-base md:text-lg lg:text-xl text-foreground/80 font-light leading-relaxed max-w-xl pr-4">
+              The exclusive pharmaceutical market access partner for West Africa. Bridging global innovators to a projected USD 118B healthcare landscape.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Button className="bg-[#745A37] hover:bg-[#5E482C] text-white font-semibold px-5 py-2.5 rounded-lg transition-all shadow-md group">
-                <span className="flex items-center">
-                  Partner With Us
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </span>
-              </Button>
-              <Button
-                variant="outline"
-                className="border-[#C2EED0] text-white hover:bg-white hover:border-[#745A37]/50 transition-all px-5 py-2.5 rounded-lg"
-              >
-                Explore Solutions
-              </Button>
+            <div className="hero-buttons flex flex-col sm:flex-row gap-4 lg:gap-6 mt-8 lg:mt-12 w-full justify-center lg:justify-start">
+              <Magnetic>
+                <button className="bg-primary text-background px-8 lg:px-12 py-4 lg:py-6 rounded-full font-black text-sm lg:text-base uppercase tracking-[0.3em] flex items-center justify-center lg:justify-start gap-3 hover:bg-white transition-all duration-500 shadow-[0_0_30px_rgba(116,90,55,0.3)] group whitespace-nowrap" data-cursor="EXPLORE">
+                  Explore Infrastructure
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                </button>
+              </Magnetic>
+              <button className="bg-transparent border border-white/20 text-white px-8 lg:px-12 py-4 lg:py-6 rounded-full font-black text-sm lg:text-base uppercase tracking-[0.3em] hover:bg-white/5 transition-all duration-500 whitespace-nowrap">
+                Consulting
+              </button>
             </div>
 
-            <div className="grid grid-cols-3 gap-6 pt-6 border-t border-[#C2EED0] w-full max-w-lg">
-              <div>
-                <div className="text-3xl font-bold text-white">50+</div>
-                <div className="text-[#BAB9FF]/80 font-medium text-sm flex items-center">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#BAB9FF] mr-2 animate-pulse" />
-                  Partner Labs
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 lg:gap-8 pt-8 lg:pt-10 mt-4 lg:mt-6 border-t border-border/50 w-full relative">
+              {/* Subtle ambient line to make the grid pop */}
+              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-primary/0 via-primary/50 to-primary/0" />
+              
+              <div className="hero-stat flex flex-col justify-end">
+                <CountUpNumber end={118} suffix="B" />
+                <div className="text-muted-foreground font-medium text-xs flex items-center mt-1 lg:mt-2 uppercase tracking-wider lg:text-[11px]">
+                  <div className="w-1.5 h-1.5 rounded-full bg-secondary mr-2 shadow-[0_0_5px_#BAB9FF]" />
+                  Market Scope
                 </div>
               </div>
-              <div>
-                <div className="text-3xl font-bold text-white">2</div>
-                <div className="text-[#BAB9FF]/80 font-medium text-sm flex items-center">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#BAB9FF] mr-2 animate-pulse" />
-                  Active Markets
+              
+              <div className="hero-stat flex flex-col justify-end">
+                <CountUpNumber end={70} suffix="%+" />
+                <div className="text-muted-foreground font-medium text-xs flex items-center mt-1 lg:mt-2 uppercase tracking-wider lg:text-[11px]">
+                  <div className="w-1.5 h-1.5 rounded-full bg-secondary mr-2 shadow-[0_0_5px_#BAB9FF]" />
+                  Import Ratio
                 </div>
               </div>
-              <div>
-                <div className="text-3xl font-bold text-white">100%</div>
-                <div className="text-[#BAB9FF]/80 font-medium text-sm flex items-center">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#745A37] mr-2 animate-pulse" />
-                  Compliance Rate
+
+              <div className="hero-stat flex flex-col justify-end">
+                <CountUpNumber end={6} />
+                <div className="text-muted-foreground font-medium text-xs flex items-center mt-1 lg:mt-2 uppercase tracking-wider lg:text-[11px]">
+                  <div className="w-1.5 h-1.5 rounded-full bg-secondary mr-2 shadow-[0_0_5px_#BAB9FF]" />
+                  Core Pillars
+                </div>
+              </div>
+
+              <div className="hero-stat flex flex-col justify-end">
+                <CountUpNumber end={100} suffix="%" />
+                <div className="text-muted-foreground font-medium text-xs flex items-center mt-1 lg:mt-2 uppercase tracking-wider lg:text-[11px]">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary mr-2 shadow-[0_0_5px_#745A37]" />
+                  Compliance
                 </div>
               </div>
             </div>
+
           </div>
 
-          {/* Right Visual - Globe */}
-          <div className="relative hidden lg:flex h-[550px] items-center justify-center">
-            <GlobeVisualization />
-
-            {/* Region Tags - positioned around the globe */}
-            <RegionTag
-              name="Morocco"
-              status="source"
-              position={{ top: "12%", right: "20%" }}
-              delay={0.5}
-            />
-            <RegionTag
-              name="The Gambia"
-              status="active"
-              position={{ top: "38%", right: "2%" }}
-              delay={0.7}
-            />
-            <RegionTag
-              name="Senegal"
-              status="active"
-              position={{ top: "52%", right: "12%" }}
-              delay={0.9}
-            />
-            <RegionTag
-              name="Guinea-Bissau"
-              status="coming-soon"
-              position={{ top: "66%", right: "5%" }}
-              delay={1.1}
-            />
-
-            {/* Floating Icons */}
-            <FloatingIcon
-              position="top-[8%] left-1/2 -translate-x-1/2"
-              delay={0}
-            >
-              <Shield className="w-6 h-6 text-[#BAB9FF]" />
-            </FloatingIcon>
-            <FloatingIcon
-              position="top-1/2 right-[-5%] -translate-y-1/2"
-              delay={0.3}
-            >
-              <Truck className="w-6 h-6 text-[#745A37]" />
-            </FloatingIcon>
-            <FloatingIcon
-              position="bottom-[8%] left-1/2 -translate-x-1/2"
-              delay={0.6}
-            >
-              <Layers className="w-6 h-6 text-[#BAB9FF]" />
-            </FloatingIcon>
+          {/* Right Visual - Native WebGL Canvas Container */}
+          {/* Positioned absolutely on the right to prevent stretching the flex container */}
+          <div className="absolute inset-0 lg:left-auto lg:right-[-10%] lg:top-1/2 lg:-translate-y-1/2 h-[60vh] lg:h-[120vh] w-full lg:w-[45vw] flex items-center justify-center opacity-30 lg:opacity-100 pointer-events-none lg:pointer-events-auto z-10 lg:z-20">
+            <Suspense fallback={
+              <div className="w-32 lg:w-48 h-32 lg:h-48 border border-secondary/20 rounded-full flex items-center justify-center animate-pulse">
+                <span className="text-secondary/50 text-[10px] lg:text-xs tracking-widest uppercase">Initializing 3D Core...</span>
+              </div>
+            }>
+              <WebGLGlobe />
+            </Suspense>
           </div>
+
         </div>
       </div>
+      
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-white/50 cursor-pointer group">
-        <span className="text-sm mb-2 group-hover:text-[#745A37] transition-colors">
-          Scroll to explore
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-white/50 cursor-pointer group z-50 pointer-events-auto">
+        <span className="text-xs mb-3 font-semibold uppercase tracking-widest group-hover:text-[#745A37] transition-colors">
+          Initialize Descent
         </span>
-        <div className="w-8 h-12 border-2 border-[#C2EED0]/40 rounded-full flex justify-center relative overflow-hidden group-hover:border-[#745A37] transition-colors">
-          <div className="w-2 h-3 bg-[#745A37] rounded-full mt-2 animate-bounce" />
+        <div className="w-7 h-11 border-2 border-[#C2EED0]/20 rounded-full flex justify-center relative overflow-hidden group-hover:border-[#745A37]/50 transition-colors">
+          <div className="w-1.5 h-2.5 bg-[#745A37] rounded-full mt-2 animate-bounce shadow-[0_0_10px_#745A37]" />
         </div>
       </div>
-      {/* CSS Keyframes */}
+
+      {/* Global CSS for unique hero fx */}
       <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
+        .hero-text-glow {
+          text-shadow: 0 0 100px rgba(186,185,255,0.15), 0 0 30px rgba(116,90,55,0.4);
         }
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-15px); }
-        }
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.6; }
+        @keyframes shimmer {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
         }
       `}</style>
     </section>
