@@ -64,7 +64,10 @@ export default function Header() {
                 <div className="absolute inset-0 bg-[#705B3C]/20 rounded-full blur-md group-hover:bg-[#705B3C]/40 transition-all duration-300" />
                 <img src="/logo.png" alt="PharmaSaha Logo" className="w-full h-full object-contain relative z-10" />
               </div>
-              <span className={`font-black tracking-wide text-lg transition-all duration-500 flex ${isScrolled ? "opacity-0 w-0 overflow-hidden" : "opacity-100 text-white"}`}>
+              <span 
+                className={`font-black tracking-wide text-lg transition-all duration-700 flex ${isScrolled ? "opacity-0 w-0 overflow-hidden" : "opacity-100 text-white"}`}
+                style={{ filter: "drop-shadow(0 0 20px rgba(0,0,0,0.8))" }}
+              >
                 PHARMA<span className="text-[#BBBAFF]">SAHA</span>
               </span>
             </a>

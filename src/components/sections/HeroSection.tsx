@@ -64,86 +64,41 @@ export default function HeroSection({ isFirstVisit = true }: { isFirstVisit?: bo
   const heroRef = useRef<HTMLElement>(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Advanced GSAP Typographic Engineering
-    const ctx = gsap.context(() => {
-      // If not first visit, we skip or drastically speed up the intro
-      const delay = isFirstVisit ? 0.2 : 0;
-      const durationMultiplier = isFirstVisit ? 1 : 0.4;
+    const timelineRef = useRef<gsap.core.Timeline | null>(null);
+    const [showSkip, setShowSkip] = useState(false);
 
-      const tl = gsap.timeline({ delay: delay });
+    const skipIntro = () => {
+      if (timelineRef.current) {
+        timelineRef.current.progress(1);
+        setShowSkip(false);
+      }
+    };
 
-      // 1. Snappy Badge In
-      tl.fromTo(
-        ".hero-badge",
-        { opacity: 0, y: 20, scale: 0.95 },
-        { 
-          opacity: 1, 
-          y: 0, 
-          scale: 1, 
-          duration: 0.5 * durationMultiplier, 
-          ease: "back.out(1.5)" 
-        }
-      );
+    useEffect(() => {
+      const ctx = gsap.context(() => {
+        const delay = isFirstVisit ? 0.2 : 0;
+        const durationMultiplier = isFirstVisit ? 1 : 0.4;
 
-      // 2. 3D Rotating Stagger for the main headline lines
-      tl.fromTo(
-        ".hero-headline .split-line",
-        { opacity: 0, y: 40, rotateX: -20 },
-        { 
-          opacity: 1, 
-          y: 0, 
-          rotateX: 0, 
-          duration: 0.8 * durationMultiplier, 
-          stagger: 0.1 * durationMultiplier, 
-          ease: "power4.out" 
-        },
-        "-=0.3"
-      );
+        const tl = gsap.timeline({ 
+          delay: delay,
+          onStart: () => {
+            if (isFirstVisit) {
+              gsap.delayedCall(1, () => setShowSkip(true));
+            }
+          },
+          onComplete: () => setShowSkip(false)
+        });
+        timelineRef.current = tl;
 
-      // 3. Subheadline fade gracefully
-      tl.fromTo(
-        ".hero-subhead",
-        { opacity: 0, y: 15 },
-        { 
-          opacity: 1, 
-          y: 0, 
-          duration: 0.7 * durationMultiplier, 
-          ease: "power2.out" 
-        },
-        "-=0.5"
-      );
+        tl.fromTo(".hero-badge", { opacity: 0, y: 20, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.5 * durationMultiplier, ease: "back.out(1.5)" });
+        tl.fromTo(".hero-headline .split-line", { opacity: 0, y: 40, rotateX: -20 }, { opacity: 1, y: 0, rotateX: 0, duration: 0.8 * durationMultiplier, stagger: 0.1 * durationMultiplier, ease: "power4.out" }, "-=0.3");
+        tl.fromTo(".hero-subhead", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.7 * durationMultiplier, ease: "power2.out" }, "-=0.5");
+        tl.fromTo(".hero-buttons", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.6 * durationMultiplier, ease: "power2.out" }, "-=0.6");
+        tl.fromTo(".hero-stat", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 * durationMultiplier, stagger: 0.08 * durationMultiplier, ease: "back.out(1.2)" }, "-=0.4");
+      }, heroRef);
 
-      // 4. Buttons pop
-      tl.fromTo(
-        ".hero-buttons",
-        { opacity: 0, y: 15 },
-        { 
-          opacity: 1, 
-          y: 0, 
-          duration: 0.6 * durationMultiplier, 
-          ease: "power2.out" 
-        },
-        "-=0.6"
-      );
-
-      // 5. Stat grid cascade
-      tl.fromTo(
-        ".hero-stat",
-        { opacity: 0, y: 20 },
-        { 
-          opacity: 1, 
-          y: 0, 
-          duration: 0.6 * durationMultiplier, 
-          stagger: 0.08 * durationMultiplier, 
-          ease: "back.out(1.2)" 
-        },
-        "-=0.4"
-      );
-    }, heroRef);
-
-    return () => ctx.revert();
-  }, []);
+      return () => ctx.revert();
+    }, [isFirstVisit]);
 
   return (
     <section ref={heroRef} className="relative min-h-screen bg-background overflow-hidden selection:bg-[#745A37] selection:text-white">
@@ -239,6 +194,16 @@ export default function HeroSection({ isFirstVisit = true }: { isFirstVisit?: bo
             </div>
 
           </div>
+
+          {/* Skip Intro Button */}
+          {showSkip && isFirstVisit && (
+            <button 
+              onClick={skipIntro}
+              className="fixed bottom-10 right-10 z-[100] px-4 py-2 bg-white/5 hover:bg-white/10 backdrop-blur-xl border border-white/10 rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-white/50 hover:text-white transition-all duration-300"
+            >
+              Skip Intro
+            </button>
+          )}
 
           {/* Right Visual - Native WebGL Canvas Container */}
           {/* Positioned absolutely on the right to prevent stretching the flex container */}

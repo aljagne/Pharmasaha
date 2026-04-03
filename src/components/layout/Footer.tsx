@@ -39,7 +39,7 @@ export default function Footer() {
             Initiate <br />
             <span className="flex items-center justify-center gap-4 md:gap-8 mt-4 text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-[#705B3C] group-hover:to-[#BBBAFF] transition-all duration-1000">
               Partnership
-              <ArrowUpRight className="w-16 h-16 md:w-32 md:h-32 text-[#BBBAFF] opacity-0 -translate-x-10 translate-y-10 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]" />
+              <ArrowUpRight className="w-16 h-16 md:w-32 md:h-32 text-[#BBBAFF] opacity-0 -translate-x-10 translate-y-10 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-700 ease-&lsqb;cubic-bezier(0.25,1,0.5,1)&rsqb;" />
             </span>
           </h2>
         </div>

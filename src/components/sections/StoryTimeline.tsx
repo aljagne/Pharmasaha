@@ -100,7 +100,11 @@ export default function StoryTimeline() {
         {/* ─── RIGHT: SCROLLING NARRATIVE CARDS ─── */}
         <div className="w-full md:w-2/3 py-10 md:py-32 flex flex-col gap-32 relative z-10">
           {TIMELINE_PHASES.map((phase, idx) => (
-            <div key={idx} className="timeline-section min-h-[50vh] flex flex-col justify-center opacity-20 relative group">
+            <div 
+              key={idx} 
+              className="timeline-section min-h-[50vh] flex flex-col justify-center opacity-20 relative group"
+              style={{ willChange: "opacity, filter" }}
+            >
               
               {/* Massive Phase Number Background */}
               <div className="absolute -left-10 md:-left-20 top-0 text-[10rem] md:text-[15rem] font-black text-white/[0.02] tracking-tighter leading-none pointer-events-none select-none -z-10 group-hover:text-white/[0.04] transition-colors duration-1000">

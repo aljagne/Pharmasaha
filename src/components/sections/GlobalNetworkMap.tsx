@@ -377,13 +377,14 @@ export default function GlobalNetworkMap() {
 
         {/* ── THE NETWORK MAP ── */}
         <div
-          className="network-map-container relative w-full overflow-hidden"
+          className="network-map-container relative w-full overflow-hidden will-change-transform"
           style={{
             aspectRatio: "2.8 / 1",
             minHeight: "380px",
             background: "linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)",
             border: "1px solid rgba(212,168,85,0.12)",
             boxShadow: "0 30px 100px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)",
+            willChange: "transform",
           }}
         >
           {/* Left gold accent edge */}

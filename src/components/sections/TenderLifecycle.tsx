@@ -49,10 +49,10 @@ export default function TenderLifecycle() {
       const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
 
       if (isDesktop) {
-        // Horizontal GSAP Scroll for the timeline track - Optimized logic
+        // Horizontal GSAP Scroll for the timeline track - Optimized for longer scroll journey
         const scrollWidth = trackRef.current?.scrollWidth || 0;
         const windowWidth = window.innerWidth;
-        const amountToScroll = scrollWidth - windowWidth + (windowWidth * 0.1); // account for pl-[10vw]
+        const amountToScroll = scrollWidth - windowWidth + (windowWidth * 0.15); 
 
         gsap.to(trackRef.current, {
           x: -amountToScroll,
@@ -60,8 +60,9 @@ export default function TenderLifecycle() {
           scrollTrigger: {
             trigger: containerRef.current,
             pin: true,
-            scrub: 0.6, // Synchronized with global brand physics
-            end: () => `+=${amountToScroll}`,
+            scrub: 0.6,
+            // Fixed 2500px length to provide a luxurious, non-jumping experience
+            end: "+=2500", 
             invalidateOnRefresh: true,
           }
         });
@@ -95,7 +96,7 @@ export default function TenderLifecycle() {
       <div className="hidden lg:flex h-screen items-center relative pl-[10vw]">
         
         {/* Sticky Header inside the pin */}
-        <div className="absolute top-32 left-[10vw] z-20">
+        <div className="absolute top-24 left-[10vw] z-20">
           <span className="text-[#BAB9FF] font-bold tracking-[0.3em] text-[10px] uppercase mb-4 block flex items-center gap-4">
             <span className="w-8 h-px bg-[#BAB9FF]" />
             Workflow Physics
@@ -107,7 +108,7 @@ export default function TenderLifecycle() {
 
         {/* Track Container */}
         <div 
-          className="flex gap-12 pt-16 will-change-transform" 
+          className="flex gap-12 will-change-transform" 
           ref={trackRef}
           style={{ willChange: "transform" }}
         >
