@@ -15,46 +15,47 @@ export default function NewsIntelligenceFeed() {
   useEffect(() => {
     if (!scrollRef.current || !triggerRef.current) return;
 
-    // Horizontal Scroll Animation
-    const pin = gsap.to(scrollRef.current, {
-      x: () => -(scrollRef.current!.scrollWidth - window.innerWidth),
-      ease: "none",
-      scrollTrigger: {
-        trigger: triggerRef.current,
-        pin: true,
-        scrub: 1,
-        end: "+=2000",
-      }
-    });
-
-    // Headline Character Animation
-    const headlines = document.querySelectorAll(".editorial-headline");
-    headlines.forEach(headline => {
-      const text = headline.textContent || "";
-      headline.textContent = "";
-      text.split("").forEach(char => {
-        const span = document.createElement("span");
-        span.textContent = char;
-        span.className = "inline-block opacity-0 translate-y-4";
-        headline.appendChild(span);
-      });
-
-      gsap.to(headline.querySelectorAll("span"), {
-        opacity: 1,
-        y: 0,
-        stagger: 0.02,
-        duration: 0.8,
-        ease: "power3.out",
+    const ctx = gsap.context(() => {
+      // Horizontal Scroll Animation - Tightened 0.6 scrub for better smoothness with Lenis
+      gsap.to(scrollRef.current, {
+        x: () => -(scrollRef.current!.scrollWidth - window.innerWidth),
+        ease: "none",
         scrollTrigger: {
-          trigger: headline,
-          start: "top 80%",
+          trigger: triggerRef.current,
+          pin: true,
+          scrub: 0.6,
+          end: "+=2000",
+          invalidateOnRefresh: true, // Recalculate if window resizes
         }
       });
-    });
 
-    return () => {
-      pin.kill();
-    };
+      // Headline Character Animation
+      const headlines = document.querySelectorAll(".editorial-headline");
+      headlines.forEach(headline => {
+        const text = headline.textContent || "";
+        headline.textContent = "";
+        text.split("").forEach(char => {
+          const span = document.createElement("span");
+          span.textContent = char;
+          span.className = "inline-block opacity-0 translate-y-4";
+          headline.appendChild(span);
+        });
+
+        gsap.to(headline.querySelectorAll("span"), {
+          opacity: 1,
+          y: 0,
+          stagger: 0.02,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: headline,
+            start: "top 80%",
+          }
+        });
+      });
+    }, triggerRef);
+
+    return () => ctx.revert();
   }, []);
 
   // Use first 4 articles for the feed
@@ -93,19 +94,20 @@ export default function NewsIntelligenceFeed() {
       <div className="overflow-hidden pb-40" data-cursor="DRAG (SCRUB)">
         <div 
           ref={scrollRef} 
-          className="flex gap-12 px-6 lg:px-24 w-max"
+          className="flex gap-12 px-6 lg:px-24 w-max will-change-transform"
+          style={{ willChange: "transform" }}
         >
           {articles.map((article, idx) => (
             <Link 
               to={`/intelligence/${article.slug}`}
               key={article.slug} 
-              className={`relative group cursor-pointer transition-all duration-700 ${article.featured ? 'w-[70vw] md:w-[800px]' : 'w-[80vw] md:w-[500px]'}`}
+              className={`relative group cursor-pointer transition-[transform,opacity] duration-700 ease-out ${article.featured ? 'w-[70vw] md:w-[800px]' : 'w-[80vw] md:w-[500px]'}`}
               data-cursor="READ BRIEF"
             >
               {/* Glossy Editorial Card */}
-              <div className="relative aspect-[16/10] overflow-hidden rounded-3xl border border-white/5 bg-[#001E22] shadow-2xl">
+              <div className="relative aspect-[16/10] overflow-hidden rounded-3xl border border-white/5 bg-[#001E22] shadow-2xl transition-colors duration-500 group-hover:border-primary/20">
                 <div 
-                  className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-1000 grayscale-[40%] group-hover:grayscale-0"
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out grayscale-[40%] group-hover:grayscale-0 group-hover:scale-105"
                   style={{ backgroundImage: `url(${article.image})` }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80" />
@@ -114,7 +116,7 @@ export default function NewsIntelligenceFeed() {
                 <div className="absolute -inset-[100%] opacity-0 group-hover:opacity-10 transition-opacity duration-1000 pointer-events-none bg-[radial-gradient(circle_at_50%_0%,#fff_0%,transparent_50%)]" />
 
                 <div className="absolute top-8 left-8 flex items-center gap-4">
-                  <div className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/10 flex items-center gap-2">
+                  <div className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/10 flex items-center gap-2 transition-colors duration-300 group-hover:bg-primary/20">
                     <Tag className="w-3 h-3 text-secondary" />
                     <span className="text-white font-black text-[9px] uppercase tracking-widest">{article.category}</span>
                   </div>
@@ -136,7 +138,7 @@ export default function NewsIntelligenceFeed() {
               </div>
 
               {/* Dynamic Number Index */}
-              <div className="absolute -bottom-8 right-4 text-white/10 font-black italic text-[8rem] pointer-events-none group-hover:text-primary/20 transition-colors">
+              <div className="absolute -bottom-8 right-4 text-white/10 font-black italic text-[8rem] pointer-events-none group-hover:text-primary/20 transition-colors duration-500">
                 0{idx + 1}
               </div>
             </Link>

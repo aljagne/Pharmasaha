@@ -14,14 +14,14 @@ import ContactSection from "../components/sections/ContactSection";
 import InvestorGateway from "../components/sections/InvestorGateway";
 import Footer from "../components/layout/Footer";
 
-export default function Home() {
+export default function Home({ isFirstVisit = true }: { isFirstVisit?: boolean }) {
   return (
     <PageTransition>
       <div className="flex flex-col min-h-screen bg-background text-foreground">
 
         {/* Intro */}
         <section id="home">
-          <HeroSection />
+          <HeroSection isFirstVisit={isFirstVisit} />
         </section>
 
         {/* Trust & Connections */}

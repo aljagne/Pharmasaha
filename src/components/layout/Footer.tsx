@@ -50,9 +50,8 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="md:col-span-4 flex flex-col justify-between">
             <div>
-              <button onClick={scrollToTop} className="flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-[#705B3C] to-[#001D21] border border-white/10 group overflow-hidden relative shadow-2xl">
-                <div className="absolute inset-0 bg-[#BBBAFF]/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />
-                <span className="text-white font-black text-3xl relative z-10">P</span>
+              <button onClick={scrollToTop} className="flex items-center justify-start h-16 group overflow-hidden relative transition-transform duration-500 hover:scale-[1.02]" aria-label="Return to top of page">
+                <img src="/Footer Logo.svg" alt="PharmaSaha Logo" className="h-full w-auto object-contain relative z-10" />
               </button>
               <p className="text-white/40 text-lg md:text-xl font-light mt-8 max-w-sm leading-relaxed">
                 Bridging global pharmaceutical innovation with West African markets through invulnerable sovereign logistics.
@@ -90,10 +89,10 @@ export default function Footer() {
              </a>
              
              <div className="flex gap-4">
-                <a href="#" className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center bg-white/5 hover:bg-[#BBBAFF] hover:border-[#BBBAFF] text-white/50 hover:text-[#001D21] transition-all duration-500 hover:scale-110" aria-label="Visit PharmaSaha LinkedIn">
+                <a href="https://linkedin.com/company/pharmasaha" target="_blank" rel="noopener noreferrer" className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center bg-white/5 hover:bg-[#BBBAFF] hover:border-[#BBBAFF] text-white/50 hover:text-[#001D21] transition-all duration-500 hover:scale-110" aria-label="Visit PharmaSaha LinkedIn">
                   <Linkedin className="w-5 h-5" />
                 </a>
-                <a href="#" className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center bg-white/5 hover:bg-[#CCEED3] hover:border-[#CCEED3] text-white/50 hover:text-[#001D21] transition-all duration-500 hover:scale-110" aria-label="Visit PharmaSaha Twitter">
+                <a href="https://twitter.com/pharmasaha" target="_blank" rel="noopener noreferrer" className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center bg-white/5 hover:bg-[#CCEED3] hover:border-[#CCEED3] text-white/50 hover:text-[#001D21] transition-all duration-500 hover:scale-110" aria-label="Visit PharmaSaha Twitter">
                   <Twitter className="w-5 h-5" />
                 </a>
              </div>
@@ -102,14 +101,14 @@ export default function Footer() {
         </div>
 
         {/* ─── ABSOLUTE BOTTOM SIGNATURE ─── */}
-        <div className="w-full flex flex-col md:flex-row justify-between items-center text-white/30 text-xs font-mono tracking-widest uppercase">
+         <div className="w-full flex flex-col md:flex-row justify-between items-center text-white/30 text-xs font-mono tracking-widest uppercase">
           <p>© {new Date().getFullYear()} PHARMASAHA LOGISTICS. ALL SYSTEMS NOMINAL.</p>
           <div className="flex gap-6 mt-6 md:mt-0 items-center">
-            <span className="hover:text-white transition-colors cursor-pointer">Privacy Map</span>
+            <Link to="/compliance" className="hover:text-white transition-colors cursor-pointer">Privacy Map</Link>
             <span className="w-1 h-1 rounded-full bg-[#705B3C]" />
-            <span className="hover:text-white transition-colors cursor-pointer">Terms of Architecture</span>
+            <Link to="/compliance" className="hover:text-white transition-colors cursor-pointer">Terms of Architecture</Link>
             <span className="w-1 h-1 rounded-full bg-[#BBBAFF]" />
-            <span className="hover:text-white transition-colors cursor-pointer">Anti-Bribery Protocol</span>
+            <Link to="/compliance" className="hover:text-white transition-colors cursor-pointer">Anti-Bribery Protocol</Link>
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Lenis from '@studio-freight/lenis';
 
@@ -18,15 +18,26 @@ import Compliance from "./pages/Compliance";
 
 function App() {
   const location = useLocation();
+  const [isFirstVisit, setIsFirstVisit] = useState(true);
+
+  useEffect(() => {
+    // Session-based intro control - cinematic only once per session
+    const hasSeenIntro = sessionStorage.getItem("pharmasaha_intro_seen");
+    if (hasSeenIntro) {
+      setIsFirstVisit(false);
+    } else {
+      sessionStorage.setItem("pharmasaha_intro_seen", "true");
+    }
+  }, []);
 
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 1.5,
+      easing: (t) => 1 - Math.pow(1 - t, 5), // Quintic easing for ultra-smooth deceleration
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1,
+      wheelMultiplier: 1.1,
     });
 
     function raf(time: number) {
@@ -55,7 +66,7 @@ function App() {
 
         <main className="flex-grow">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home isFirstVisit={isFirstVisit} />} />
             <Route path="/infrastructure" element={<Infrastructure />} />
             <Route path="/institutional" element={<Institutional />} />
             <Route path="/gateway" element={<Gateway />} />

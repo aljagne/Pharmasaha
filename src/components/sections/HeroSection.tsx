@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, Suspense } from "react";
 import { ArrowRight, ChevronRight, Play, ExternalLink, ShieldCheck, Globe, Zap, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Link, useNavigate } from "react-router-dom";
 import Magnetic from "../ui/Magnetic";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -58,52 +59,86 @@ function CountUpNumber({
   );
 }
 
-export default function HeroSection() {
+export default function HeroSection({ isFirstVisit = true }: { isFirstVisit?: boolean }) {
   const [badgeText, setBadgeText] = useState("West Africa's Healthcare Gateway");
   const heroRef = useRef<HTMLElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Advanced GSAP Typographic Engineering
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 0.2 });
+      // If not first visit, we skip or drastically speed up the intro
+      const delay = isFirstVisit ? 0.2 : 0;
+      const durationMultiplier = isFirstVisit ? 1 : 0.4;
+
+      const tl = gsap.timeline({ delay: delay });
 
       // 1. Snappy Badge In
       tl.fromTo(
         ".hero-badge",
         { opacity: 0, y: 20, scale: 0.95 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "back.out(1.5)" }
+        { 
+          opacity: 1, 
+          y: 0, 
+          scale: 1, 
+          duration: 0.5 * durationMultiplier, 
+          ease: "back.out(1.5)" 
+        }
       );
 
       // 2. 3D Rotating Stagger for the main headline lines
       tl.fromTo(
         ".hero-headline .split-line",
-        { opacity: 0, y: 60, rotateX: -30 },
-        { opacity: 1, y: 0, rotateX: 0, duration: 1.2, stagger: 0.2, ease: "power4.out" },
-        "-=0.6"
+        { opacity: 0, y: 40, rotateX: -20 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          rotateX: 0, 
+          duration: 0.8 * durationMultiplier, 
+          stagger: 0.1 * durationMultiplier, 
+          ease: "power4.out" 
+        },
+        "-=0.3"
       );
 
       // 3. Subheadline fade gracefully
       tl.fromTo(
         ".hero-subhead",
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
-        "-=0.8"
+        { opacity: 0, y: 15 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.7 * durationMultiplier, 
+          ease: "power2.out" 
+        },
+        "-=0.5"
       );
 
       // 4. Buttons pop
       tl.fromTo(
         ".hero-buttons",
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
-        "-=0.8"
+        { opacity: 0, y: 15 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.6 * durationMultiplier, 
+          ease: "power2.out" 
+        },
+        "-=0.6"
       );
 
       // 5. Stat grid cascade
       tl.fromTo(
         ".hero-stat",
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "back.out(1.2)" },
-        "-=0.6"
+        { opacity: 0, y: 20 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.6 * durationMultiplier, 
+          stagger: 0.08 * durationMultiplier, 
+          ease: "back.out(1.2)" 
+        },
+        "-=0.4"
       );
     }, heroRef);
 
@@ -151,12 +186,17 @@ export default function HeroSection() {
 
             <div className="hero-buttons flex flex-col sm:flex-row gap-4 lg:gap-6 mt-8 lg:mt-12 w-full justify-center lg:justify-start">
               <Magnetic>
-                <button className="bg-primary text-background px-8 lg:px-12 py-4 lg:py-6 rounded-full font-black text-sm lg:text-base uppercase tracking-[0.3em] flex items-center justify-center lg:justify-start gap-3 hover:bg-white transition-all duration-500 shadow-[0_0_30px_rgba(116,90,55,0.3)] group whitespace-nowrap" data-cursor="EXPLORE">
-                  Explore Infrastructure
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-                </button>
+                <Link to="/infrastructure" className="inline-block">
+                  <button className="bg-primary text-background px-8 lg:px-12 py-4 lg:py-6 rounded-full font-black text-sm lg:text-base uppercase tracking-[0.3em] flex items-center justify-center lg:justify-start gap-3 hover:bg-white transition-all duration-500 shadow-[0_0_30px_rgba(116,90,55,0.3)] group whitespace-nowrap" data-cursor="EXPLORE">
+                    Explore Infrastructure
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                  </button>
+                </Link>
               </Magnetic>
-              <button className="bg-transparent border border-white/20 text-white px-8 lg:px-12 py-4 lg:py-6 rounded-full font-black text-sm lg:text-base uppercase tracking-[0.3em] hover:bg-white/5 transition-all duration-500 whitespace-nowrap">
+              <button 
+                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                className="bg-transparent border border-white/20 text-white px-8 lg:px-12 py-4 lg:py-6 rounded-full font-black text-sm lg:text-base uppercase tracking-[0.3em] hover:bg-white/5 transition-all duration-500 whitespace-nowrap"
+              >
                 Consulting
               </button>
             </div>

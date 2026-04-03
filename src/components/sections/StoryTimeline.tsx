@@ -47,30 +47,30 @@ export default function StoryTimeline() {
   useEffect(() => {
     if (!containerRef.current) return;
     
-    // Kill existing triggers
-    ScrollTrigger.getAll().forEach(t => t.kill());
+    // Use gsap.context for scoped and clean ScrollTrigger management
+    const ctx = gsap.context(() => {
+      const sections = gsap.utils.toArray(".timeline-section");
 
-    const sections = gsap.utils.toArray(".timeline-section");
-
-    // Fade in text as each section hits the center of the viewport
-    sections.forEach((sec: any) => {
-      gsap.fromTo(sec,
-        { opacity: 0.2, filter: "blur(10px)" },
-        {
-          opacity: 1, 
-          filter: "blur(0px)",
-          duration: 1,
-          scrollTrigger: {
-            trigger: sec,
-            start: "top 60%", // When top of section hits 60% of viewport
-            end: "bottom 40%",
-            toggleActions: "play reverse play reverse",
+      // Fade in text as each section hits the center of the viewport
+      sections.forEach((sec: any) => {
+        gsap.fromTo(sec,
+          { opacity: 0.2, filter: "blur(10px)" },
+          {
+            opacity: 1, 
+            filter: "blur(0px)",
+            duration: 1,
+            scrollTrigger: {
+              trigger: sec,
+              start: "top 60%", // When top of section hits 60% of viewport
+              end: "bottom 40%",
+              toggleActions: "play reverse play reverse",
+            }
           }
-        }
-      );
-    });
+        );
+      });
+    }, containerRef);
 
-    return () => ScrollTrigger.getAll().forEach(t => t.kill());
+    return () => ctx.revert();
   }, []);
 
   return (

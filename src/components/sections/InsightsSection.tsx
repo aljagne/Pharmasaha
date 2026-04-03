@@ -32,7 +32,7 @@ export default function InsightsSection() {
             <Link
               to={`/intelligence/${article.slug}`}
               key={article.slug}
-              className={`relative rounded-3xl overflow-hidden group cursor-pointer border border-white/5 hover:border-secondary/40 transition-all duration-700 ${article.className} glass-panel`}
+              className={`relative rounded-3xl overflow-hidden group cursor-pointer border border-white/5 hover:border-secondary/40 transition-[border-color,transform] duration-700 ease-out ${article.className} glass-panel`}
             >
               {/* Background gradient/image layer */}
               <div className={`absolute inset-0 bg-gradient-to-t ${article.imageGradient} opacity-50 z-0 transition-opacity duration-700 group-hover:opacity-80`} />

@@ -44,46 +44,48 @@ export default function TenderLifecycle() {
 
   useEffect(() => {
     if (!containerRef.current || !trackRef.current) return;
-    
-    // Clear any existing ScrollTriggers to prevent duplicates on hot-reload
-    ScrollTrigger.getAll().forEach(t => t.kill());
 
-    const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+    const ctx = gsap.context(() => {
+      const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
 
-    if (isDesktop) {
-      // Horizontal GSAP Scroll for the timeline track
-      const sections = gsap.utils.toArray(".lifecycle-card");
-      
-      gsap.to(sections, {
-        xPercent: -100 * (sections.length - 1),
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          pin: true,
-          scrub: 1,
-          end: "+=3000", 
-        }
-      });
-    } else {
-      // Mobile vertical entrance animation
-      const sections = gsap.utils.toArray(".lifecycle-card-mobile");
-      sections.forEach((sec, i) => {
-        gsap.fromTo(sec as Element, 
-          { opacity: 0, y: 30 },
-          {
-            opacity: 1, 
-            y: 0, 
-            duration: 0.8,
-            scrollTrigger: {
-              trigger: sec as Element,
-              start: "top 85%"
-            }
+      if (isDesktop) {
+        // Horizontal GSAP Scroll for the timeline track - Optimized logic
+        const scrollWidth = trackRef.current?.scrollWidth || 0;
+        const windowWidth = window.innerWidth;
+        const amountToScroll = scrollWidth - windowWidth + (windowWidth * 0.1); // account for pl-[10vw]
+
+        gsap.to(trackRef.current, {
+          x: -amountToScroll,
+          ease: "none",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            pin: true,
+            scrub: 0.6, // Synchronized with global brand physics
+            end: () => `+=${amountToScroll}`,
+            invalidateOnRefresh: true,
           }
-        );
-      });
-    }
+        });
+      } else {
+        // Mobile vertical entrance animation
+        const sections = gsap.utils.toArray(".lifecycle-card-mobile");
+        sections.forEach((sec) => {
+          gsap.fromTo(sec as Element, 
+            { opacity: 0, y: 30 },
+            {
+              opacity: 1, 
+              y: 0, 
+              duration: 0.8,
+              scrollTrigger: {
+                trigger: sec as Element,
+                start: "top 85%"
+              }
+            }
+          );
+        });
+      }
+    }, containerRef);
 
-    return () => ScrollTrigger.getAll().forEach(t => t.kill());
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -104,13 +106,17 @@ export default function TenderLifecycle() {
         </div>
 
         {/* Track Container */}
-        <div className="flex gap-12 pt-32" ref={trackRef}>
+        <div 
+          className="flex gap-12 pt-16 will-change-transform" 
+          ref={trackRef}
+          style={{ willChange: "transform" }}
+        >
           {LIFECYCLE_STEPS.map((step, idx) => (
             <div 
               key={idx} 
               className="lifecycle-card w-[450px] flex-shrink-0 group relative cursor-crosshair"
             >
-              <div className="h-full border border-white/10 bg-background/50 backdrop-blur-md rounded-3xl p-10 hover:bg-white/5 hover:border-white/20 transition-all duration-500">
+              <div className="h-full border border-white/10 bg-[#001214]/50 backdrop-blur-md rounded-3xl p-10 transition-[border-color,background-color] duration-500 hover:bg-white/5 hover:border-white/20">
                 {/* Connecting Line to Next */}
                 {idx !== LIFECYCLE_STEPS.length - 1 && (
                   <div className="absolute top-1/2 -right-12 w-12 h-px bg-white/20 overflow-hidden">
@@ -122,7 +128,7 @@ export default function TenderLifecycle() {
                   PHASE // {step.num}
                 </div>
                 
-                <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white mb-8 group-hover:scale-110 group-hover:bg-[#B9A37A] group-hover:border-[#B9A37A] group-hover:text-[#00080A] transition-all duration-500">
+                <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white mb-8 transition-[transform,background-color,border-color,color] duration-500 group-hover:scale-110 group-hover:bg-[#B9A37A] group-hover:border-[#B9A37A] group-hover:text-[#00080A]">
                   {step.icon}
                 </div>
 
@@ -138,7 +144,7 @@ export default function TenderLifecycle() {
           ))}
           
           {/* Empty spacer at the end for smooth final scroll */}
-          <div className="lifecycle-card w-[10vw] flex-shrink-0" />
+          <div className="lifecycle-card w-[20vw] flex-shrink-0" />
         </div>
       </div>
 

@@ -53,7 +53,7 @@ export default function Header() {
         className="fixed top-6 left-0 right-0 z-[100] flex justify-center px-4 pointer-events-none"
       >
         <div
-          className={`pointer-events-auto flex items-center justify-between px-6 py-3 rounded-full transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] glass-panel ${
+          className={`pointer-events-auto flex items-center justify-between px-6 py-3 rounded-full transition-all duration-700 ease-&lsqb;cubic-bezier(0.25,1,0.5,1)&rsqb; glass-panel ${
             isScrolled ? "w-[90%] md:w-[600px] shadow-[0_20px_40px_rgba(0,29,33,0.8)] bg-[#001D21]/80 backdrop-blur-2xl border-white/10" : "w-full max-w-7xl bg-transparent border-transparent shadow-none"
           }`}
         >
@@ -136,9 +136,9 @@ export default function Header() {
             <div id="global-mega-menu" className="relative w-full h-full max-w-[90rem] mx-auto px-6 lg:px-12 pt-32 pb-20 flex flex-col justify-between" role="navigation" aria-label="Main Mega Menu">
 
               {/* Top Section: Navigation Links */}
-              <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 h-[70vh] min-h-0 overflow-hidden">
-                <div className="flex flex-col space-y-1 lg:space-y-2 overflow-y-auto pr-6 pb-2 relative" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
-                  <div className="text-[10px] lg:text-xs font-mono font-bold tracking-[0.3em] text-[#CCEED3] uppercase mb-4 lg:mb-8 sticky top-0 bg-[#001D21]/90 py-4 z-10 backdrop-blur-md flex items-center gap-3">
+              <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 h-full min-h-0 overflow-hidden">
+                <div className="flex flex-col space-y-1 overflow-y-auto overflow-x-hidden pr-6 pb-20 relative scrollbar-thin scrollbar-track-white/5 scrollbar-thumb-white/10">
+                  <div className="text-[10px] lg:text-xs font-mono font-bold tracking-[0.3em] text-[#CCEED3] uppercase mb-4 lg:mb-6 sticky top-0 bg-[#001D21]/90 py-4 z-10 backdrop-blur-md flex items-center gap-3">
                     <span className="w-4 h-[1px] bg-[#CCEED3]" />
                     Global Index
                   </div>
@@ -155,13 +155,13 @@ export default function Header() {
                       <Link
                         to={item.href}
                         onClick={() => setIsMenuOpen(false)}
-                        className="flex flex-col py-3 lg:py-5 outline-none block"
+                        className="flex flex-col py-2 lg:py-4 outline-none block"
                       >
-                        <div className="flex items-end justify-between border-b border-white/5 pb-4 group-hover:border-[#BBBAFF]/50 transition-colors duration-500">
-                          <span className={`text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter transition-all duration-500 ${hoveredNav === item.label ? "text-[#BBBAFF] translate-x-4" : "text-white"}`}>
+                        <div className="flex items-end justify-between border-b border-white/5 pb-2 group-hover:border-[#BBBAFF]/50 transition-colors duration-500">
+                          <span className={`text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter transition-all duration-500 ${hoveredNav === item.label ? "text-[#BBBAFF] translate-x-4" : "text-white"}`}>
                             {item.label}
                           </span>
-                          <ArrowRight className={`w-10 h-10 lg:w-14 lg:h-14 transition-all duration-500 ${hoveredNav === item.label ? "text-[#BBBAFF] transform translate-x-0 opacity-100" : "text-white/20 transform -translate-x-10 opacity-0"}`} />
+                          <ArrowRight className={`w-8 h-8 lg:w-10 lg:h-10 transition-all duration-500 ${hoveredNav === item.label ? "text-[#BBBAFF] transform translate-x-0 opacity-100" : "text-white/20 transform -translate-x-10 opacity-0"}`} />
                         </div>
                         <div className={`mt-3 text-sm font-light tracking-wide transition-all duration-500 overflow-hidden ${hoveredNav === item.label ? "text-white/60 opacity-100 h-6 translate-y-0" : "opacity-0 h-0 -translate-y-2"}`}>
                           {item.description}
@@ -206,10 +206,14 @@ export default function Header() {
                 className="flex flex-col md:flex-row justify-between items-center pt-10 border-t border-white/10"
               >
                 <div className="flex items-center space-x-10 mb-6 md:mb-0">
-                  {['LinkedIn', 'Twitter', 'Instagram'].map(social => (
-                    <MagneticWrapper key={social} strength={0.2}>
-                      <a href="#" className="text-xs font-mono font-bold tracking-[0.2em] text-white hover:text-[#BBBAFF] transition-colors uppercase">
-                        {social}
+                  {[
+                    { name: 'LinkedIn', url: 'https://linkedin.com/company/pharmasaha' },
+                    { name: 'Twitter', url: 'https://twitter.com/pharmasaha' },
+                    { name: 'Instagram', url: 'https://instagram.com/pharmasaha' }
+                  ].map(social => (
+                    <MagneticWrapper key={social.name} strength={0.2}>
+                      <a href={social.url} target="_blank" rel="noopener noreferrer" className="text-xs font-mono font-bold tracking-[0.2em] text-white hover:text-[#BBBAFF] transition-colors uppercase">
+                        {social.name}
                       </a>
                     </MagneticWrapper>
                   ))}
