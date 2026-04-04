@@ -46,7 +46,6 @@ export default function ContactSection() {
           {/* Informational Side */}
           <div className="w-full lg:w-1/2 flex flex-col justify-between">
             <div>
-              <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-4 block">Concierge</span>
               <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white tracking-tight mb-8">
                 Initiate <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary pr-2">Partnership.</span>
               </h2>
@@ -133,7 +132,7 @@ export default function ContactSection() {
                     value={form.message}
                     onChange={handleChange}
                     className="w-full bg-transparent border-b border-white/10 py-3 text-white focus:outline-none focus:border-primary transition-colors placeholder:text-white/20 resize-none"
-                    placeholder="How can we accelerate your market access?"
+                    placeholder="Describe your distribution requirements or partnership inquiry..."
                   />
                 </div>
 

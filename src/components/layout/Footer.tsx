@@ -104,11 +104,11 @@ export default function Footer() {
          <div className="w-full flex flex-col md:flex-row justify-between items-center text-white/30 text-xs font-mono tracking-widest uppercase">
           <p>© {new Date().getFullYear()} PHARMASAHA LOGISTICS. ALL SYSTEMS NOMINAL.</p>
           <div className="flex gap-6 mt-6 md:mt-0 items-center">
-            <Link to="/compliance" className="hover:text-white transition-colors cursor-pointer">Privacy Map</Link>
+            <Link to="/compliance#privacy" className="hover:text-white transition-colors cursor-pointer">Privacy Map</Link>
             <span className="w-1 h-1 rounded-full bg-[#705B3C]" />
-            <Link to="/compliance" className="hover:text-white transition-colors cursor-pointer">Terms of Architecture</Link>
+            <Link to="/compliance#terms" className="hover:text-white transition-colors cursor-pointer">Terms of Architecture</Link>
             <span className="w-1 h-1 rounded-full bg-[#BBBAFF]" />
-            <Link to="/compliance" className="hover:text-white transition-colors cursor-pointer">Anti-Bribery Protocol</Link>
+            <Link to="/compliance#bribery" className="hover:text-white transition-colors cursor-pointer">Anti-Bribery Protocol</Link>
           </div>
         </div>
 

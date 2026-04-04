@@ -81,17 +81,18 @@ function App() {
       if (lenis) {
         lenis.scrollTo(0, { immediate: true });
       }
-      // Force refresh for all ScrollTriggers on the new page
       ScrollTrigger.refresh();
     };
 
-    // Immediate reset
-    forceTop();
-
-    // Secondary reset after a tiny delay to catch any late-mounting component layout shifts
-    const timeout = setTimeout(forceTop, 100);
+    // Use a single frame delay which is invisible to the user but enough for route cleanup
+    const frameId = requestAnimationFrame(() => {
+      forceTop();
+      // Second check for lazy components
+      const timeoutId = setTimeout(forceTop, 50);
+      return () => clearTimeout(timeoutId);
+    });
     
-    return () => clearTimeout(timeout);
+    return () => cancelAnimationFrame(frameId);
   }, [location.pathname]);
 
   return (

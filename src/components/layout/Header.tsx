@@ -59,7 +59,7 @@ export default function Header() {
         >
           {/* Logo Area */}
           <MagneticWrapper strength={0.1}>
-            <a href="#home" className="flex items-center space-x-3 group outline-none" onClick={() => setIsMenuOpen(false)} aria-label="Return to Homepage">
+            <Link to="/" className="flex items-center space-x-3 group outline-none" onClick={() => setIsMenuOpen(false)} aria-label="Return to Homepage">
               <div className="w-9 h-9 flex items-center justify-center relative">
                 <div className="absolute inset-0 bg-[#705B3C]/20 rounded-full blur-md group-hover:bg-[#705B3C]/40 transition-all duration-300" />
                 <img src="/logo.png" alt="PharmaSaha Logo" className="w-full h-full object-contain relative z-10" />
@@ -70,7 +70,7 @@ export default function Header() {
               >
                 PHARMA<span className="text-[#BBBAFF]">SAHA</span>
               </span>
-            </a>
+            </Link>
           </MagneticWrapper>
 
           {/* Center Actions / Trigger */}
@@ -78,11 +78,11 @@ export default function Header() {
             {/* Always visible Contact Button on Desktop Island */}
             <div className={`hidden md:block overflow-hidden transition-all duration-500 ease-out ${isScrolled ? "opacity-100 w-auto" : "opacity-0 w-0"}`}>
                <MagneticWrapper>
-                 <a href="#contact" onClick={() => setIsMenuOpen(false)} aria-label="Initiate Contact">
+                 <Link to="/contact" onClick={() => setIsMenuOpen(false)} aria-label="Initiate Contact">
                    <Button className="h-10 px-6 rounded-full bg-[#705B3C] hover:bg-[#5E482C] text-white font-bold tracking-wide text-sm shadow-[0_0_15px_rgba(112,91,60,0.4)] transition-all">
                      Initiate
                    </Button>
-                 </a>
+                 </Link>
                </MagneticWrapper>
             </div>
 
