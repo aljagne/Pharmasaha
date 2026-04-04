@@ -49,21 +49,25 @@ export default function TenderLifecycle() {
       const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
 
       if (isDesktop) {
-        // Horizontal GSAP Scroll for the timeline track - Optimized for longer scroll journey
-        const scrollWidth = trackRef.current?.scrollWidth || 0;
-        const windowWidth = window.innerWidth;
-        const amountToScroll = scrollWidth - windowWidth + (windowWidth * 0.15); 
+        // Horizontal GSAP Scroll for the timeline track - Optimized for dynamic distance
+        const getScrollAmount = () => {
+          if (!trackRef.current) return 0;
+          // The scroll amount is the track width minus the visible part of the track
+          // We add a small buffer (10% of window) for a premium 'finish'
+          return (trackRef.current.scrollWidth - window.innerWidth + (window.innerWidth * 0.15));
+        };
 
         gsap.to(trackRef.current, {
-          x: -amountToScroll,
+          x: () => -getScrollAmount(),
           ease: "none",
           scrollTrigger: {
             trigger: containerRef.current,
             pin: true,
-            scrub: 0.6,
-            // Fixed 2500px length to provide a luxurious, non-jumping experience
-            end: "+=2500", 
+            scrub: 1, // Slightly slower scrub for luxury feel
+            // Dynamic end based on actual content width to ensure reachable distance
+            end: () => `+=${getScrollAmount() + 500}`, 
             invalidateOnRefresh: true,
+            anticipatePin: 1
           }
         });
       } else {
