@@ -1,0 +1,14 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+/* TEAM */
+Engineer: The PharmaSaha Development Team
+Role: Architecture & Frontend Engineering
+
+/* SITE */
+Last update: 2026-04-13
+Language: English
+Standards: HTML5, CSS3, JavaScript, WebGL
+Components: React, Vite, Tailwind CSS
+Architecture: Mobile-First SPA, Client-Side Routing
+Design: Glassmorphic Enterprise Aesthetics

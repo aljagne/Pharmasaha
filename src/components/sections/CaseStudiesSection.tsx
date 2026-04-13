@@ -49,6 +49,13 @@ export default function CaseStudiesSection() {
           ))}
         </div>
 
+        {/* Source Citation */}
+        <div className="mt-16 text-center">
+          <p className="text-white/25 text-[10px] font-mono tracking-widest uppercase">
+            Based on internal operational data, FY2025. Metrics verified by independent audit.
+          </p>
+        </div>
+
       </div>
     </section>
   );

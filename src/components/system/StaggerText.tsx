@@ -1,12 +1,11 @@
-import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import React, { useEffect, useRef } from 'react';
 
 interface StaggerTextProps {
   text: string;
   className?: string;
   delayStart?: number;
   staggerDuration?: number;
-  wordMode?: boolean; // If true, staggers word by word instead of character by character
+  wordMode?: boolean;
   once?: boolean;
 }
 
@@ -14,67 +13,48 @@ export default function StaggerText({
   text,
   className = '',
   delayStart = 0,
-  staggerDuration = 0.03,
+  staggerDuration = 0.05,
   wordMode = false,
-  once = true
 }: StaggerTextProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
 
-  if (shouldReduceMotion) {
-    return <span className={className}>{text}</span>;
-  }
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
 
-  // Tokenize the string into either words or characters
-  const elements = wordMode ? text.split(' ') : text.split('');
-  
-  const container = {
-    hidden: { opacity: 0 },
-    visible: (i: number = 1) => ({
-      opacity: 1,
-      transition: { staggerChildren: staggerDuration, delayChildren: delayStart * i },
-    }),
-  };
-
-  const child = {
-    visible: {
-      opacity: 1,
-      y: 0,
-      rotateX: 0,
-      transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 100,
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add('stagger-revealed');
+          observer.unobserve(el);
+        }
       },
-    },
-    hidden: {
-      opacity: 0,
-      y: 40,
-      rotateX: -45, // Add a 3D peeling effect for luxury feel
-    },
-  };
+      { threshold: 0.3 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const elements = wordMode ? text.split(' ') : text.split('');
 
   return (
-    <motion.div
-      style={{ overflow: 'hidden', display: 'flex', flexWrap: 'wrap' }}
-      variants={container}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: once, margin: "-50px" }}
-      className={className}
+    <div
+      ref={ref}
+      className={`stagger-container flex flex-wrap ${className}`}
     >
       {elements.map((element, index) => (
-        <motion.span
-          variants={child}
-          style={{ 
-            display: 'inline-block',
-            marginRight: wordMode ? '0.25em' : '0em', // add space if splitting by words
-            willChange: 'transform, opacity'
-          }}
+        <span
           key={index}
+          className="stagger-item inline-block"
+          style={{
+            transitionDelay: `${delayStart + index * staggerDuration}s`,
+            marginRight: wordMode ? '0.25em' : '0em',
+          }}
         >
           {element === ' ' ? '\u00A0' : element}
-        </motion.span>
+        </span>
       ))}
-    </motion.div>
+    </div>
   );
 }

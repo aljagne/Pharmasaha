@@ -13,12 +13,9 @@ import {
   Zap,
   ShieldAlert
 } from "lucide-react";
-import React, { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
-gsap.registerPlugin(ScrollTrigger);
 
 const PILLARS = [
   {
@@ -105,57 +102,29 @@ export default function InfrastructureDeepDive() {
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
   const indexMarkersRef = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeIdx, setActiveIdx] = useState(-1);
 
   useEffect(() => {
-    if (!containerRef.current) return;
-    
-    // Clear any existing ScrollTriggers to prevent duplicates on hot-reload
-    ScrollTrigger.getAll().forEach(t => t.kill());
-
-    const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+    const observers: IntersectionObserver[] = [];
 
     PILLARS.forEach((_, idx) => {
       const section = sectionsRef.current[idx];
-      const marker = indexMarkersRef.current[idx];
+      if (!section) return;
 
-      if (!section || !marker) return;
-
-      if (isDesktop) {
-        ScrollTrigger.create({
-          trigger: section,
-          start: "top center",
-          end: "bottom center",
-          onToggle: (self) => {
-            if (self.isActive) {
-              gsap.to(marker, { opacity: 1, x: 10, color: "#D4A855", duration: 0.3 });
-              gsap.to(marker.querySelector(".indicator-line"), { scaleX: 1, opacity: 1, duration: 0.3 });
-            } else {
-              gsap.to(marker, { opacity: 0.3, x: 0, color: "#FFFFFF", duration: 0.3 });
-              gsap.to(marker.querySelector(".indicator-line"), { scaleX: 0, opacity: 0, duration: 0.3 });
-            }
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActiveIdx(idx);
           }
-        });
+        },
+        { rootMargin: '-40% 0px -40% 0px', threshold: 0 }
+      );
 
-        // Parallax entrance for section content
-        gsap.fromTo(
-          section.children,
-          { opacity: 0, y: 50 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: section,
-              start: "top 75%",
-            }
-          }
-        );
-      }
+      observer.observe(section);
+      observers.push(observer);
     });
 
-    return () => ScrollTrigger.getAll().forEach(t => t.kill());
+    return () => observers.forEach(obs => obs.disconnect());
   }, []);
 
   return (
@@ -187,13 +156,13 @@ export default function InfrastructureDeepDive() {
                   <div 
                     key={idx}
                     ref={el => indexMarkersRef.current[idx] = el}
-                    className="group flex flex-col gap-1 text-white/30 transition-all duration-300 relative cursor-pointer"
+                    className={`group flex flex-col gap-1 transition-all duration-300 relative cursor-pointer ${activeIdx === idx ? 'text-[#D4A855] translate-x-2.5' : 'text-white/30'}`}
                     onClick={() => {
                       sectionsRef.current[idx]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }}
                   >
                     {/* Active line indicator */}
-                    <div className="indicator-line absolute -left-[25px] top-3 w-4 h-[2px] bg-primary origin-left scale-x-0 opacity-0 transition-all duration-300" />
+                    <div className={`indicator-line absolute -left-[25px] top-3 w-4 h-[2px] bg-primary origin-left transition-all duration-300 ${activeIdx === idx ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'}`} />
                     
                     <div className="flex items-center gap-4">
                       <span className="text-xs font-mono tracking-widest uppercase">0{idx + 1}</span>

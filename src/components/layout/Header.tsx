@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import MagneticWrapper from "@/components/ui/MagneticWrapper";
 
 const navItems = [
@@ -20,6 +20,19 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleInitiateClick = () => {
+    setIsMenuOpen(false);
+    if (location.pathname === '/') {
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      }, 300);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 40);
@@ -78,11 +91,11 @@ export default function Header() {
             {/* Always visible Contact Button on Desktop Island */}
             <div className={`hidden md:block overflow-hidden transition-all duration-500 ease-out ${isScrolled ? "opacity-100 w-auto" : "opacity-0 w-0"}`}>
                <MagneticWrapper>
-                 <Link to="/contact" onClick={() => setIsMenuOpen(false)} aria-label="Initiate Contact">
+                 <button onClick={handleInitiateClick} aria-label="Initiate Contact">
                    <Button className="h-10 px-6 rounded-full bg-[#705B3C] hover:bg-[#5E482C] text-white font-bold tracking-wide text-sm shadow-[0_0_15px_rgba(112,91,60,0.4)] transition-all">
                      Initiate
                    </Button>
-                 </Link>
+                 </button>
                </MagneticWrapper>
             </div>
 
@@ -160,11 +173,16 @@ export default function Header() {
                         onClick={() => setIsMenuOpen(false)}
                         className="flex flex-col py-2 lg:py-4 outline-none block"
                       >
-                        <div className="flex items-end justify-between border-b border-white/5 pb-2 group-hover:border-[#BBBAFF]/50 transition-colors duration-500">
-                          <span className={`text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter transition-all duration-500 ${hoveredNav === item.label ? "text-[#BBBAFF] translate-x-4" : "text-white"}`}>
+                        <div className={`flex items-end justify-between border-b pb-2 transition-colors duration-500 ${location.pathname === item.href ? 'border-[#BBBAFF]/40' : 'border-white/5 group-hover:border-[#BBBAFF]/50'}`}>
+                          <span className={`text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter transition-all duration-500 ${location.pathname === item.href ? 'text-[#BBBAFF]' : hoveredNav === item.label ? "text-[#BBBAFF] translate-x-4" : "text-white"}`}>
                             {item.label}
                           </span>
-                          <ArrowRight className={`w-8 h-8 lg:w-10 lg:h-10 transition-all duration-500 ${hoveredNav === item.label ? "text-[#BBBAFF] transform translate-x-0 opacity-100" : "text-white/20 transform -translate-x-10 opacity-0"}`} />
+                          <div className="flex items-center gap-3">
+                            {location.pathname === item.href && (
+                              <span className="text-[9px] font-mono font-bold tracking-[0.3em] text-[#BBBAFF]/60 uppercase">Active</span>
+                            )}
+                            <ArrowRight className={`w-8 h-8 lg:w-10 lg:h-10 transition-all duration-500 ${location.pathname === item.href ? 'text-[#BBBAFF] opacity-100' : hoveredNav === item.label ? "text-[#BBBAFF] transform translate-x-0 opacity-100" : "text-white/20 transform -translate-x-10 opacity-0"}`} />
+                          </div>
                         </div>
                         <div className={`mt-3 text-sm font-light tracking-wide transition-all duration-500 overflow-hidden ${hoveredNav === item.label ? "text-white/60 opacity-100 h-6 translate-y-0" : "opacity-0 h-0 -translate-y-2"}`}>
                           {item.description}

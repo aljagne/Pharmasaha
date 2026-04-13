@@ -1,4 +1,5 @@
 import { ShieldCheck, Activity, Globe, Lock } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const compliances = [
   {
@@ -48,9 +49,9 @@ export default function ComplianceMatrix() {
             <p className="text-white/60 text-lg leading-relaxed mb-8">
               We do not bolt compliance onto our processes; it is the foundational code of our entire operational infrastructure.
             </p>
-            <button className="text-sm font-bold tracking-widest text-primary uppercase hover:text-white transition-colors duration-300 border-b border-primary/30 pb-1">
+            <Link to="/compliance" className="text-sm font-bold tracking-widest text-primary uppercase hover:text-white transition-colors duration-300 border-b border-primary/30 pb-1">
               View Full Documentation
-            </button>
+            </Link>
           </div>
 
           <div className="lg:col-span-2 grid sm:grid-cols-2 gap-6">

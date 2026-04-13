@@ -1,9 +1,6 @@
 import { ShieldCheck, Truck, Globe2, Activity, Network, Anchor } from "lucide-react";
-import React, { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import React, { useRef } from "react";
+import ScrollReveal from "../system/ScrollReveal";
 
 const NODES = [
   {
@@ -51,67 +48,12 @@ const NODES = [
 ];
 
 export default function NetworkDeepDive() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-    
-    // Clear existing ScrollTriggers
-    ScrollTrigger.getAll().forEach(t => t.kill());
-
-    const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
-
-    if (isDesktop) {
-      const nodes = gsap.utils.toArray(".logistics-node");
-      
-      nodes.forEach((node, idx) => {
-        const el = node as HTMLElement;
-        const imgBlock = el.querySelector('.node-visual');
-        const textBlock = el.querySelector('.node-content');
-        
-        // Staggered parallax entrance
-        gsap.fromTo(
-          imgBlock,
-          { opacity: 0, x: idx % 2 === 0 ? -100 : 100 },
-          {
-            opacity: 1, 
-            x: 0, 
-            duration: 1.2, 
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 75%"
-            }
-          }
-        );
-
-        gsap.fromTo(
-          textBlock,
-          { opacity: 0, y: 50 },
-          {
-            opacity: 1, 
-            y: 0, 
-            duration: 1, 
-            delay: 0.2,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 75%"
-            }
-          }
-        );
-      });
-    }
-
-    return () => ScrollTrigger.getAll().forEach(t => t.kill());
-  }, []);
-
   return (
-    <section className="bg-background py-32 relative border-t border-white/5" ref={containerRef} id="network-deep-dive">
+    <section className="bg-background py-32 relative border-t border-white/5" id="network-deep-dive">
       <div className="max-w-[90rem] mx-auto px-6 lg:px-12 relative z-10">
         
         {/* Section Header */}
-        <div className="mb-32 text-center max-w-4xl mx-auto">
+        <ScrollReveal className="mb-32 text-center max-w-4xl mx-auto">
           <span className="text-secondary font-bold tracking-[0.3em] text-[10px] md:text-xs uppercase mb-6 block flex items-center justify-center gap-4">
             <span className="w-12 h-px bg-secondary" />
             Logistics Matrix
@@ -121,17 +63,17 @@ export default function NetworkDeepDive() {
             Deterministic <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Supply Chain Operations.</span>
           </h2>
-        </div>
+        </ScrollReveal>
 
         {/* Alternating Nodes */}
         <div className="space-y-40 lg:space-y-64 pb-32">
           {NODES.map((node, idx) => {
             const isEven = idx % 2 === 0;
             return (
-              <div 
-                key={node.id} 
-                className={`logistics-node relative flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 lg:gap-24 items-center`}
-              >
+              <ScrollReveal key={node.id} delay={idx * 0.1}>
+                <div 
+                  className={`relative flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 lg:gap-24 items-center`}
+                >
                 {/* Visual / Abstract Representation */}
                 <div className="node-visual w-full lg:w-1/2 relative">
                   <div className="aspect-square lg:aspect-[4/5] rounded-[3rem] overflow-hidden bg-white/5 border border-white/10 relative group">
@@ -201,6 +143,7 @@ export default function NetworkDeepDive() {
                 </div>
 
               </div>
+              </ScrollReveal>
             );
           })}
         </div>

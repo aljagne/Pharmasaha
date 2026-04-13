@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://pharmasaha.com/sitemap.xml
+
+# LLM mapping file directive
+Host: https://pharmasaha.com
+Ai-Txt: https://pharmasaha.com/ai.txt

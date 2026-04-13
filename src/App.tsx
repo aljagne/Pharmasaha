@@ -1,8 +1,5 @@
 import { Suspense, useEffect, useState, useLayoutEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import Lenis from '@studio-freight/lenis';
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import gsap from "gsap";
 
 // Core brand pages
 import Home from "./pages/Home";
@@ -14,14 +11,22 @@ import Intelligence from "./pages/Intelligence";
 import BlogPost from "./pages/BlogPost";
 import Network from "./pages/Network";
 import Compliance from "./pages/Compliance";
+import NotFound from "./pages/NotFound";
 
 // Layout components
 import { NoiseOverlay } from "./components/ui/noise-overlay";
 import Header from "./components/layout/Header";
 import CustomCursor from "./components/ui/CustomCursor";
 
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger);
+// Redirect /contact to homepage #contact section
+function ContactRedirect() {
+  useEffect(() => {
+    setTimeout(() => {
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  }, []);
+  return <Home />;
+}
 
 function App() {
   const location = useLocation();
@@ -44,55 +49,9 @@ function App() {
     }
   }, []);
 
-  // 2. LENIS SMOOTH SCROLL ENGINE (Singleton)
-  useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.5,
-      easing: (t) => 1 - Math.pow(1 - t, 5), // Quintic easing for high-end inertial feel
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-      wheelMultiplier: 1.1,
-    });
-
-    const raf = (time: number) => {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    };
-
-    const requestId = requestAnimationFrame(raf);
-    (window as any).lenis = lenis;
-
-    return () => {
-      lenis.destroy();
-      cancelAnimationFrame(requestId);
-    };
-  }, []);
-
-  // 3. ATOMIC SCROLL RESET ON ROUTE CHANGE
-  // useLayoutEffect ensures this runs before the browser paints the new route content
+  // 2. SCROLL RESET ON ROUTE CHANGE
   useLayoutEffect(() => {
-    // Clear GSAP memory to prevent it from trying to 'restore' element positions
-    ScrollTrigger.clearScrollMemory();
-    
-    const forceTop = () => {
-      window.scrollTo(0, 0);
-      const lenis = (window as any).lenis;
-      if (lenis) {
-        lenis.scrollTo(0, { immediate: true });
-      }
-      ScrollTrigger.refresh();
-    };
-
-    // Use a single frame delay which is invisible to the user but enough for route cleanup
-    const frameId = requestAnimationFrame(() => {
-      forceTop();
-      // Second check for lazy components
-      const timeoutId = setTimeout(forceTop, 50);
-      return () => clearTimeout(timeoutId);
-    });
-    
-    return () => cancelAnimationFrame(frameId);
+    window.scrollTo(0, 0);
   }, [location.pathname]);
 
   return (
@@ -113,6 +72,8 @@ function App() {
             <Route path="/intelligence/:slug" element={<BlogPost />} />
             <Route path="/network" element={<Network />} />
             <Route path="/compliance" element={<Compliance />} />
+            <Route path="/contact" element={<ContactRedirect />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
       </div>

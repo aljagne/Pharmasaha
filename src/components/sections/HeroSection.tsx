@@ -1,20 +1,16 @@
 import React, { useEffect, useRef, useState, Suspense } from "react";
-import { ArrowRight, ChevronRight, Play, ExternalLink, ShieldCheck, Globe, Zap, BarChart3 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Link, useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import Magnetic from "../ui/Magnetic";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // Lazy load the WebGL canvas so it doesn't block the initial React hydration
 const WebGLGlobe = React.lazy(() => import("../canvas/WebGLGlobe"));
 
-// Advanced GSAP-driven Counter
+// Pure JS counter — no GSAP
 function CountUpNumber({
   end,
   suffix = "",
-  duration = 2,
+  duration = 2000,
 }: {
   end: number;
   suffix?: string;
@@ -22,21 +18,24 @@ function CountUpNumber({
 }) {
   const [count, setCount] = useState(0);
   const elementRef = useRef<HTMLDivElement>(null);
-  const valRef = useRef({ val: 0 });
 
   useEffect(() => {
+    const el = elementRef.current;
+    if (!el) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            gsap.to(valRef.current, {
-              val: end,
-              duration: duration,
-              ease: "expo.out",
-              onUpdate: () => {
-                setCount(Math.round(valRef.current.val));
-              }
-            });
+            const start = performance.now();
+            const tick = (now: number) => {
+              const elapsed = now - start;
+              const progress = Math.min(elapsed / duration, 1);
+              const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+              setCount(Math.round(eased * end));
+              if (progress < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
             observer.disconnect();
           }
         });
@@ -44,10 +43,7 @@ function CountUpNumber({
       { threshold: 0.5 }
     );
 
-    if (elementRef.current) {
-      observer.observe(elementRef.current);
-    }
-
+    observer.observe(el);
     return () => observer.disconnect();
   }, [end, duration]);
 
@@ -60,45 +56,7 @@ function CountUpNumber({
 }
 
 export default function HeroSection({ isFirstVisit = true }: { isFirstVisit?: boolean }) {
-  const [badgeText, setBadgeText] = useState("West Africa's Healthcare Gateway");
   const heroRef = useRef<HTMLElement>(null);
-  const navigate = useNavigate();
-
-    const timelineRef = useRef<gsap.core.Timeline | null>(null);
-    const [showSkip, setShowSkip] = useState(false);
-
-    const skipIntro = () => {
-      if (timelineRef.current) {
-        timelineRef.current.progress(1);
-        setShowSkip(false);
-      }
-    };
-
-    useEffect(() => {
-      const ctx = gsap.context(() => {
-        const delay = isFirstVisit ? 0.2 : 0;
-        const durationMultiplier = isFirstVisit ? 1 : 0.4;
-
-        const tl = gsap.timeline({ 
-          delay: delay,
-          onStart: () => {
-            if (isFirstVisit) {
-              gsap.delayedCall(1, () => setShowSkip(true));
-            }
-          },
-          onComplete: () => setShowSkip(false)
-        });
-        timelineRef.current = tl;
-
-        tl.fromTo(".hero-badge", { opacity: 0, y: 20, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.5 * durationMultiplier, ease: "back.out(1.5)" });
-        tl.fromTo(".hero-headline .split-line", { opacity: 0, y: 40, rotateX: -20 }, { opacity: 1, y: 0, rotateX: 0, duration: 0.8 * durationMultiplier, stagger: 0.1 * durationMultiplier, ease: "power4.out" }, "-=0.3");
-        tl.fromTo(".hero-subhead", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.7 * durationMultiplier, ease: "power2.out" }, "-=0.5");
-        tl.fromTo(".hero-buttons", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.6 * durationMultiplier, ease: "power2.out" }, "-=0.6");
-        tl.fromTo(".hero-stat", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 * durationMultiplier, stagger: 0.08 * durationMultiplier, ease: "back.out(1.2)" }, "-=0.4");
-      }, heroRef);
-
-      return () => ctx.revert();
-    }, [isFirstVisit]);
 
   return (
     <section ref={heroRef} className="relative min-h-screen bg-background overflow-hidden selection:bg-[#745A37] selection:text-white">
@@ -115,31 +73,30 @@ export default function HeroSection({ isFirstVisit = true }: { isFirstVisit?: bo
           {/* Left Content Column */}
           <div className="flex flex-col items-start gap-6 lg:gap-8 z-30 lg:pl-4 xl:pl-8 w-full lg:max-w-[60%] xl:max-w-[55%] relative pointer-events-auto">
             
-            <div className="hero-badge inline-flex items-center px-4 py-2 border border-secondary/30 bg-secondary/10 backdrop-blur-md rounded-full cursor-pointer hover:bg-secondary/20 hover:border-secondary/50 transition-all shadow-[0_0_15px_rgba(186,185,255,0.15)] group relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+            <div className="hero-reveal hero-reveal-1 inline-flex items-center px-4 py-2 border border-secondary/30 bg-secondary/10 backdrop-blur-md rounded-full cursor-pointer hover:bg-secondary/20 hover:border-secondary/50 transition-all shadow-[0_0_15px_rgba(186,185,255,0.15)] group relative overflow-hidden">
               <span className="relative w-2 h-2 mr-3 flex items-center justify-center">
                 <span className="absolute inset-0 bg-secondary rounded-full animate-ping opacity-75" />
                 <span className="relative w-1.5 h-1.5 bg-secondary rounded-full shadow-[0_0_8px_#BAB9FF]" />
               </span>
-              <span className="text-secondary text-xs sm:text-sm font-semibold tracking-wide uppercase letter-spacing-[0.05em]">
-                {badgeText}
+              <span className="text-secondary text-xs sm:text-sm font-semibold tracking-wide uppercase">
+                West Africa's Healthcare Gateway
               </span>
             </div>
 
-            <h1 className="hero-headline text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem] font-black leading-[0.9] tracking-tighter mb-2 lg:mb-4 drop-shadow-2xl hero-text-glow w-full" style={{ perspective: "1000px" }}>
-              <div className="split-line text-transparent bg-clip-text bg-gradient-to-br from-white via-white/90 to-white/40 block origin-left">
+            <h1 className="hero-reveal hero-reveal-2 text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem] font-black leading-[0.9] tracking-tighter mb-2 lg:mb-4 drop-shadow-2xl hero-text-glow w-full">
+              <div className="text-transparent bg-clip-text bg-gradient-to-br from-white via-white/90 to-white/40 block origin-left">
                 Access The
               </div>
-              <div className="split-line text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-[#BAB9FF] block origin-left mt-2">
+              <div className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-[#BAB9FF] block origin-left mt-2">
                 Next Frontier.
               </div>
             </h1>
 
-            <p className="hero-subhead text-base md:text-lg lg:text-xl text-foreground/80 font-light leading-relaxed max-w-xl pr-4">
+            <p className="hero-reveal hero-reveal-3 text-base md:text-lg lg:text-xl text-foreground/80 font-light leading-relaxed max-w-xl pr-4">
               The exclusive pharmaceutical market access partner for West Africa. Bridging global innovators to a projected USD 118B healthcare landscape.
             </p>
 
-            <div className="hero-buttons flex flex-col sm:flex-row gap-4 lg:gap-6 mt-8 lg:mt-12 w-full justify-center lg:justify-start">
+            <div className="hero-reveal hero-reveal-4 flex flex-col sm:flex-row gap-4 lg:gap-6 mt-8 lg:mt-12 w-full justify-center lg:justify-start">
               <Magnetic>
                 <Link to="/infrastructure" className="inline-block">
                   <button className="bg-primary text-background px-8 lg:px-12 py-4 lg:py-6 rounded-full font-black text-sm lg:text-base uppercase tracking-[0.3em] flex items-center justify-center lg:justify-start gap-3 hover:bg-white transition-all duration-500 shadow-[0_0_30px_rgba(116,90,55,0.3)] group whitespace-nowrap" data-cursor="EXPLORE">
@@ -156,11 +113,10 @@ export default function HeroSection({ isFirstVisit = true }: { isFirstVisit?: bo
               </button>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 lg:gap-8 pt-8 lg:pt-10 mt-4 lg:mt-6 border-t border-border/50 w-full relative">
-              {/* Subtle ambient line to make the grid pop */}
+            <div className="hero-reveal hero-reveal-5 grid grid-cols-2 sm:grid-cols-4 gap-6 lg:gap-8 pt-8 lg:pt-10 mt-4 lg:mt-6 border-t border-border/50 w-full relative">
               <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-primary/0 via-primary/50 to-primary/0" />
               
-              <div className="hero-stat flex flex-col justify-end">
+              <div className="flex flex-col justify-end">
                 <CountUpNumber end={118} suffix="B" />
                 <div className="text-muted-foreground font-medium text-xs flex items-center mt-1 lg:mt-2 uppercase tracking-wider lg:text-[11px]">
                   <div className="w-1.5 h-1.5 rounded-full bg-secondary mr-2 shadow-[0_0_5px_#BAB9FF]" />
@@ -168,7 +124,7 @@ export default function HeroSection({ isFirstVisit = true }: { isFirstVisit?: bo
                 </div>
               </div>
               
-              <div className="hero-stat flex flex-col justify-end">
+              <div className="flex flex-col justify-end">
                 <CountUpNumber end={70} suffix="%+" />
                 <div className="text-muted-foreground font-medium text-xs flex items-center mt-1 lg:mt-2 uppercase tracking-wider lg:text-[11px]">
                   <div className="w-1.5 h-1.5 rounded-full bg-secondary mr-2 shadow-[0_0_5px_#BAB9FF]" />
@@ -176,7 +132,7 @@ export default function HeroSection({ isFirstVisit = true }: { isFirstVisit?: bo
                 </div>
               </div>
 
-              <div className="hero-stat flex flex-col justify-end">
+              <div className="flex flex-col justify-end">
                 <CountUpNumber end={6} />
                 <div className="text-muted-foreground font-medium text-xs flex items-center mt-1 lg:mt-2 uppercase tracking-wider lg:text-[11px]">
                   <div className="w-1.5 h-1.5 rounded-full bg-secondary mr-2 shadow-[0_0_5px_#BAB9FF]" />
@@ -184,7 +140,7 @@ export default function HeroSection({ isFirstVisit = true }: { isFirstVisit?: bo
                 </div>
               </div>
 
-              <div className="hero-stat flex flex-col justify-end">
+              <div className="flex flex-col justify-end">
                 <CountUpNumber end={100} suffix="%" />
                 <div className="text-muted-foreground font-medium text-xs flex items-center mt-1 lg:mt-2 uppercase tracking-wider lg:text-[11px]">
                   <div className="w-1.5 h-1.5 rounded-full bg-primary mr-2 shadow-[0_0_5px_#745A37]" />
@@ -195,18 +151,7 @@ export default function HeroSection({ isFirstVisit = true }: { isFirstVisit?: bo
 
           </div>
 
-          {/* Skip Intro Button */}
-          {showSkip && isFirstVisit && (
-            <button 
-              onClick={skipIntro}
-              className="fixed bottom-10 right-10 z-[100] px-4 py-2 bg-white/5 hover:bg-white/10 backdrop-blur-xl border border-white/10 rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-white/50 hover:text-white transition-all duration-300"
-            >
-              Skip Intro
-            </button>
-          )}
-
           {/* Right Visual - Native WebGL Canvas Container */}
-          {/* Positioned absolutely on the right to prevent stretching the flex container */}
           <div className="absolute inset-0 lg:left-auto lg:right-[-10%] lg:top-1/2 lg:-translate-y-1/2 h-[60vh] lg:h-[120vh] w-full lg:w-[45vw] flex items-center justify-center opacity-30 lg:opacity-100 pointer-events-none lg:pointer-events-auto z-10 lg:z-20">
             <Suspense fallback={
               <div className="w-32 lg:w-48 h-32 lg:h-48 border border-secondary/20 rounded-full flex items-center justify-center animate-pulse">
@@ -221,9 +166,12 @@ export default function HeroSection({ isFirstVisit = true }: { isFirstVisit?: bo
       </div>
       
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-white/50 cursor-pointer group z-50 pointer-events-auto">
+      <div 
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-white/50 cursor-pointer group z-50 pointer-events-auto"
+        onClick={() => document.getElementById('our-story')?.scrollIntoView({ behavior: 'smooth' })}
+      >
         <span className="text-xs mb-3 font-semibold uppercase tracking-widest group-hover:text-[#745A37] transition-colors">
-          Initialize Descent
+          Scroll to Explore
         </span>
         <div className="w-7 h-11 border-2 border-[#C2EED0]/20 rounded-full flex justify-center relative overflow-hidden group-hover:border-[#745A37]/50 transition-colors">
           <div className="w-1.5 h-2.5 bg-[#745A37] rounded-full mt-2 animate-bounce shadow-[0_0_10px_#745A37]" />
@@ -234,10 +182,6 @@ export default function HeroSection({ isFirstVisit = true }: { isFirstVisit?: bo
       <style>{`
         .hero-text-glow {
           text-shadow: 0 0 100px rgba(186,185,255,0.15), 0 0 30px rgba(116,90,55,0.4);
-        }
-        @keyframes shimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
         }
       `}</style>
     </section>

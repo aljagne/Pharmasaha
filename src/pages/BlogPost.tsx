@@ -1,5 +1,5 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -12,14 +12,11 @@ import {
   Building2,
   ExternalLink,
 } from "lucide-react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import PageTransition from "../components/layout/PageTransition";
 import Footer from "../components/layout/Footer";
 import { getArticleBySlug, getRelatedArticles, type Article } from "../lib/articles";
 import { PARTNERS } from "../lib/partners";
-
-gsap.registerPlugin(ScrollTrigger);
+import { useState } from "react";
 
 /* ─────────────────────────────────────────────────────────
    READING PROGRESS BAR
@@ -61,7 +58,6 @@ function RelatedCard({ article }: { article: Article }) {
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
     >
       <div className="relative overflow-hidden rounded-2xl border border-white/5 hover:border-primary/30 transition-all duration-500 bg-white/[0.02]">
-        {/* Image */}
         <div className="aspect-[16/9] overflow-hidden">
           <div
             className="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-700 grayscale-[30%] group-hover:grayscale-0"
@@ -69,8 +65,6 @@ function RelatedCard({ article }: { article: Article }) {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
         </div>
-
-        {/* Content */}
         <div className="p-6">
           <div className="flex items-center gap-3 mb-3">
             <span className="text-[9px] font-bold uppercase tracking-widest text-secondary bg-secondary/10 px-3 py-1 rounded-full">
@@ -96,54 +90,12 @@ function RelatedCard({ article }: { article: Article }) {
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const heroRef = useRef<HTMLDivElement>(null);
-  const bodyRef = useRef<HTMLDivElement>(null);
 
   const article = slug ? getArticleBySlug(slug) : undefined;
   const relatedArticles = slug ? getRelatedArticles(slug, 3) : [];
 
-  // GSAP entrance animations
   useEffect(() => {
-    if (!heroRef.current) return;
     window.scrollTo({ top: 0 });
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".blog-hero-image",
-        { scale: 1.15, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 1.8, ease: "power3.out" }
-      );
-      gsap.fromTo(
-        ".blog-hero-overlay",
-        { opacity: 0 },
-        { opacity: 1, duration: 1.2, delay: 0.3 }
-      );
-      gsap.fromTo(
-        ".blog-hero-content > *",
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, duration: 1, stagger: 0.12, ease: "power3.out", delay: 0.5 }
-      );
-      gsap.fromTo(
-        ".blog-body-section",
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1, y: 0,
-          duration: 0.8, stagger: 0.15, ease: "power2.out",
-          scrollTrigger: { trigger: bodyRef.current, start: "top 80%" },
-        }
-      );
-      gsap.fromTo(
-        ".blog-sidebar > *",
-        { opacity: 0, x: 30 },
-        {
-          opacity: 1, x: 0,
-          duration: 0.8, stagger: 0.1, ease: "power2.out",
-          scrollTrigger: { trigger: ".blog-sidebar", start: "top 85%" },
-        }
-      );
-    }, heroRef);
-
-    return () => ctx.revert();
   }, [slug]);
 
   // 404 fallback
@@ -168,17 +120,15 @@ export default function BlogPost() {
     <PageTransition>
       <ReadingProgress />
 
-      <div className="min-h-screen bg-background text-foreground" ref={heroRef}>
+      <div className="min-h-screen bg-background text-foreground">
         {/* ─── HERO ─── */}
         <div className="relative h-[70vh] min-h-[500px] max-h-[800px] overflow-hidden">
-          {/* Background Image */}
           <div
-            className="blog-hero-image absolute inset-0 bg-cover bg-center"
+            className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${article.image})` }}
           />
-          {/* Overlay gradients */}
-          <div className="blog-hero-overlay absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/30" />
-          <div className="blog-hero-overlay absolute inset-0 bg-gradient-to-r from-background/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/30" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/40 to-transparent" />
 
           {/* Back Button */}
           <div className="absolute top-28 left-6 lg:left-12 z-20">
@@ -194,9 +144,8 @@ export default function BlogPost() {
           </div>
 
           {/* Hero Content */}
-          <div className="blog-hero-content absolute bottom-0 left-0 right-0 p-6 lg:p-12 pb-12 lg:pb-16 max-w-5xl z-10">
-            {/* Meta pills */}
-            <div className="flex flex-wrap items-center gap-3 mb-6">
+          <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-12 pb-12 lg:pb-16 max-w-5xl z-10">
+            <div className="hero-reveal hero-reveal-1 flex flex-wrap items-center gap-3 mb-6">
               <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/20 backdrop-blur-md border border-primary/30 text-primary text-[10px] font-bold uppercase tracking-widest">
                 <Tag className="w-3 h-3" />
                 {article.category}
@@ -211,18 +160,15 @@ export default function BlogPost() {
               </span>
             </div>
 
-            {/* Title */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-6">
+            <h1 className="hero-reveal hero-reveal-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-6">
               {article.title}
             </h1>
 
-            {/* Excerpt */}
-            <p className="text-white/50 text-lg md:text-xl max-w-2xl leading-relaxed font-light">
+            <p className="hero-reveal hero-reveal-3 text-white/50 text-lg md:text-xl max-w-2xl leading-relaxed font-light">
               {article.excerpt}
             </p>
 
-            {/* Action buttons */}
-            <div className="flex items-center gap-4 mt-8">
+            <div className="hero-reveal hero-reveal-4 flex items-center gap-4 mt-8">
               <button className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 text-white/50 hover:text-white hover:border-white/30 transition-all text-[10px] uppercase tracking-widest font-bold">
                 <Bookmark className="w-3.5 h-3.5" /> Save
               </button>
@@ -237,12 +183,11 @@ export default function BlogPost() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
             {/* ── MAIN CONTENT ── */}
-            <article className="flex-1 min-w-0" ref={bodyRef}>
-              {/* Decorative line */}
+            <article className="flex-1 min-w-0">
               <div className="w-20 h-px bg-gradient-to-r from-primary to-secondary mb-12" />
 
               {article.body.map((section, i) => (
-                <div key={i} className="blog-body-section mb-12 lg:mb-16">
+                <div key={i} className="mb-12 lg:mb-16">
                   {section.heading && (
                     <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-6 leading-tight">
                       {section.heading}
@@ -252,7 +197,6 @@ export default function BlogPost() {
                     {section.content}
                   </p>
 
-                  {/* Pull Quote */}
                   {section.pullQuote && (
                     <blockquote className="my-10 py-8 px-8 border-l-2 border-primary bg-white/[0.02] rounded-r-2xl relative">
                       <div className="absolute top-4 left-4 text-primary/20 text-6xl font-serif leading-none">"</div>
@@ -264,7 +208,6 @@ export default function BlogPost() {
                 </div>
               ))}
 
-              {/* Author/Source attribution */}
               <div className="mt-16 pt-8 border-t border-white/5">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-sm">
@@ -281,8 +224,7 @@ export default function BlogPost() {
             </article>
 
             {/* ── SIDEBAR ── */}
-            <aside className="blog-sidebar w-full lg:w-[320px] flex-shrink-0 space-y-8">
-              {/* Table of Contents */}
+            <aside className="w-full lg:w-[320px] flex-shrink-0 space-y-8">
               <div className="lg:sticky lg:top-24 space-y-8">
                 <div className="p-6 rounded-2xl border border-white/5 bg-white/[0.02]">
                   <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 mb-5">
@@ -296,7 +238,7 @@ export default function BlogPost() {
                             <button
                               className="text-sm text-white/50 hover:text-primary transition-colors text-left leading-snug flex items-start gap-2 group"
                               onClick={() => {
-                                const headings = document.querySelectorAll(".blog-body-section h2");
+                                const headings = document.querySelectorAll("article h2");
                                 headings[i]?.scrollIntoView({ behavior: "smooth", block: "start" });
                               }}
                             >
@@ -309,7 +251,6 @@ export default function BlogPost() {
                   </ul>
                 </div>
 
-                {/* Partner Spotlight */}
                 <div className="p-6 rounded-2xl border border-primary/10 bg-gradient-to-b from-primary/[0.04] to-transparent">
                   <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary/70 mb-5 flex items-center gap-2">
                     <Building2 className="w-3 h-3" />
@@ -340,7 +281,6 @@ export default function BlogPost() {
                   </div>
                 </div>
 
-                {/* CTA Card */}
                 <div
                   className="p-6 rounded-2xl border border-secondary/15 relative overflow-hidden"
                   style={{

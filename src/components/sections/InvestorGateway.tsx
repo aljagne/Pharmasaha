@@ -1,10 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { FileText, ArrowRight, Lock, CheckCircle, AlertCircle, Loader2, Key, Fingerprint } from "lucide-react";
 import { supabase } from "../../lib/supabase";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function InvestorGateway() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -15,21 +11,6 @@ export default function InvestorGateway() {
     email: "",
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-    
-    gsap.fromTo(containerRef.current,
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1, y: 0, duration: 1.2, ease: "power3.out",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 85%",
-        }
-      }
-    );
-  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -60,7 +41,7 @@ export default function InvestorGateway() {
   return (
     <section className="py-24 bg-background relative overflow-hidden" id="blueprint-gateway">
 
-      <div className="max-w-[80rem] mx-auto px-6 relative z-10 flex flex-col items-center opacity-0" ref={containerRef}>
+      <div className="max-w-[80rem] mx-auto px-6 relative z-10 flex flex-col items-center" ref={containerRef}>
 
         {/* Lead Capture Form - Redesigned as a Biometric Security Terminal */}
         <div className="w-full max-w-2xl bg-[#000B0D] rounded-3xl p-1 shadow-2xl relative group border border-white/5 overflow-hidden">
@@ -93,7 +74,7 @@ export default function InvestorGateway() {
 
             <form className="space-y-6 relative z-10" onSubmit={(e) => e.preventDefault()}>
               <div className="group/input">
-                <label className="text-white/30 text-[10px] font-bold uppercase tracking-widest mb-2 block group-focus-within/input:text-[#B9A37A] transition-colors">Corporate Entity</label>
+                <label className="text-white/30 text-[10px] font-bold uppercase tracking-widest mb-2 block group-focus-within/input:text-[#B9A37A] transition-colors">Company Name</label>
                 <input
                   type="text"
                   name="corporateName"
@@ -106,7 +87,7 @@ export default function InvestorGateway() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="group/input">
-                  <label className="text-white/30 text-[10px] font-bold uppercase tracking-widest mb-2 block group-focus-within/input:text-[#B9A37A] transition-colors">First Identity</label>
+                  <label className="text-white/30 text-[10px] font-bold uppercase tracking-widest mb-2 block group-focus-within/input:text-[#B9A37A] transition-colors">First Name</label>
                   <input
                     type="text"
                     name="firstName"
@@ -117,7 +98,7 @@ export default function InvestorGateway() {
                   />
                 </div>
                 <div className="group/input">
-                  <label className="text-white/30 text-[10px] font-bold uppercase tracking-widest mb-2 block group-focus-within/input:text-[#B9A37A] transition-colors">Sur Identity</label>
+                  <label className="text-white/30 text-[10px] font-bold uppercase tracking-widest mb-2 block group-focus-within/input:text-[#B9A37A] transition-colors">Last Name</label>
                   <input
                     type="text"
                     name="lastName"
@@ -130,7 +111,7 @@ export default function InvestorGateway() {
               </div>
 
               <div className="group/input">
-                <label className="text-white/30 text-[10px] font-bold uppercase tracking-widest mb-2 block group-focus-within/input:text-[#B9A37A] transition-colors">Encrypted Routing (Email)</label>
+                <label className="text-white/30 text-[10px] font-bold uppercase tracking-widest mb-2 block group-focus-within/input:text-[#B9A37A] transition-colors">Professional Email</label>
                 <input
                   type="email"
                   name="email"

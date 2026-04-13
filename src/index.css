@@ -6,6 +6,11 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
 }
 
 @layer base {
@@ -170,77 +175,55 @@ html {
 }
 
 @layer utilities {
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-  }
+  /* ═══════════════════════════════════════════
+     SCROLL REVEAL SYSTEM — Fast, Smooth, Clean
+     ═══════════════════════════════════════════ */
 
-  .animate-pulse-slow {
-    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
-  .animate-fade-in {
-    animation: fadeIn 0.8s ease-out forwards;
-  }
-
-  .animate-fade-in-up {
-    animation: fadeInUp 0.8s ease-out forwards;
+  .reveal {
     opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    will-change: opacity, transform;
   }
 
-  .animate-fade-in-left {
-    animation: fadeInLeft 0.8s ease-out forwards;
+  .revealed {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  .animate-fade-out {
-    animation: fadeOut 0.5s ease-out forwards;
+  /* Hero-specific: elements start hidden, animate on mount */
+  .hero-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: heroFadeIn 0.5s ease-out forwards;
   }
 
-  .animate-sweep {
-    animation: sweep 8s ease-in-out infinite;
+  .hero-reveal-1 { animation-delay: 0.05s; }
+  .hero-reveal-2 { animation-delay: 0.12s; }
+  .hero-reveal-3 { animation-delay: 0.2s; }
+  .hero-reveal-4 { animation-delay: 0.28s; }
+  .hero-reveal-5 { animation-delay: 0.35s; }
+
+  @keyframes heroFadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
-  /* Beam animation along path */
-  .animate-beam {
-    animation: beamMove 8s ease-in-out infinite;
+  /* ═══════════════════════════════════════════
+     PAGE TRANSITIONS
+     ═══════════════════════════════════════════ */
+
+  .page-enter {
+    animation: pageEnter 0.3s ease-out forwards;
   }
 
-  /* Stagger animations */
-  .animate-stagger-1 { animation-delay: 0.1s; }
-  .animate-stagger-2 { animation-delay: 0.2s; }
-  .animate-stagger-3 { animation-delay: 0.3s; }
-  .animate-stagger-4 { animation-delay: 0.4s; }
-  .animate-stagger-5 { animation-delay: 0.5s; }
-
-  /* Count up animation */
-  .animate-count-up {
-    animation: countUp 2s ease-out forwards;
-  }
-
-  /* Shimmer effect for buttons */
-  .animate-shimmer {
-    animation: shimmer 2s ease-in-out infinite;
-    background-size: 200% 100%;
-  }
-
-  /* Glow pulse */
-  .animate-glow-pulse {
-    animation: glowPulse 3s ease-in-out infinite;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes fadeInUp {
+  @keyframes pageEnter {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(8px);
     }
     to {
       opacity: 1;
@@ -248,63 +231,36 @@ html {
     }
   }
 
-  @keyframes fadeInLeft {
-    from {
-      opacity: 0;
-      transform: translateX(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
+  /* ═══════════════════════════════════════════
+     STAGGER TEXT SYSTEM
+     ═══════════════════════════════════════════ */
+
+  .stagger-item {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.35s ease-out, transform 0.35s ease-out;
   }
 
-  @keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
+  .stagger-revealed .stagger-item {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  @keyframes sweep {
-    0% { transform: translateX(-100%); }
-    50% { transform: translateX(200%); }
-    100% { transform: translateX(-100%); }
-  }
+  /* ═══════════════════════════════════════════
+     AMBIENT ANIMATIONS (Kept — Lightweight CSS)
+     ═══════════════════════════════════════════ */
 
-  @keyframes beamMove {
-    0% { offset-distance: 0%; opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { offset-distance: 100%; opacity: 0; }
-  }
-
-  @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-  }
-
-  @keyframes glowPulse {
-    0%, 100% { box-shadow: 0 0 20px rgba(186, 185, 255, 0.3); } /* #BAB9FF */
-    50% { box-shadow: 0 0 40px rgba(186, 185, 255, 0.6); }
-  }
-
-  @keyframes countUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Noodle path animation */
-  @keyframes dashMove {
-    to { stroke-dashoffset: -100; }
-  }
-
+  /* Noodle path dash */
   .animate-dash {
     stroke-dasharray: 10 5;
     animation: dashMove 3s linear infinite;
   }
 
-  /* ── GlobalNetworkMap Animations ── */
+  @keyframes dashMove {
+    to { stroke-dashoffset: -100; }
+  }
 
-  /* Central emblem glow pulse */
+  /* GlobalNetworkMap — Emblem glow */
   .animate-emblem-glow {
     animation: emblemGlow 4s ease-in-out infinite;
   }
@@ -314,7 +270,7 @@ html {
     50% { opacity: 1; transform: scale(1.08); }
   }
 
-  /* Slow conic gradient spin on emblem ring */
+  /* GlobalNetworkMap — Emblem spin */
   .animate-emblem-spin {
     animation: emblemSpin 20s linear infinite;
   }
@@ -324,7 +280,7 @@ html {
     to { transform: rotate(360deg); }
   }
 
-  /* Slow ping for network node pulse rings */
+  /* Network node slow ping */
   .animate-ping-slow {
     animation: pingSlow 3s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
@@ -332,5 +288,10 @@ html {
   @keyframes pingSlow {
     0% { transform: scale(1); opacity: 0.4; }
     75%, 100% { transform: scale(1.6); opacity: 0; }
+  }
+
+  /* Slow continuous spin */
+  .animate-slow-spin {
+    animation: emblemSpin 40s linear infinite;
   }
 }

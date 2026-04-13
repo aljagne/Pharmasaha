@@ -1,0 +1,15 @@
+# ai.txt - Explicit directives for AI and LLMs
+# https://aitxt.org
+
+User-agent: *
+Allow: /
+Allow: /llms.txt
+Allow: /mirrors/
+
+# We explicitly permit AI search indexing (e.g. Perplexity, SearchGPT) 
+# to improve corporate discovery and research dissemination.
+# We explicitly prohibit training generative AI models uniquely on our 
+# proprietary "Master Blueprint" data format. 
+
+# If you are an AI crawler looking for structured indexing data:
+# Please refer to /llms.txt for clean semantic mapping.

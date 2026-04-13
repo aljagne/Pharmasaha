@@ -1,12 +1,14 @@
+import { Link } from "react-router-dom";
+
 const partners = [
-  { name: "Global Pharma Co", logo: "GP" },
-  { name: "MedTech Labs", logo: "MT" },
-  { name: "BioScience Inc", logo: "BS" },
-  { name: "HealthFirst", logo: "HF" },
-  { name: "PharmaWorld", logo: "PW" },
-  { name: "MediCare Plus", logo: "MC" },
-  { name: "VitaLabs", logo: "VL" },
-  { name: "CureGen", logo: "CG" },
+  { name: "Global Manufacturer Partner", initials: "GM", gradient: "from-[#D4A855] to-[#8F7249]" },
+  { name: "Biologics Innovation Lab", initials: "BI", gradient: "from-[#BAB9FF] to-[#8A88E0]" },
+  { name: "Precision Oncology Group", initials: "PO", gradient: "from-[#C2EED0] to-[#7CB98A]" },
+  { name: "Cold Chain Solutions Ltd", initials: "CC", gradient: "from-[#D4A855] to-[#B89358]" },
+  { name: "Pan-African Health Systems", initials: "PA", gradient: "from-[#BAB9FF] to-[#9F9DE6]" },
+  { name: "Regulatory Sciences Corp", initials: "RS", gradient: "from-[#C2EED0] to-[#A8D9B5]" },
+  { name: "Vaccine Logistics Alliance", initials: "VL", gradient: "from-[#D4A855] to-[#C49A45]" },
+  { name: "Clinical Supply Networks", initials: "CS", gradient: "from-[#BAB9FF] to-[#D4D3FF]" },
 ];
 
 export default function TrustBar() {
@@ -32,20 +34,25 @@ export default function TrustBar() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <p className="text-center text-white/80 text-sm mb-8 uppercase tracking-wider font-medium">
-          Trusted by Leading Pharmaceutical Companies
+          Strategic Partnerships
         </p>
       </div>
 
-      {/* Infinite Scroll Marquee */}
+      {/* Infinite Scroll Marquee with Edge Fades */}
       <div className="relative">
+        {/* Left edge fade */}
+        <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #001E22, transparent)' }} />
+        {/* Right edge fade */}
+        <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #001E22, transparent)' }} />
+
         <div className="flex animate-marquee space-x-8">
           {[...partners, ...partners].map((partner, index) => (
             <div
               key={index}
               className="flex items-center space-x-3 px-6 py-3 bg-[#00282D] rounded-xl min-w-fit border border-[#00363D] hover:border-[#745A37]/50 hover:shadow-md transition-all duration-300 group cursor-pointer"
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-[#745A37]/10 to-[#BAB9FF]/10 rounded-lg flex items-center justify-center group-hover:from-[#745A37]/20 group-hover:to-[#BAB9FF]/20 transition-all">
-                <span className="text-white font-bold text-sm group-hover:text-[#BAB9FF] transition-colors">{partner.logo}</span>
+              <div className={`w-10 h-10 bg-gradient-to-br ${partner.gradient} rounded-lg flex items-center justify-center shadow-inner`}>
+                <span className="text-white font-bold text-sm drop-shadow-sm">{partner.initials}</span>
               </div>
               <span className="text-white font-medium whitespace-nowrap group-hover:text-[#BAB9FF] transition-colors">
                 {partner.name}

@@ -1,0 +1,41 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MedicalBusiness",
+      "@id": "https://pharmasaha.com/#organization",
+      "name": "PharmaSaha",
+      "url": "https://pharmasaha.com",
+      "logo": "https://pharmasaha.com/logo.png",
+      "description": "Elite Pharmaceutical Distribution & Supply Chain Solutions for West Africa, providing unbroken cold-chain logistics, regulatory compliance, and sovereign procurement.",
+      "areaServed": [
+        "Senegal",
+        "Côte d'Ivoire",
+        "Nigeria",
+        "Ghana",
+        "ECOWAS Region"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Institutional Consulting",
+        "url": "https://pharmasaha.com/#contact"
+      },
+      "knowsAbout": [
+        "Pharmaceutical Distribution",
+        "Cold Chain Logistics",
+        "Regulatory Affairs (NAFDAC, FDA)",
+        "Go-To-Market Strategy",
+        "African Medicines Agency (AMA)"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://pharmasaha.com/#website",
+      "url": "https://pharmasaha.com",
+      "name": "PharmaSaha Master Blueprint",
+      "publisher": {
+        "@id": "https://pharmasaha.com/#organization"
+      }
+    }
+  ]
+}

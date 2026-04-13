@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal Lost | PharmaSaha</title>
+  <style>
+    @import url('https://fonts.cdnfonts.com/css/aileron');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Aileron', sans-serif;
+      background: #000508;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Background ambient glows */
+    .bg-glow-1 {
+      position: absolute;
+      top: -20%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(112, 91, 60, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .bg-glow-2 {
+      position: absolute;
+      bottom: -20%;
+      right: -10%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(186, 185, 255, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* Grid overlay */
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 2rem;
+      max-width: 600px;
+    }
+
+    .error-code {
+      font-size: clamp(6rem, 15vw, 12rem);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      border: 1px solid rgba(112, 91, 60, 0.3);
+      background: rgba(112, 91, 60, 0.1);
+      border-radius: 999px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #B9A37A;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #B9A37A;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .headline {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .headline span {
+      color: rgba(255,255,255,0.3);
+    }
+
+    .description {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2.5rem;
+      background: #705B3C;
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      font-family: 'Aileron', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 900;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 0 30px rgba(112, 91, 60, 0.3);
+    }
+
+    .cta-button:hover {
+      background: #fff;
+      color: #001D21;
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .cta-button svg {
+      transition: transform 0.3s ease;
+    }
+
+    .cta-button:hover svg {
+      transform: translateX(4px);
+    }
+
+    .footer-line {
+      position: absolute;
+      bottom: 2rem;
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      font-family: monospace;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.5); }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow-1"></div>
+  <div class="bg-glow-2"></div>
+  <div class="grid-overlay"></div>
+
+  <div class="content">
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Signal Interrupted
+    </div>
+    <div class="error-code">404</div>
+    <h1 class="headline">Route <span>Not Found.</span></h1>
+    <p class="description">
+      The coordinates you entered don't match any known route in our network.
+      Let's navigate you back to operational territory.
+    </p>
+    <a href="/" class="cta-button">
+      Return to Base
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+      </svg>
+    </a>
+  </div>
+
+  <div class="footer-line">© 2026 PHARMASAHA. ALL RIGHTS RESERVED.</div>
+</body>
+</html>

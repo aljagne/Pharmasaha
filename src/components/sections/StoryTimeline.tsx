@@ -1,9 +1,6 @@
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
 import { Crosshair, Shield, Activity, Globe } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
+import ScrollReveal from "../system/ScrollReveal";
 
 const TIMELINE_PHASES = [
   {
@@ -41,45 +38,13 @@ const TIMELINE_PHASES = [
 ];
 
 export default function StoryTimeline() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const leftPanelRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-    
-    // Use gsap.context for scoped and clean ScrollTrigger management
-    const ctx = gsap.context(() => {
-      const sections = gsap.utils.toArray(".timeline-section");
-
-      // Fade in text as each section hits the center of the viewport
-      sections.forEach((sec: any) => {
-        gsap.fromTo(sec,
-          { opacity: 0.2, filter: "blur(10px)" },
-          {
-            opacity: 1, 
-            filter: "blur(0px)",
-            duration: 1,
-            scrollTrigger: {
-              trigger: sec,
-              start: "top 60%", // When top of section hits 60% of viewport
-              end: "bottom 40%",
-              toggleActions: "play reverse play reverse",
-            }
-          }
-        );
-      });
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section className="bg-background relative border-b border-white/5" ref={containerRef}>
+    <section className="bg-background relative border-b border-white/5">
       <div className="max-w-[80rem] mx-auto px-6 relative flex flex-col md:flex-row gap-0 md:gap-20">
 
         {/* ─── LEFT: STICKY PROGRESS PANEL ─── */}
         <div className="w-full md:w-1/3 py-20 md:py-32 relative">
-          <div className="sticky top-32" ref={leftPanelRef}>
+          <div className="sticky top-32">
             <span className="text-white/20 font-bold tracking-[0.3em] text-[10px] uppercase mb-6 flex items-center gap-3">
               <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
               Chronological Record
@@ -100,36 +65,34 @@ export default function StoryTimeline() {
         {/* ─── RIGHT: SCROLLING NARRATIVE CARDS ─── */}
         <div className="w-full md:w-2/3 py-10 md:py-32 flex flex-col gap-32 relative z-10">
           {TIMELINE_PHASES.map((phase, idx) => (
-            <div 
-              key={idx} 
-              className="timeline-section min-h-[50vh] flex flex-col justify-center opacity-20 relative group"
-              style={{ willChange: "opacity, filter" }}
-            >
-              
-              {/* Massive Phase Number Background */}
-              <div className="absolute -left-10 md:-left-20 top-0 text-[10rem] md:text-[15rem] font-black text-white/[0.02] tracking-tighter leading-none pointer-events-none select-none -z-10 group-hover:text-white/[0.04] transition-colors duration-1000">
-                {phase.phase}
+            <ScrollReveal key={idx} delay={idx * 0.05}>
+              <div className="min-h-[50vh] flex flex-col justify-center relative group">
+                
+                {/* Massive Phase Number Background */}
+                <div className="absolute -left-10 md:-left-20 top-0 text-[10rem] md:text-[15rem] font-black text-white/[0.02] tracking-tighter leading-none pointer-events-none select-none -z-10 group-hover:text-white/[0.04] transition-colors duration-500">
+                  {phase.phase}
+                </div>
+
+                {/* Glowing Icon Marker */}
+                <div className="mb-8 w-14 h-14 rounded-2xl bg-[#000508] border border-white/10 flex items-center justify-center shadow-2xl relative">
+                  <div className={`absolute inset-0 bg-gradient-to-b ${phase.color} to-transparent opacity-10 rounded-2xl`} />
+                  {phase.icon}
+                </div>
+
+                <span className="text-white font-mono tracking-[0.3em] text-xs uppercase mb-4 block">
+                  {phase.year}
+                </span>
+                
+                <h3 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-8 leading-tight">
+                  {phase.title}
+                </h3>
+                
+                <p className="text-white/60 text-xl font-light leading-[1.8] max-w-2xl">
+                  {phase.description}
+                </p>
+
               </div>
-
-              {/* Glowing Icon Marker */}
-              <div className="mb-8 w-14 h-14 rounded-2xl bg-[#000508] border border-white/10 flex items-center justify-center shadow-2xl relative">
-                <div className={`absolute inset-0 bg-gradient-to-b ${phase.color} to-transparent opacity-10 rounded-2xl`} />
-                {phase.icon}
-              </div>
-
-              <span className="text-white font-mono tracking-[0.3em] text-xs uppercase mb-4 block">
-                {phase.year}
-              </span>
-              
-              <h3 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-8 leading-tight">
-                {phase.title}
-              </h3>
-              
-              <p className="text-white/60 text-xl font-light leading-[1.8] max-w-2xl">
-                {phase.description}
-              </p>
-
-            </div>
+            </ScrollReveal>
           ))}
         </div>
 

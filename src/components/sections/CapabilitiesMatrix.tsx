@@ -7,6 +7,7 @@ import {
   GraduationCap,
   ArrowRight
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function CapabilitiesMatrix() {
   const pillars = [
@@ -97,12 +98,12 @@ export default function CapabilitiesMatrix() {
 
         {/* Call to action connecting to Institutional/Network */}
         <div className="mt-20 flex justify-center">
-            <button className="flex items-center space-x-3 text-white hover:text-primary transition-colors group">
+            <Link to="/institutional" className="flex items-center space-x-3 text-white hover:text-primary transition-colors group">
               <span className="font-bold tracking-widest text-sm uppercase">Explore Institutional Integration</span>
               <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:border-primary group-hover:bg-primary/10 transition-all duration-300">
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </div>
-            </button>
+            </Link>
         </div>
 
       </div>

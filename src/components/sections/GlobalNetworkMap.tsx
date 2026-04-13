@@ -1,9 +1,6 @@
 import { MapPin, ArrowRight, ShieldCheck, Zap, Globe, Activity, FlaskConical, Microscope, Pill } from "lucide-react";
-import React, { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { Link } from "react-router-dom";
+import React, { useRef, useState } from "react";
 
 /* ─────────────────────────────────────────────────────────
    INLINE LOGO SVG COMPONENT (from Logo.svg, recolored gold)
@@ -30,15 +27,15 @@ function LogoSymbol({ className = "" }: { className?: string }) {
    NETWORK CONFIGURATION
    ───────────────────────────────────────────────────────── */
 const LABS = [
-  { id: "eu", name: "EU Quality Hub", region: "Europe", icon: Microscope, x: 8, y: 28 },
-  { id: "na", name: "NA Innovation Lab", region: "North America", icon: FlaskConical, x: 5, y: 50 },
-  { id: "apac", name: "APAC Scale Center", region: "Asia Pacific", icon: Pill, x: 10, y: 72 },
+  { id: "eu", name: "EU Quality Hub", region: "Europe", icon: Microscope, x: 8, y: 28, tooltip: { status: "Active", detail: "WHO-GMP Certified", volume: "34 SKUs in pipeline" } },
+  { id: "na", name: "NA Innovation Lab", region: "North America", icon: FlaskConical, x: 5, y: 50, tooltip: { status: "Active", detail: "FDA-Approved Biologics", volume: "12 clinical compounds" } },
+  { id: "apac", name: "APAC Scale Center", region: "Asia Pacific", icon: Pill, x: 10, y: 72, tooltip: { status: "Active", detail: "Cost-Optimized Generics", volume: "56 formulations" } },
 ];
 
 const MARKETS = [
-  { id: "sn", name: "Dakar Distribution", region: "Senegal", icon: MapPin, x: 92, y: 28 },
-  { id: "ci", name: "Abidjan Hub", region: "Côte d'Ivoire", icon: MapPin, x: 95, y: 50 },
-  { id: "ng", name: "Lagos Gateway", region: "Nigeria", icon: MapPin, x: 90, y: 72 },
+  { id: "sn", name: "Dakar Distribution", region: "Senegal", icon: MapPin, x: 92, y: 28, tooltip: { status: "Primary Hub", detail: "Cold Chain -20°C to +8°C", volume: "11 countries served" } },
+  { id: "ci", name: "Abidjan Hub", region: "Côte d'Ivoire", icon: MapPin, x: 95, y: 50, tooltip: { status: "Active", detail: "Francophone Gateway", volume: "8 ministry partnerships" } },
+  { id: "ng", name: "Lagos Gateway", region: "Nigeria", icon: MapPin, x: 90, y: 72, tooltip: { status: "Active", detail: "NAFDAC Fast-Track", volume: "200M+ patient reach" } },
 ];
 
 /* ─────────────────────────────────────────────────────────
@@ -170,6 +167,7 @@ function NetworkNode({
 }) {
   const Icon = node.icon;
   const isLeft = side === "left";
+  const [showTooltip, setShowTooltip] = useState(false);
 
   return (
     <div
@@ -180,6 +178,8 @@ function NetworkNode({
         transform: "translate(-50%, -50%)",
         animationDelay: `${index * 0.3}s`,
       }}
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
     >
       {/* Node Circle */}
       <div className="network-node-circle relative flex-shrink-0">
@@ -194,7 +194,7 @@ function NetworkNode({
         />
         {/* Main circle */}
         <div
-          className="relative w-11 h-11 md:w-14 md:h-14 rounded-full flex items-center justify-center backdrop-blur-xl border"
+          className="relative w-11 h-11 md:w-14 md:h-14 rounded-full flex items-center justify-center backdrop-blur-xl border cursor-pointer"
           style={{
             background: isLeft
               ? "linear-gradient(135deg, rgba(212,168,85,0.15) 0%, rgba(143,114,73,0.08) 100%)"
@@ -228,6 +228,27 @@ function NetworkNode({
           {node.region}
         </span>
       </div>
+
+      {/* Hover Tooltip */}
+      {showTooltip && node.tooltip && (
+        <div
+          className={`absolute z-50 w-48 p-3 bg-[#000B0D]/95 backdrop-blur-xl border rounded-xl shadow-2xl pointer-events-none transition-all duration-300 ${isLeft ? 'left-full ml-3' : 'right-full mr-3'}`}
+          style={{
+            top: '50%',
+            transform: 'translateY(-50%)',
+            borderColor: isLeft ? 'rgba(212,168,85,0.3)' : 'rgba(186,185,255,0.3)',
+          }}
+        >
+          <div className="flex items-center gap-2 mb-2">
+            <div className={`w-1.5 h-1.5 rounded-full ${isLeft ? 'bg-[#D4A855]' : 'bg-[#BAB9FF]'} animate-pulse`} />
+            <span className="text-[9px] font-mono font-bold tracking-widest uppercase" style={{ color: isLeft ? '#D4A855' : '#BAB9FF' }}>
+              {node.tooltip.status}
+            </span>
+          </div>
+          <p className="text-white/80 text-[11px] font-bold mb-1">{node.tooltip.detail}</p>
+          <p className="text-white/40 text-[10px]">{node.tooltip.volume}</p>
+        </div>
+      )}
     </div>
   );
 }
@@ -237,112 +258,6 @@ function NetworkNode({
    ───────────────────────────────────────────────────────── */
 export default function GlobalNetworkMap() {
   const containerRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const ctx = gsap.context(() => {
-      // Subtitle reveal
-      gsap.fromTo(
-        ".network-subtitle",
-        { opacity: 0, x: -50, filter: "blur(10px)" },
-        {
-          opacity: 1, x: 0, filter: "blur(0px)",
-          duration: 1.2, ease: "power3.out",
-          scrollTrigger: { trigger: containerRef.current, start: "top 80%" },
-        }
-      );
-
-      // Title lines
-      gsap.fromTo(
-        ".network-title-line",
-        { opacity: 0, y: 120, rotateX: 25, transformOrigin: "0% 50% -50px" },
-        {
-          opacity: 1, y: 0, rotateX: 0,
-          duration: 1.5, stagger: 0.15, ease: "expo.out",
-          scrollTrigger: { trigger: containerRef.current, start: "top 75%" },
-        }
-      );
-
-      // Description
-      gsap.fromTo(
-        ".network-description",
-        { opacity: 0, scale: 0.95 },
-        {
-          opacity: 0.6, scale: 1,
-          duration: 1.5, delay: 0.5, ease: "power2.out",
-          scrollTrigger: { trigger: containerRef.current, start: "top 70%" },
-        }
-      );
-
-      // Map container dramatic reveal
-      gsap.fromTo(
-        ".network-map-container",
-        { opacity: 0, scale: 0.85, y: 80, borderRadius: "6rem" },
-        {
-          opacity: 1, scale: 1, y: 0, borderRadius: "2rem",
-          duration: 2, ease: "power4.out",
-          scrollTrigger: { trigger: ".network-map-container", start: "top 85%" },
-        }
-      );
-
-      // Center emblem
-      gsap.fromTo(
-        ".center-emblem",
-        { scale: 0, rotate: -180, opacity: 0 },
-        {
-          scale: 1, rotate: 0, opacity: 1,
-          duration: 1.8, ease: "elastic.out(1, 0.5)", delay: 0.6,
-          scrollTrigger: { trigger: ".network-map-container", start: "top 85%" },
-        }
-      );
-
-      // SVG lines
-      gsap.fromTo(
-        ".network-svg",
-        { opacity: 0 },
-        {
-          opacity: 1, duration: 2, delay: 0.8, ease: "power2.out",
-          scrollTrigger: { trigger: ".network-map-container", start: "top 85%" },
-        }
-      );
-
-      // Network nodes
-      gsap.fromTo(
-        ".network-node",
-        { opacity: 0, scale: 0.5 },
-        {
-          opacity: 1, scale: 1,
-          duration: 1, stagger: 0.12, ease: "back.out(1.5)", delay: 1,
-          scrollTrigger: { trigger: ".network-map-container", start: "top 85%" },
-        }
-      );
-
-      // Stage labels
-      gsap.fromTo(
-        ".stage-label",
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1, y: 0,
-          duration: 1, stagger: 0.15, ease: "power2.out", delay: 1.2,
-          scrollTrigger: { trigger: ".network-map-container", start: "top 85%" },
-        }
-      );
-
-      // Metrics
-      gsap.fromTo(
-        ".network-metric-card",
-        { opacity: 0, y: 40, scale: 0.9 },
-        {
-          opacity: 1, y: 0, scale: 1,
-          duration: 1.2, stagger: 0.1, ease: "back.out(1)",
-          scrollTrigger: { trigger: ".network-metrics-wrapper", start: "top 90%" },
-        }
-      );
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section className="py-24 lg:py-32 bg-background relative" id="network" ref={containerRef}>
@@ -524,11 +439,11 @@ export default function GlobalNetworkMap() {
 
         {/* ── CTA ── */}
         <div className="mt-20 flex justify-center">
-          <button className="flex items-center gap-4 px-10 py-5 bg-transparent border border-secondary text-secondary rounded-full font-black text-[10px] uppercase tracking-[0.3em] hover:bg-secondary hover:text-background transition-all duration-500 overflow-hidden relative group">
+          <Link to="/network" className="flex items-center gap-4 px-10 py-5 bg-transparent border border-secondary text-secondary rounded-full font-black text-[10px] uppercase tracking-[0.3em] hover:bg-secondary hover:text-background transition-all duration-500 overflow-hidden relative group">
             <span className="relative z-10">Explore Partnership Models</span>
             <span className="absolute inset-0 bg-secondary translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out z-0" />
             <ArrowRight className="w-4 h-4 relative z-10" />
-          </button>
+          </Link>
         </div>
       </div>
     </section>

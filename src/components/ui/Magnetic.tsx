@@ -1,48 +1,35 @@
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
+import React, { useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 
 export default function Magnetic({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+  const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { clientX, clientY } = e;
+    if (!ref.current) return;
+    
+    const { height, width, left, top } = ref.current.getBoundingClientRect();
+    const x = clientX - (left + width / 2);
+    const y = clientY - (top + height / 2);
 
-    const onMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      const { left, top, width, height } = el.getBoundingClientRect();
-      const x = clientX - (left + width / 2);
-      const y = clientY - (top + height / 2);
+    setPosition({ x: x * 0.3, y: y * 0.3 });
+  };
 
-      gsap.to(el, {
-        x: x * 0.3,
-        y: y * 0.3,
-        duration: 0.5,
-        ease: "power2.out",
-      });
-    };
-
-    const onMouseLeave = () => {
-      gsap.to(el, {
-        x: 0,
-        y: 0,
-        duration: 0.5,
-        ease: "elastic.out(1, 0.3)",
-      });
-    };
-
-    el.addEventListener("mousemove", onMouseMove);
-    el.addEventListener("mouseleave", onMouseLeave);
-
-    return () => {
-      el.removeEventListener("mousemove", onMouseMove);
-      el.removeEventListener("mouseleave", onMouseLeave);
-    };
-  }, []);
+  const reset = () => {
+    setPosition({ x: 0, y: 0 });
+  };
 
   return (
-    <div ref={ref} className="inline-block transition-transform">
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouse}
+      onMouseLeave={reset}
+      animate={{ x: position.x, y: position.y }}
+      transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+      className="inline-block"
+    >
       {children}
-    </div>
+    </motion.div>
   );
 }

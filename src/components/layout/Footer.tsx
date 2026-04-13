@@ -1,4 +1,4 @@
-import { Mail, Linkedin, Twitter, ArrowUpRight, Hexagon } from "lucide-react";
+import { Mail, Linkedin, Twitter, Instagram, ArrowUpRight, Hexagon } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Footer() {
@@ -83,8 +83,8 @@ export default function Footer() {
                <span className="w-8 h-[1px] bg-[#CCEED3]/50" />
                Direct Line
              </h4>
-             <a href="mailto:partners@pharmasaha.com" className="text-2xl md:text-3xl font-bold text-white hover:text-[#BBBAFF] transition-colors flex items-center gap-4 group mb-10" aria-label="Email Partners at PharmaSaha">
-               <Mail className="w-8 h-8 text-[#705B3C] group-hover:scale-110 transition-transform duration-500" />
+             <a href="mailto:partners@pharmasaha.com" className="text-2xl md:text-3xl font-bold text-white hover:text-[#BBBAFF] transition-colors flex items-center gap-4 group mb-10 break-all" aria-label="Email Partners at PharmaSaha">
+               <Mail className="w-8 h-8 text-[#705B3C] group-hover:scale-110 transition-transform duration-500 flex-shrink-0" />
                partners@pharmasaha.com
              </a>
              
@@ -95,6 +95,9 @@ export default function Footer() {
                 <a href="https://twitter.com/pharmasaha" target="_blank" rel="noopener noreferrer" className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center bg-white/5 hover:bg-[#CCEED3] hover:border-[#CCEED3] text-white/50 hover:text-[#001D21] transition-all duration-500 hover:scale-110" aria-label="Visit PharmaSaha Twitter">
                   <Twitter className="w-5 h-5" />
                 </a>
+                <a href="https://instagram.com/pharmasaha" target="_blank" rel="noopener noreferrer" className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center bg-white/5 hover:bg-[#E1306C] hover:border-[#E1306C] text-white/50 hover:text-white transition-all duration-500 hover:scale-110" aria-label="Visit PharmaSaha Instagram">
+                  <Instagram className="w-5 h-5" />
+                </a>
              </div>
           </div>
 
@@ -102,7 +105,7 @@ export default function Footer() {
 
         {/* ─── ABSOLUTE BOTTOM SIGNATURE ─── */}
          <div className="w-full flex flex-col md:flex-row justify-between items-center text-white/30 text-xs font-mono tracking-widest uppercase">
-          <p>© {new Date().getFullYear()} PHARMASAHA LOGISTICS. ALL SYSTEMS NOMINAL.</p>
+          <p>© {new Date().getFullYear()} PHARMASAHA LOGISTICS. ALL RIGHTS RESERVED.</p>
           <div className="flex gap-6 mt-6 md:mt-0 items-center">
             <Link to="/compliance#privacy" className="hover:text-white transition-colors cursor-pointer">Privacy Map</Link>
             <span className="w-1 h-1 rounded-full bg-[#705B3C]" />
